@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Registro - Ayuda Social</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background: linear-gradient(135deg,#e8f5f3,#f7fbff);
+min-height:100vh;
+font-family: 'Segoe UI', sans-serif;
+}
+
+.card{
+border:none;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.titulo{
+color:#1e88e5;
+font-weight:700;
+}
+
+.subtitulo{
+color:#6c757d;
+font-size:14px;
+}
+
+.form-control, .form-select{
+border-radius:10px;
+padding:10px;
+}
+
+.form-control:focus{
+box-shadow:0 0 0 0.15rem rgba(30,136,229,0.25);
+border-color:#1e88e5;
+}
+
+.section-title{
+color:#00a884;
+font-weight:600;
+margin-top:10px;
+}
+
+.btn-primary{
+background:#1e88e5;
+border:none;
+border-radius:10px;
+padding:10px 20px;
+font-weight:600;
+}
+
+.btn-primary:hover{
+background:#1669b2;
+}
+
+.btn-outline-secondary{
+border-radius:10px;
+}
+
+.icon{
+color:#00a884;
+margin-right:6px;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-7">
+
+<div class="card p-4">
+
+<div class="text-center mb-3">
+
+<h3 class="titulo">
+<i class="fa-solid fa-hand-holding-heart icon"></i>
+Registro
+</h3>
+
+<div class="subtitulo">
+Plataforma de apoyo y ayuda social
+</div>
+
+</div>
+
+<form id="registroForm">
+
+<div class="mb-3">
+
+<label class="form-label">
+<i class="fa-solid fa-id-card icon"></i>
+Tipo de documento
+</label>
+
+<select class="form-select" id="tipoDocumento">
+<option value="">Seleccione</option>
+<option value="dni">DNI</option>
+<option value="ce">Carné de extranjería</option>
+<option value="pasaporte">Pasaporte</option>
+<option value="ruc">RUC</option>
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+<i class="fa-solid fa-hashtag icon"></i>
+Número de documento
+</label>
+
+<input type="text" class="form-control" id="numeroDocumento">
+
+</div>
+
+<!-- PERSONA -->
+<div id="personaFields" class="hidden">
+
+<hr>
+
+<h5 class="section-title">
+<i class="fa-solid fa-user icon"></i>
+Datos personales
+</h5>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Nombres</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Apellidos</label>
+<input type="text" class="form-control">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Fecha de nacimiento</label>
+<input type="date" class="form-control">
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Sexo</label>
+<select class="form-select">
+<option value="">Seleccione</option>
+<option>Masculino</option>
+<option>Femenino</option>
+<option>Otro</option>
+</select>
+</div>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">País</label>
+<input type="text" class="form-control" value="Perú">
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Departamento</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Provincia</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Distrito</label>
+<input type="text" class="form-control">
+</div>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">Domicilio</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Código país</label>
+<select class="form-select">
+<option value="+51">+51 Perú</option>
+<option value="+1">+1 USA</option>
+<option value="+34">+34 España</option>
+</select>
+</div>
+
+<div class="col-md-8 mb-3">
+<label class="form-label">Número celular</label>
+<input type="tel" class="form-control">
+</div>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">Correo electrónico</label>
+<input type="email" class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Contraseña</label>
+<input type="password" class="form-control" id="passwordPersona">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Repetir contraseña</label>
+<input type="password" class="form-control" id="passwordPersona2">
+
+<div class="text-danger small" id="errorPassPersona"></div>
+
+</div>
+
+</div>
+
+<!-- EMPRESA -->
+<div id="empresaFields" class="hidden">
+
+<hr>
+
+<h5 class="section-title">
+<i class="fa-solid fa-building icon"></i>
+Datos de empresa
+</h5>
+
+<div class="mb-3">
+<label class="form-label">Razón social</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Dirección</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Departamento</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Provincia</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+<label class="form-label">Distrito</label>
+<input type="text" class="form-control">
+</div>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">Teléfono</label>
+<input type="tel" class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Correo empresarial</label>
+<input type="email" class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Contraseña</label>
+<input type="password" class="form-control" id="passwordEmpresa">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Repetir contraseña</label>
+<input type="password" class="form-control" id="passwordEmpresa2">
+
+<div class="text-danger small" id="errorPassEmpresa"></div>
+
+</div>
+
+</div>
+
+<div class="d-flex justify-content-between mt-3">
+
+<button type="reset" class="btn btn-outline-secondary">
+Limpiar
+</button>
+
+<button type="submit" class="btn btn-primary">
+<i class="fa-solid fa-user-plus"></i>
+ Crear cuenta
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const tipoDocumento = document.getElementById("tipoDocumento");
+
+tipoDocumento.addEventListener("change",function(){
+
+document.getElementById("personaFields").classList.add("hidden");
+document.getElementById("empresaFields").classList.add("hidden");
+
+if(this.value==="ruc"){
+
+document.getElementById("empresaFields").classList.remove("hidden");
+
+}else if(this.value!==""){
+
+document.getElementById("personaFields").classList.remove("hidden");
+
+}
+
+});
+
+document.getElementById("registroForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let tipo=tipoDocumento.value;
+let doc=document.getElementById("numeroDocumento").value;
+
+let valido=true;
+
+if(tipo==="dni" && doc.length!==8){
+
+alert("El DNI debe tener 8 dígitos");
+valido=false;
+
+}
+
+if(tipo==="ruc" && doc.length!==11){
+
+alert("El RUC debe tener 11 dígitos");
+valido=false;
+
+}
+
+if(tipo==="ruc"){
+
+let p1=document.getElementById("passwordEmpresa").value;
+let p2=document.getElementById("passwordEmpresa2").value;
+
+if(p1.length<6){
+
+document.getElementById("errorPassEmpresa").textContent="mínimo 6 caracteres";
+valido=false;
+
+}
+
+if(p1!==p2){
+
+document.getElementById("errorPassEmpresa").textContent="las contraseñas no coinciden";
+valido=false;
+
+}
+
+}else{
+
+let p1=document.getElementById("passwordPersona").value;
+let p2=document.getElementById("passwordPersona2").value;
+
+if(p1.length<6){
+
+document.getElementById("errorPassPersona").textContent="mínimo 6 caracteres";
+valido=false;
+
+}
+
+if(p1!==p2){
+
+document.getElementById("errorPassPersona").textContent="las contraseñas no coinciden";
+valido=false;
+
+}
+
+}
+
+if(valido){
+
+alert("Registro completado");
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
