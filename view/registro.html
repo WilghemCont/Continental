@@ -4,364 +4,207 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Registro - Ayuda Social</title>
+<title>Registro - SocialFunding</title>
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+<!-- Tu CSS -->
 <link rel="stylesheet" href="./../assets/css/index.css">
 
 </head>
 
-<body>
+<body class="bg-light">
 
 <div class="container py-5">
 
 <div class="row justify-content-center">
 
-<div class="col-lg-7">
+<div class="col-lg-8">
 
-<div class="card p-4">
+<div class="card border-0 shadow-lg rounded-4">
 
-<div class="text-center mb-3">
-
-<h3 class="titulo">
-<svg width="34" height="34" viewBox="0 0 36 36" fill="none">
-    <path d="M10 8C7.5 8 5 10.5 5 13.5C5 18 10 22 14 25C14 25 14.5 19 17 16C14.5 13.5 10 11.5 10 8Z" fill="#2a7ab5"/>
-    <path d="M10 8C12.5 8 15 10.5 15 13.5C15 16 14 18 14 25C14 25 9.5 20.5 7 17.5C5.5 15.5 5 14 5 13.5C5 10.5 7.5 8 10 8Z" fill="#1a5a8a" opacity="0.45"/>
-    <path d="M22 5C22 5 31 7.5 31 17.5C31 23 27 27 22 29C22 29 22.5 22 19 18C16 14.5 17.5 8 22 5Z" fill="#3a9e6f"/>
-    <path d="M22 5C22 5 15.5 9.5 17 18C17.5 21.5 19.5 25 22 29C22 29 17.5 25.5 15.5 21C13.5 16.5 15 9.5 22 5Z" fill="#256b4a" opacity="0.38"/>
-    <line x1="22" y1="29" x2="18" y2="33" stroke="#256b4a" stroke-width="1.5" stroke-linecap="round"/>
-</svg>
-Registro
-</h3>
-
-<div class="subtitulo">
-Plataforma de apoyo y ayuda social
+<!-- HEADER -->
+<div class="text-center text-white p-4 rounded-top-4" style="background: linear-gradient(135deg,#2a7ab5,#3a9e6f);">
+  <h3 class="fw-bold mb-1">Crear cuenta</h3>
+  <p class="mb-0 small">Únete a SocialFunding</p>
 </div>
 
+<div class="mb-4">
+  <a href="index.html"
+     class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm text-decoration-none fw-semibold text-dark bg-white hover-back">
+     
+    <i class="fa-solid fa-arrow-left"></i>
+    Volver al inicio
+  </a>
 </div>
+
+<div class="card-body p-4">
 
 <form id="registroForm">
 
-<div class="mb-3">
+<!-- DOCUMENTO -->
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <label class="form-label fw-semibold">Tipo de documento</label>
+    <select class="form-select" id="tipoDocumento">
+      <option value="">Seleccione</option>
+      <option value="dni">DNI</option>
+      <option value="ce">Carné de extranjería</option>
+      <option value="pasaporte">Pasaporte</option>
+      <option value="ruc">RUC</option>
+    </select>
+  </div>
 
-<label class="form-label">
-<i class="fa-solid fa-id-card icon"></i>
-Tipo de documento
-</label>
-
-<select class="form-select" id="tipoDocumento">
-<option value="">Seleccione</option>
-<option value="dni">DNI</option>
-<option value="ce">Carné de extranjería</option>
-<option value="pasaporte">Pasaporte</option>
-<option value="ruc">RUC</option>
-</select>
-
-</div>
-
-<div class="mb-3">
-
-<label class="form-label">
-<i class="fa-solid fa-hashtag icon"></i>
-Número de documento
-</label>
-
-<input type="text" class="form-control" id="numeroDocumento">
-
+  <div class="col-md-6 mb-3">
+    <label class="form-label fw-semibold">Número de documento</label>
+    <input type="text" class="form-control" id="numeroDocumento">
+  </div>
 </div>
 
 <!-- PERSONA -->
-<div id="personaFields" class="hidden">
+<div id="personaFields" class="d-none">
 
 <hr>
-
-<h5 class="section-title">
-<i class="fa-solid fa-user icon"></i>
-Datos personales
-</h5>
+<h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-user me-2"></i>Datos personales</h5>
 
 <div class="row">
-
-<div class="col-md-6 mb-3">
-<label class="form-label">Nombres</label>
-<input type="text" class="form-control">
-</div>
-
-<div class="col-md-6 mb-3">
-<label class="form-label">Apellidos</label>
-<input type="text" class="form-control">
-</div>
-
+  <div class="col-md-6 mb-3">
+    <input type="text" class="form-control" placeholder="Nombres">
+  </div>
+  <div class="col-md-6 mb-3">
+    <input type="text" class="form-control" placeholder="Apellidos">
+  </div>
 </div>
 
 <div class="row">
-
-<div class="col-md-6 mb-3">
-<label class="form-label">Fecha de nacimiento</label>
-<input type="date" class="form-control">
-</div>
-
-<div class="col-md-6 mb-3">
-<label class="form-label">Sexo</label>
-<select class="form-select">
-<option value="">Seleccione</option>
-<option>Masculino</option>
-<option>Femenino</option>
-<option>Otro</option>
-</select>
-</div>
-
+  <div class="col-md-6 mb-3">
+    <input type="date" class="form-control">
+  </div>
+  <div class="col-md-6 mb-3">
+    <select class="form-select">
+      <option value="">Sexo</option>
+      <option>Masculino</option>
+      <option>Femenino</option>
+      <option>Otro</option>
+    </select>
+  </div>
 </div>
 
 <div class="mb-3">
-<label class="form-label">País</label>
-<input type="text" class="form-control" value="Perú">
+  <input type="text" class="form-control" value="Perú">
 </div>
 
 <div class="row">
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Departamento</label>
-<input type="text" class="form-control">
-</div>
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Provincia</label>
-<input type="text" class="form-control">
-</div>
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Distrito</label>
-<input type="text" class="form-control">
-</div>
-
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Departamento">
+  </div>
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Provincia">
+  </div>
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Distrito">
+  </div>
 </div>
 
 <div class="mb-3">
-<label class="form-label">Domicilio</label>
-<input type="text" class="form-control">
+  <input type="text" class="form-control" placeholder="Domicilio">
 </div>
 
 <div class="row">
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Código país</label>
-<select class="form-select">
-<option value="+51">+51 Perú</option>
-<option value="+1">+1 USA</option>
-<option value="+34">+34 España</option>
-</select>
-</div>
-
-<div class="col-md-8 mb-3">
-<label class="form-label">Número celular</label>
-<input type="tel" class="form-control">
-</div>
-
+  <div class="col-md-4 mb-3">
+    <select class="form-select">
+      <option value="+51">+51 Perú</option>
+      <option value="+1">+1 USA</option>
+    </select>
+  </div>
+  <div class="col-md-8 mb-3">
+    <input type="tel" class="form-control" placeholder="Celular">
+  </div>
 </div>
 
 <div class="mb-3">
-<label class="form-label">Correo electrónico</label>
-<input type="email" class="form-control">
+  <input type="email" class="form-control" placeholder="Correo electrónico">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Contraseña</label>
-<input type="password" class="form-control" id="passwordPersona">
+  <input type="password" class="form-control" id="passwordPersona" placeholder="Contraseña">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Repetir contraseña</label>
-<input type="password" class="form-control" id="passwordPersona2">
-
-<div class="text-danger small" id="errorPassPersona"></div>
-
+  <input type="password" class="form-control" id="passwordPersona2" placeholder="Repetir contraseña">
+  <div class="text-danger small" id="errorPassPersona"></div>
 </div>
 
 </div>
 
 <!-- EMPRESA -->
-<div id="empresaFields" class="hidden">
+<div id="empresaFields" class="d-none">
 
 <hr>
-
-<h5 class="section-title">
-<i class="fa-solid fa-building icon"></i>
-Datos de empresa
-</h5>
+<h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-building me-2"></i>Datos de empresa</h5>
 
 <div class="mb-3">
-<label class="form-label">Razón social</label>
-<input type="text" class="form-control">
+  <input type="text" class="form-control" placeholder="Razón social">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Dirección</label>
-<input type="text" class="form-control">
+  <input type="text" class="form-control" placeholder="Dirección">
 </div>
 
 <div class="row">
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Departamento</label>
-<input type="text" class="form-control">
-</div>
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Provincia</label>
-<input type="text" class="form-control">
-</div>
-
-<div class="col-md-4 mb-3">
-<label class="form-label">Distrito</label>
-<input type="text" class="form-control">
-</div>
-
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Departamento">
+  </div>
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Provincia">
+  </div>
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Distrito">
+  </div>
 </div>
 
 <div class="mb-3">
-<label class="form-label">Teléfono</label>
-<input type="tel" class="form-control">
+  <input type="tel" class="form-control" placeholder="Teléfono">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Correo empresarial</label>
-<input type="email" class="form-control">
+  <input type="email" class="form-control" placeholder="Correo empresarial">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Contraseña</label>
-<input type="password" class="form-control" id="passwordEmpresa">
+  <input type="password" class="form-control" id="passwordEmpresa" placeholder="Contraseña">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Repetir contraseña</label>
-<input type="password" class="form-control" id="passwordEmpresa2">
-
-<div class="text-danger small" id="errorPassEmpresa"></div>
-
+  <input type="password" class="form-control" id="passwordEmpresa2" placeholder="Repetir contraseña">
+  <div class="text-danger small" id="errorPassEmpresa"></div>
 </div>
 
 </div>
-
-<div class="d-flex justify-content-between mt-3">
-
-<button type="reset" class="btn btn-outline-secondary">
-Limpiar
-</button>
-
-<button type="submit" class="btn btn-primary">
-<i class="fa-solid fa-user-plus"></i>
- Crear cuenta
-</button>
-
+<div id="alerta" class="alert d-none" role="alert"></div>
+<!-- BOTONES -->
+<div class="d-flex justify-content-between mt-4">
+  <button type="reset" class="btn btn-outline-secondary rounded-3">Limpiar</button>
+  <button type="submit" class="btn btn-primary rounded-3">
+    <i class="fa-solid fa-user-plus"></i> Crear cuenta
+  </button>
 </div>
 
 </form>
 
 </div>
-
 </div>
 
 </div>
-
+</div>
 </div>
 
-<script>
-
-const tipoDocumento = document.getElementById("tipoDocumento");
-
-tipoDocumento.addEventListener("change",function(){
-
-document.getElementById("personaFields").classList.add("hidden");
-document.getElementById("empresaFields").classList.add("hidden");
-
-if(this.value==="ruc"){
-
-document.getElementById("empresaFields").classList.remove("hidden");
-
-}else if(this.value!==""){
-
-document.getElementById("personaFields").classList.remove("hidden");
-
-}
-
-});
-
-document.getElementById("registroForm").addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let tipo=tipoDocumento.value;
-let doc=document.getElementById("numeroDocumento").value;
-
-let valido=true;
-
-if(tipo==="dni" && doc.length!==8){
-
-alert("El DNI debe tener 8 dígitos");
-valido=false;
-
-}
-
-if(tipo==="ruc" && doc.length!==11){
-
-alert("El RUC debe tener 11 dígitos");
-valido=false;
-
-}
-
-if(tipo==="ruc"){
-
-let p1=document.getElementById("passwordEmpresa").value;
-let p2=document.getElementById("passwordEmpresa2").value;
-
-if(p1.length<6){
-
-document.getElementById("errorPassEmpresa").textContent="mínimo 6 caracteres";
-valido=false;
-
-}
-
-if(p1!==p2){
-
-document.getElementById("errorPassEmpresa").textContent="las contraseñas no coinciden";
-valido=false;
-
-}
-
-}else{
-
-let p1=document.getElementById("passwordPersona").value;
-let p2=document.getElementById("passwordPersona2").value;
-
-if(p1.length<6){
-
-document.getElementById("errorPassPersona").textContent="mínimo 6 caracteres";
-valido=false;
-
-}
-
-if(p1!==p2){
-
-document.getElementById("errorPassPersona").textContent="las contraseñas no coinciden";
-valido=false;
-
-}
-
-}
-
-if(valido){
-
-alert("Registro completado");
-
-}
-
-});
-
-</script>
+<!-- JS -->
+<script src="./../assets/js/registro.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SocialFunding — Crowdfunding Social</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link rel="stylesheet" href="./../assets/css/index.css"/>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+<div class="bg-dark text-white py-2 small">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <div>
+      <span class="opacity-75">Síguenos:</span>
+    </div>
+
+    <div class="d-flex gap-3">
+      <a href="#" class="top-link"><i class="bi bi-facebook"></i> Facebook</a>
+      <a href="#" class="top-link"><i class="bi bi-instagram"></i> Instagram</a>
+      <a href="#" class="top-link"><i class="bi bi-tiktok"></i> TikTok</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+
+  <div class="container">
+
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold" href="#">
+      Social<span class="text-primary">Funding</span>
+    </a>
+
+    <!-- BOTÓN MOBILE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MENU -->
+    <div class="collapse navbar-collapse" id="menu">
+
+      <!-- LINKS -->
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item">
+          <a class="nav-link" href="#como">Cómo funciona</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#campanas">Campañas</a>
+        </li>
+      </ul>
+
+      <!-- BOTONES -->
+      <div class="d-flex gap-2">
+        <a href="login.html" class="btn btn-outline-primary">Login</a>
+        <a href="registro.html" class="btn btn-primary">Registro</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- BANNER -->
+<section class="container py-5">
+
+  <div id="bannerCarousel" class="carousel slide carousel-fade shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel">
+
+    <!-- indicadores -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+    <!-- slides -->
+    <div class="carousel-inner">
+
+      <!-- SLIDE 1 -->
+      <div class="carousel-item active">
+        <div class="banner-slide d-flex align-items-center">
+          <div class="container text-white">
+            <h1 class="fw-bold display-5">Convierte tu idea en impacto real</h1>
+            <p class="lead">Publica tu proyecto social y conecta con benefactores.</p>
+            <a href="registro.html" class="btn btn-light btn-lg mt-3 shadow">Publicar proyecto</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="carousel-item">
+        <div class="banner-slide bg-2 d-flex align-items-center">
+          <div class="container text-white">
+            <h1 class="fw-bold display-5">Apoya causas reales</h1>
+            <p class="lead">Tu donación puede cambiar vidas.</p>
+            <a href="#" class="btn btn-light btn-lg mt-3 shadow">Ver campañas</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="carousel-item">
+        <div class="banner-slide bg-3 d-flex align-items-center">
+          <div class="container text-white">
+            <h1 class="fw-bold display-5">Transparencia total</h1>
+            <p class="lead">Seguimiento en tiempo real de tu ayuda.</p>
+            <a href="#" class="btn btn-light btn-lg mt-3 shadow">Cómo funciona</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SOBRE NOSOTROS (ABAJO) -->
+<section class="container py-5">
+  <div class="row justify-content-center">
+
+    <div class="col-lg-8">
+      <div class="about-card text-center p-5">
+
+        <span class="about-badge">Sobre nosotros</span>
+
+        <h3 class="about-title mt-3">
+          Una plataforma con propósito social
+        </h3>
+
+        <p class="about-text mt-3">
+          SocialFunding nació para eliminar la barrera económica que frena proyectos 
+          con impacto real en salud, educación y desarrollo humano.
+        </p>
+
+        <p class="about-text">
+          Conectamos a quienes tienen la voluntad con quienes tienen los recursos.
+        </p>
+
+        <div class="about-icon mt-4">🤝</div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS (CON ANIMACIÓN) -->
+<section class="stats-section py-5">
+
+  <div class="container">
+    <div class="row text-center g-4">
+
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h2 class="stat-num" data-target="3400">0</h2>
+          <p>Beneficiarios</p>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h2 class="stat-num" data-target="128">0</h2>
+          <p>Campañas</p>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h2 class="stat-num" data-target="92000" data-prefix="S/ ">0</h2>
+          <p>Donado</p>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h2 class="stat-num" data-target="47">0</h2>
+          <p>ONGs</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- CAMPAÑAS DESTACADAS -->
+<section class="container py-5" id="campanas">
+
+  <div class="text-center mb-5">
+    <span class="badge bg-primary px-3 py-2">Causas activas</span>
+    <h2 class="fw-bold mt-3">Campañas destacadas</h2>
+    <p class="text-muted">Apoya proyectos reales que están cambiando vidas</p>
+  </div>
+
+  <div id="campCarousel" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+      <!-- SLIDE 1 -->
+      <div class="carousel-item active">
+        <div class="row g-4">
+
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <div class="fs-1">💧</div>
+                <span class="badge bg-danger mb-2">Salud</span>
+                <h5 class="fw-bold">Agua potable</h5>
+
+                <div class="progress my-3">
+                  <div class="progress-bar bg-success" style="width:64%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <small>64%</small>
+                  <strong>S/ 9,600</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <div class="fs-1">📖</div>
+                <span class="badge bg-primary mb-2">Educación</span>
+                <h5 class="fw-bold">Biblioteca digital</h5>
+
+                <div class="progress my-3">
+                  <div class="progress-bar bg-success" style="width:81%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <small>81%</small>
+                  <strong>S/ 6,480</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <div class="fs-1">💼</div>
+                <span class="badge bg-warning text-dark mb-2">RRHH</span>
+                <h5 class="fw-bold">Emprendimiento</h5>
+
+                <div class="progress my-3">
+                  <div class="progress-bar bg-success" style="width:43%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <small>43%</small>
+                  <strong>S/ 2,150</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="carousel-item">
+        <div class="row g-4">
+
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <div class="fs-1">💉</div>
+                <span class="badge bg-danger mb-2">Salud</span>
+                <h5 class="fw-bold">Vacunación</h5>
+
+                <div class="progress my-3">
+                  <div class="progress-bar bg-success" style="width:92%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <small>92%</small>
+                  <strong>S/ 11,040</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <div class="fs-1">🎓</div>
+                <span class="badge bg-primary mb-2">Educación</span>
+                <h5 class="fw-bold">Becas técnicas</h5>
+
+                <div class="progress my-3">
+                  <div class="progress-bar bg-success" style="width:57%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <small>57%</small>
+                  <strong>S/ 10,260</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTROLES -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#campCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#campCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+    </button>
+
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="container py-5">
+
+  <div class="text-center mb-5">
+    <span class="badge bg-success px-3 py-2">Historias reales</span>
+    <h2 class="fw-bold mt-3">Lo que dicen nuestros usuarios</h2>
+    <p class="text-muted">Personas reales que ya están generando impacto</p>
+  </div>
+
+  <div id="testCarousel" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+      <!-- ITEM 1 -->
+      <div class="carousel-item active">
+        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
+
+          <div class="text-warning fs-4 mb-2">★★★★★</div>
+
+          <p class="fs-5 text-muted">
+            “Gracias a SocialFunding pudimos financiar los medicamentos para 40 niños de nuestra comunidad. No teníamos a dónde más acudir.”
+          </p>
+
+          <div class="d-flex align-items-center justify-content-center mt-4">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                 style="width:50px;height:50px;">
+              👩
+            </div>
+            <div class="text-start">
+              <strong>María Torres</strong><br>
+              <small class="text-muted">Beneficiaria · Salud</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="carousel-item">
+        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
+
+          <div class="text-warning fs-4 mb-2">★★★★★</div>
+
+          <p class="fs-5 text-muted">
+            “La plataforma es muy transparente. Puedo ver exactamente en qué se usa mi donación. Eso me da confianza para seguir apoyando.”
+          </p>
+
+          <div class="d-flex align-items-center justify-content-center mt-4">
+            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                 style="width:50px;height:50px;">
+              👨
+            </div>
+            <div class="text-start">
+              <strong>Carlos Quispe</strong><br>
+              <small class="text-muted">Benefactor · 12 donaciones</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="carousel-item">
+        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
+
+          <div class="text-warning fs-4 mb-2">★★★★★</div>
+
+          <p class="fs-5 text-muted">
+            “Publicamos nuestra campaña educativa y en 3 semanas alcanzamos la meta. La comunidad respondió increíblemente bien.”
+          </p>
+
+          <div class="d-flex align-items-center justify-content-center mt-4">
+            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3"
+                 style="width:50px;height:50px;">
+              👩‍🏫
+            </div>
+            <div class="text-start">
+              <strong>Ana Huanca</strong><br>
+              <small class="text-muted">Educación</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTROLES -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#testCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#testCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+    </button>
+
+    <!-- INDICADORES -->
+    <div class="carousel-indicators mt-4">
+      <button type="button" data-bs-target="#testCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#testCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#testCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SOCIOS -->
+<section class="container-fluid py-5 socios-section position-relative overflow-hidden">
+
+  <div class="text-center mb-5">
+    <span class="badge bg-primary px-3 py-2 shadow-sm">Alianzas</span>
+    <h2 class="fw-bold mt-3">Nuestros socios</h2>
+    <p class="text-muted">Organizaciones que confían en nuestra plataforma</p>
+  </div>
+
+  <div class="socios-slider">
+    <div class="socios-track">
+
+      <!-- ITEMS -->
+      <div class="socio-item">🏥 Minsa</div>
+      <div class="socio-item">📚 Minedu</div>
+      <div class="socio-item">🌍 UNICEF</div>
+      <div class="socio-item">❤️ Cruz Roja</div>
+      <div class="socio-item">🏛️ OPS</div>
+      <div class="socio-item">🤝 PNUD</div>
+      <div class="socio-item">🌱 ONG Vida</div>
+      <div class="socio-item">📖 Fe y Alegría</div>
+
+      <!-- DUPLICADO -->
+      <div class="socio-item">🏥 Minsa</div>
+      <div class="socio-item">📚 Minedu</div>
+      <div class="socio-item">🌍 UNICEF</div>
+      <div class="socio-item">❤️ Cruz Roja</div>
+      <div class="socio-item">🏛️ OPS</div>
+      <div class="socio-item">🤝 PNUD</div>
+      <div class="socio-item">🌱 ONG Vida</div>
+      <div class="socio-item">📖 Fe y Alegría</div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-premium text-white pt-5">
+
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- BRAND -->
+      <div class="col-md-4">
+        <h4 class="fw-bold">
+          Social<span class="text-info">Funding</span>
+        </h4>
+        <p class="text-light opacity-75">
+          Impulsamos proyectos sociales que generan impacto real en Latinoamérica.
+        </p>
+
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- LINKS -->
+      <div class="col-6 col-md-2">
+        <h6 class="fw-bold">Navegación</h6>
+        <ul class="list-unstyled footer-links">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#campanas">Campañas</a></li>
+          <li><a href="#como">Cómo funciona</a></li>
+          <li><a href="#">Sobre nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <h6 class="fw-bold">Contacto</h6>
+        <ul class="list-unstyled footer-links">
+          <li><a href="#">contacto@socialfunding.pe</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Soporte</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <h6 class="fw-bold">Legal</h6>
+        <ul class="list-unstyled footer-links">
+          <li><a href="#">Términos</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="border-light opacity-25 my-4">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between pb-3 small">
+      <span class="opacity-75">© 2025 SocialFunding</span>
+      <span class="opacity-75">Hecho con 💙 en Perú</span>
+    </div>
+  </div>
+
+</footer>
+
+<a href="https://wa.me/51999999999" target="_blank"
+   class="position-fixed bottom-0 end-0 m-4 btn btn-success rounded-circle shadow"
+   style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:24px;">
+   <i class="bi bi-whatsapp"></i>
+</a>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./../assets/js/home.js"></script>
+
+</body>
+</html>
