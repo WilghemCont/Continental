@@ -50,6 +50,38 @@ class Usuario extends Conectar {
         }
     }
 
+    public function get_paises() {
+        $db = parent::conexion();
+        $sql = "SELECT * FROM pais";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_departamentos() {
+        $db = parent::conexion();
+        $sql = "SELECT * FROM departamento";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_provincias($iddepartamento) {
+        $db = parent::conexion();
+        $sql = "SELECT * FROM provincia WHERE iddepartamento = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$iddepartamento]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_distritos($idprovincia) {
+        $db = parent::conexion();
+        $sql = "SELECT * FROM distrito WHERE idprovincia = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$idprovincia]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // FUNCIÓN DE LOGIN CON ROL
     public function login_acceso($correo, $password) {
         $db = parent::conexion();

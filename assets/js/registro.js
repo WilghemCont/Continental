@@ -27,6 +27,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // 1. Cargar Países y Departamentos al iniciar
+    fetch("../Controllers/usuariocontroller.php?op=combo_pais")
+        .then(res => res.text()).then(html => document.getElementById("idpais").innerHTML = html);
+
+    fetch("../Controllers/usuariocontroller.php?op=combo_departamento")
+        .then(res => res.text()).then(html => document.getElementById("iddepartamento").innerHTML = html);
+
+    // 2. Al cambiar Departamento -> Cargar Provincias
+    document.getElementById("iddepartamento").addEventListener("change", (e) => {
+        const iddept = e.target.value;
+        const formData = new FormData();
+        formData.append("iddepartamento", iddept);
+
+        fetch("../Controllers/usuariocontroller.php?op=combo_provincia", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("idprovincia").innerHTML = html;
+            document.getElementById("iddistrito").innerHTML = "<option value=''>Seleccione</option>";
+        });
+    });
+
+    // 3. Al cambiar Provincia -> Cargar Distritos
+    document.getElementById("idprovincia").addEventListener("change", (e) => {
+        const idprov = e.target.value;
+        const formData = new FormData();
+        formData.append("idprovincia", idprov);
+
+        fetch("../Controllers/usuariocontroller.php?op=combo_distrito", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.text())
+        .then(html => document.getElementById("iddistrito").innerHTML = html);
+    });
+
     document.getElementById("registroForm").addEventListener("submit", (e) => {
         // Bloqueamos el envío por defecto para validar primero
         e.preventDefault();

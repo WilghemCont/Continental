@@ -57,6 +57,43 @@ switch($_GET["op"]) {
             echo $html;
         }
         break;
+    
+    case "combo_pais":
+        $datos = $usuario->get_paises();
+        $html = "";
+        foreach($datos as $row) {
+            $html .= "<option value='".$row['idpais']."'>".$row['nombre']."</option>";
+        }
+        echo $html;
+        break;
+
+    case "combo_departamento":
+        $datos = $usuario->get_departamentos();
+        $html = "<option value=''>Seleccione Departamento</option>";
+        foreach($datos as $row) {
+            $html .= "<option value='".$row['iddepartamento']."'>".$row['nombre']."</option>";
+        }
+        echo $html;
+        break;
+
+    case "combo_provincia":
+        // Recibimos el ID del departamento por POST
+        $datos = $usuario->get_provincias($_POST["iddepartamento"]);
+        $html = "<option value=''>Seleccione Provincia</option>";
+        foreach($datos as $row) {
+            $html .= "<option value='".$row['idprovincia']."'>".$row['nombre']."</option>";
+        }
+        echo $html;
+        break;
+
+    case "combo_distrito":
+        $datos = $usuario->get_distritos($_POST["idprovincia"]);
+        $html = "<option value=''>Seleccione Distrito</option>";
+        foreach($datos as $row) {
+            $html .= "<option value='".$row['iddistrito']."'>".$row['nombre']."</option>";
+        }
+        echo $html;
+        break;
 
     case "logout":
         session_destroy();
