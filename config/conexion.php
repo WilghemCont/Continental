@@ -1,17 +1,19 @@
 <?php
+class Conectar {
+    protected $dbh;
 
-$host = "localhost";
-$usuario = "root";
-$password = "";
-$base_datos = "bdsocial"; 
+    protected function Conexion() {
+        try {
+            // Usamos PDO para que sea compatible con el Modelo
+            $conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=bdsocial", "root", "");
+            return $conectar;
+        } catch (Exception $e) {
+            die("¡Error BD!: " . $e->getMessage());
+        }
+    }
 
-$conn = new mysqli($host, $usuario, $password, $base_datos);
-
-// Validar conexión
-if ($conn->connect_error) {
-    die("❌ Error de conexión: " . $conn->connect_error);
-} else {
-    echo "✅ Conexión exitosa a la base de datos";
+    public function set_names() {
+        return $this->dbh->query("SET NAMES 'utf8'");
+    }
 }
-
 ?>

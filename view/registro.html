@@ -50,20 +50,17 @@
 <div class="row">
   <div class="col-md-6 mb-3">
     <label class="form-label fw-semibold">Tipo de documento</label>
-    <select class="form-select" id="tipoDocumento">
-      <option value="">Seleccione</option>
-      <option value="dni">DNI</option>
-      <option value="ce">Carné de extranjería</option>
-      <option value="pasaporte">Pasaporte</option>
-      <option value="ruc">RUC</option>
+    <select class="form-select" id="tipoDocumento" name="tipo_doc">
+      <option value="">Cargando...</option>
     </select>
   </div>
 
   <div class="col-md-6 mb-3">
     <label class="form-label fw-semibold">Número de documento</label>
-    <input type="text" class="form-control" id="numeroDocumento">
+    <input type="text" class="form-control" id="numeroDocumento" name="num_doc">
   </div>
 </div>
+
 
 <!-- PERSONA -->
 <div id="personaFields" class="d-none">
@@ -72,11 +69,14 @@
 <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-user me-2"></i>Datos personales</h5>
 
 <div class="row">
-  <div class="col-md-6 mb-3">
+  <div class="col-md-4 mb-3">
     <input type="text" class="form-control" placeholder="Nombres">
   </div>
-  <div class="col-md-6 mb-3">
-    <input type="text" class="form-control" placeholder="Apellidos">
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Apellido Paterno">
+  </div>
+  <div class="col-md-4 mb-3">
+    <input type="text" class="form-control" placeholder="Apellido Materno">
   </div>
 </div>
 
@@ -89,25 +89,36 @@
       <option value="">Sexo</option>
       <option>Masculino</option>
       <option>Femenino</option>
-      <option>Otro</option>
     </select>
   </div>
 </div>
 
-<div class="mb-3">
-  <input type="text" class="form-control" value="Perú">
-</div>
-
 <div class="row">
-  <div class="col-md-4 mb-3">
-    <input type="text" class="form-control" placeholder="Departamento">
-  </div>
-  <div class="col-md-4 mb-3">
-    <input type="text" class="form-control" placeholder="Provincia">
-  </div>
-  <div class="col-md-4 mb-3">
-    <input type="text" class="form-control" placeholder="Distrito">
-  </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">País</label>
+        <select class="form-select" id="idpais" name="idpais">
+          <option value="">Seleccione</option>
+        </select>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">Departamento</label>
+        <select class="form-select" id="iddepartamento" name="iddepartamento">
+            <option value="">Seleccione</option>
+        </select>
+    </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">Provincia</label>
+        <select class="form-select" id="idprovincia" name="idprovincia">
+            <option value="">Seleccione</option>
+        </select>
+    </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">Distrito</label>
+        <select class="form-select" id="iddistrito" name="iddistrito">
+            <option value="">Seleccione</option>
+        </select>
+    </div>
 </div>
 
 <div class="mb-3">
