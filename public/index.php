@@ -8,10 +8,10 @@ define("BASE_URL", "/CONTINENTAL/public/");
 // LÓGICA DE ACCESO
 if (isset($_SESSION["idlogin"])) {
     // Si ya está logueado, lo mandamos al home
-    header("Location: ../view/index.html");
+    header("Location: ../view/home.php");
 } else {
     // Si no hay sesión, lo mandamos al login por defecto
-    header("Location: ../view/index.html");
+    header("Location: ../view/home.php");
 }
 exit();
 ?>
