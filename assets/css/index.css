@@ -552,3 +552,39 @@ body {
   background: #f1f5f9;
   color: #2a7ab5;
 }
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%; /* Lo posiciona a la derecha */
+    margin-top: -1px;
+}
+
+/* Mostrar el submenú al pasar el mouse (opcional) o mediante JS */
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
+/* Posicionamiento del submenú en computadoras */
+@media (min-width: 992px) {
+    .dropdown-submenu {
+        position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%; /* Lo lanza a la derecha */
+        margin-top: -1px;
+        border-radius: 10px; /* Consistente con tu diseño premium */
+    }
+}
+
+/* Ajuste para móviles (que se vea identado hacia adentro) */
+@media (max-width: 991px) {
+    .dropdown-submenu .dropdown-menu {
+        margin-left: 1rem;
+        border-left: 2px solid var(--azul-light);
+    }
+}
+

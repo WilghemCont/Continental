@@ -1,8 +1,27 @@
 // assets/js/donacion.js
+const mp = new MercadoPago('APP_USR-c8741a70-28f6-400d-89fd-09c5c2d99ddd', { locale: 'es-PE' });
 
+async function iniciarPago() {
+    const datos = new FormData(document.querySelector('form'));
+
+    const res = await fetch('../public/crear_preferencia.php', {
+        method: 'POST',
+        body: datos
+    });
+
+    const data = await res.json();
+
+    mp.checkout({
+        preference: {
+            id: data.id
+        },
+        autoOpen: true
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
+    
     const metodoSelect = document.getElementById('metodoSelect');
-    const paypalArea = document.getElementById('paypal-area');
+    const mpArea = document.getElementById('mercado-pago-area');
     const btnManual = document.getElementById('btnManual');
     const montoInput = document.getElementById('monto');
 
@@ -50,8 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Hubo un error al procesar el pago con PayPal.');
             }
         }).render('#paypal-button-container');
-    }
+    }    
 });
+
 
 /**
  * Envía los datos al servidor mediante Fetch API

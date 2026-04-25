@@ -88,7 +88,7 @@ class Usuario extends Conectar {
         parent::set_names();
 
         // Buscamos el login y unimos con usuario y usuario_empresa para sacar el ROL
-        $sql = "SELECT l.*, u.idusuario, u.tipo_documento, u.nombres, ue.rol 
+        $sql = "SELECT l.*, u.idusuario, u.tipo_documento, u.nombres, u.tipo, u.apepat 
                 FROM login l
                 INNER JOIN usuario u ON l.idlogin = u.idlogin
                 LEFT JOIN usuario_empresa ue ON u.idusuario = ue.idusuario

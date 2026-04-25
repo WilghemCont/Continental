@@ -32,13 +32,11 @@ switch($_GET["op"]) {
         $datos = $usuario->login_acceso($correo, $password);
 
         if($datos) {
-            // Guardamos todo lo necesario en la sesión
-            $_SESSION["idlogin"]    = $datos["idlogin"];
-            $_SESSION["idusuario"]  = $datos["idusuario"];
-            $_SESSION["nombre"]     = $datos["nombres"];
-            $_SESSION["tipo_doc"]   = $datos["tipo_documento"];
-            // Si no tiene rol en la tabla intermedia, le asignamos 'USER' por defecto
-            $_SESSION["rol"]        = ($datos["rol"]) ? $datos["rol"] : 'USER';
+            $_SESSION["idlogin"]   = $datos["idlogin"];
+            $_SESSION["idusuario"] = $datos["idusuario"];
+            $_SESSION["nombre"]    = $datos["nombres"];   // De tabla usuario
+            $_SESSION["apepat"]    = $datos["apepat"];    // De tabla usuario
+            $_SESSION["tipo"]      = $datos["tipo"];      // El campo 'tipo' de la tabla usuario           
             
             echo "1";
         } else {
@@ -97,6 +95,6 @@ switch($_GET["op"]) {
 
     case "logout":
         session_destroy();
-        header("Location: ../view/login.php");
+        header("Location: ../view/home.php");
         break;
 }

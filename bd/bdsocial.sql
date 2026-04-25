@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-04-2026 a las 22:53:43
+-- Tiempo de generación: 25-04-2026 a las 22:07:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -20,6 +20,50 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bdsocial`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `casos_sociales`
+--
+
+CREATE TABLE `casos_sociales` (
+  `id` int(11) NOT NULL,
+  `nombre_ong` varchar(200) NOT NULL,
+  `ruc_ong` varchar(20) DEFAULT NULL,
+  `contacto_ong` varchar(100) DEFAULT NULL,
+  `email_ong` varchar(150) DEFAULT NULL,
+  `titulo_caso` varchar(300) NOT NULL,
+  `clasificacion` enum('salud','desastres','medio_ambiente','educacion') NOT NULL,
+  `descripcion` text NOT NULL,
+  `monto_requerido` decimal(10,2) DEFAULT 0.00,
+  `monto_recaudado` decimal(10,2) DEFAULT 0.00,
+  `ubicacion` varchar(200) DEFAULT NULL,
+  `nombre_beneficiario` varchar(200) DEFAULT NULL,
+  `dni_beneficiario` varchar(15) DEFAULT NULL,
+  `edad_beneficiario` int(11) DEFAULT NULL,
+  `estado_evaluacion` enum('pendiente','aprobado','observado','rechazado') DEFAULT 'pendiente',
+  `comentario_evaluacion` text DEFAULT NULL,
+  `publicado` tinyint(1) DEFAULT 0,
+  `estado_proceso` enum('sin_proceso','en_proceso','cancelado','finalizado') DEFAULT 'sin_proceso',
+  `fecha_registro` datetime DEFAULT current_timestamp(),
+  `fecha_evaluacion` datetime DEFAULT NULL,
+  `fecha_publicacion` datetime DEFAULT NULL,
+  `fecha_ult_cambio` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `documento_solicitud` varchar(500) DEFAULT NULL,
+  `foto_beneficiario` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `casos_sociales`
+--
+
+INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `clasificacion`, `descripcion`, `monto_requerido`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_ult_cambio`, `documento_solicitud`, `foto_beneficiario`) VALUES
+(1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', 35000.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'pendiente', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-04-25 12:50:06', NULL, '2026-04-25 12:50:06', NULL, NULL),
+(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', 80000.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', 25000.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', 15000.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', 18000.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,7 +133,9 @@ INSERT INTO `donaciones` (`id`, `nombre`, `email`, `monto`, `metodo`, `mensaje`,
 (10, 'WILGHEM GIOVANNY', 'wjeri77@gmail.com', 2000.00, 'Transferencia', 'donacion por transferencia', '2026-04-12 01:50:51'),
 (11, 'wilghem jeri', 'wjeri77@gmail.com', 1000.00, 'Efectivo', 'donacion en efectivo', '2026-04-12 01:53:35'),
 (12, 'JERI SANTILLANA WILGHEM GIOVANNY', 'wjeri77@gmail.com', 50000.00, 'Yape/Plin', 'asd', '2026-04-12 02:13:18'),
-(13, 'JERI SANTILLANA WILGHEM GIOVANNY', 'wjeri77@gmail.com', 20.00, 'Efectivo', '', '2026-04-12 02:15:37');
+(13, 'JERI SANTILLANA WILGHEM GIOVANNY', 'wjeri77@gmail.com', 20.00, 'Efectivo', '', '2026-04-12 02:15:37'),
+(14, 'WILGHEM GIOVANNY', 'wjeri77@gmail.com', 0.01, 'Transferencia', '', '2026-04-25 19:55:04'),
+(15, 'JERI SANTILLANA WILGHEM GIOVANNY', 'wjeri77@gmail.com', 0.01, 'MercadoPago', NULL, '2026-04-25 19:58:47');
 
 -- --------------------------------------------------------
 
@@ -107,6 +153,41 @@ CREATE TABLE `empresa` (
   `fechacreacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fechaactualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_casos`
+--
+
+CREATE TABLE `historial_casos` (
+  `id` int(11) NOT NULL,
+  `caso_id` int(11) NOT NULL,
+  `tipo_cambio` varchar(50) DEFAULT NULL,
+  `valor_anterior` varchar(100) DEFAULT NULL,
+  `valor_nuevo` varchar(100) DEFAULT NULL,
+  `comentario` text DEFAULT NULL,
+  `usuario` varchar(100) DEFAULT NULL,
+  `fecha` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historial_casos`
+--
+
+INSERT INTO `historial_casos` (`id`, `caso_id`, `tipo_cambio`, `valor_anterior`, `valor_nuevo`, `comentario`, `usuario`, `fecha`) VALUES
+(8, 1, 'evaluacion', 'pendiente', 'aprobado', '', 'Wilghem', '2026-04-25 12:33:27'),
+(9, 1, 'evaluacion', 'aprobado', 'rechazado', '', 'Wilghem', '2026-04-25 12:38:07'),
+(10, 1, 'evaluacion', 'rechazado', 'observado', '', 'Wilghem', '2026-04-25 12:38:59'),
+(11, 1, 'evaluacion', 'observado', 'aprobado', '', 'Wilghem', '2026-04-25 12:40:35'),
+(12, 1, 'evaluacion', 'aprobado', 'pendiente', '', 'Wilghem', '2026-04-25 12:42:16'),
+(13, 1, 'evaluacion', 'pendiente', 'aprobado', '', 'Wilghem', '2026-04-25 12:43:15'),
+(14, 1, 'evaluacion', 'aprobado', 'observado', '', 'Wilghem', '2026-04-25 12:44:29'),
+(15, 1, 'evaluacion', 'observado', 'pendiente', '', 'Wilghem', '2026-04-25 12:44:36'),
+(16, 1, 'evaluacion', 'pendiente', 'aprobado', '', 'Wilghem', '2026-04-25 12:46:02'),
+(17, 1, 'evaluacion', 'aprobado', 'observado', '', 'Wilghem', '2026-04-25 12:46:11'),
+(18, 1, 'evaluacion', 'observado', 'aprobado', '', 'Wilghem', '2026-04-25 12:49:18'),
+(19, 1, 'evaluacion', 'aprobado', 'pendiente', '', 'Wilghem', '2026-04-25 12:50:06');
 
 -- --------------------------------------------------------
 
@@ -142,7 +223,8 @@ INSERT INTO `ingresos` (`id`, `tipo`, `subtipo`, `empresa`, `descripcion`, `mont
 (24, 'Comisión por donación', 'Económico', '', '', 5000.00, 250.00, 0.0500, '2026-04-19'),
 (25, 'Comisión por donación', 'Económico', '', '', 5000.00, 250.00, 0.0500, '2026-04-19'),
 (26, 'Patrocinio', 'Publicidad', 'peru2', 'patrocinio  de prueba', 5000.00, 400.00, NULL, '2026-04-19'),
-(27, 'Patrocinio', 'Publicidad', 'peru2', 'patrocinio  de prueba', 5000.00, 400.00, NULL, '2026-04-19');
+(27, 'Patrocinio', 'Publicidad', 'peru2', 'patrocinio  de prueba', 5000.00, 400.00, NULL, '2026-04-19'),
+(28, 'Comisión por donación', 'Económico', '', '', 1000.00, 30.00, 0.0300, '2026-04-25');
 
 -- --------------------------------------------------------
 
@@ -159,6 +241,14 @@ CREATE TABLE `login` (
   `fechacreacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fechaactualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `login`
+--
+
+INSERT INTO `login` (`idlogin`, `usuario`, `contrasena`, `correo`, `estado`, `fechacreacion`, `fechaactualizacion`) VALUES
+(1, 'admin', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'admin@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25'),
+(2, 'jperry', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'donante@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25');
 
 -- --------------------------------------------------------
 
@@ -253,6 +343,14 @@ CREATE TABLE `usuario` (
   `fechaactualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `idlogin`, `tipo_documento`, `documento`, `nombres`, `apemat`, `apepat`, `fechanac`, `estado`, `correo`, `celular`, `direccion`, `iddistrito`, `idprovincia`, `iddepartamento`, `idpais`, `edad`, `sexo`, `tipo`, `fechacreacion`, `fechaactualizacion`) VALUES
+(1, 1, 'DNI', '12345678', 'Wilghem', 'Santillana', 'Jeri', '1990-01-01', 1, 'admin@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'ADMIN', '2026-04-19 21:14:30', '2026-04-25 18:25:38'),
+(2, 2, 'DNI', '12345679', 'Juan', 'Perry', 'Lopez', '1990-01-01', 1, 'donante@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'DONANTE', '2026-04-19 21:14:30', '2026-04-25 18:25:38');
+
 -- --------------------------------------------------------
 
 --
@@ -270,6 +368,16 @@ CREATE TABLE `usuario_empresa` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `casos_sociales`
+--
+ALTER TABLE `casos_sociales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_clasificacion` (`clasificacion`),
+  ADD KEY `idx_estado_evaluacion` (`estado_evaluacion`),
+  ADD KEY `idx_publicado` (`publicado`),
+  ADD KEY `idx_dni` (`dni_beneficiario`);
 
 --
 -- Indices de la tabla `departamento`
@@ -297,6 +405,13 @@ ALTER TABLE `donaciones`
 ALTER TABLE `empresa`
   ADD PRIMARY KEY (`idempresa`),
   ADD UNIQUE KEY `ruc` (`ruc`);
+
+--
+-- Indices de la tabla `historial_casos`
+--
+ALTER TABLE `historial_casos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_caso` (`caso_id`);
 
 --
 -- Indices de la tabla `ingresos`
@@ -351,6 +466,12 @@ ALTER TABLE `usuario_empresa`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `casos_sociales`
+--
+ALTER TABLE `casos_sociales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
@@ -366,7 +487,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -375,16 +496,22 @@ ALTER TABLE `empresa`
   MODIFY `idempresa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `historial_casos`
+--
+ALTER TABLE `historial_casos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`
@@ -408,7 +535,7 @@ ALTER TABLE `tipo_documento`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -425,6 +552,12 @@ ALTER TABLE `departamento`
 --
 ALTER TABLE `distrito`
   ADD CONSTRAINT `fk_dist_prov` FOREIGN KEY (`idprovincia`) REFERENCES `provincia` (`idprovincia`);
+
+--
+-- Filtros para la tabla `historial_casos`
+--
+ALTER TABLE `historial_casos`
+  ADD CONSTRAINT `historial_casos_ibfk_1` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `provincia`

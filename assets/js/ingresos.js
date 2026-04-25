@@ -12,20 +12,21 @@ function eliminarIngreso(id) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Captura de elementos
     const tipoSelect = document.getElementById('tipoSelect');
     const seccionPatrocinio = document.getElementById('seccionPatrocinio');
     const formIngreso = document.getElementById('formIngreso');
     const btnConfirmar = document.getElementById('btnConfirmarEliminar');
 
+    // Validación para el botón de eliminar
     if (btnConfirmar) {
         btnConfirmar.addEventListener('click', () => {
             if (idAEliminar) {
-                // Ejecutamos el fetch real
                 fetch(`../public/eliminar_ingreso.php?id=${idAEliminar}`)
                     .then(res => res.text())
                     .then(data => {
                         if (data.trim() === "OK") {
-                            location.reload(); // Recarga para actualizar tabla y tarjetas
+                            location.reload();
                         } else {
                             alert("Error: " + data);
                         }
@@ -35,13 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 1. Mostrar/Ocultar campos según el tipo
-    tipoSelect.addEventListener('change', () => {
-        seccionPatrocinio.style.display = (tipoSelect.value === 'Patrocinio') ? 'flex' : 'none';
-    });
+    // 1. Mostrar/Ocultar campos según el tipo (SOLO si existen)
+    // El error ingresos.js:39 pasaba aquí porque tipoSelect era null
+    if (tipoSelect && seccionPatrocinio) {
+        tipoSelect.addEventListener('change', () => {
+            seccionPatrocinio.style.display = (tipoSelect.value === 'Patrocinio') ? 'flex' : 'none';
+        });
+    }
 
     // 2. Envío Asíncrono (Fetch)
-    if(formIngreso) {
+    if (formIngreso) {
         formIngreso.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -52,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(res => res.text())
             .then(data => {
-                if(data.trim() === "OK") {
-                    location.reload(); // Recargamos para ver el nuevo ingreso en la tabla
+                if (data.trim() === "OK") {
+                    location.reload();
                 } else {
                     alert("Error: " + data);
                 }

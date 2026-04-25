@@ -38,7 +38,7 @@
         <!-- FORM -->
         <div class="card-body p-4">
 
-          <form action="login.php" method="POST" id="formLogin">
+          <form id="formLogin">
 
             <!-- EMAIL -->
             <div class="mb-3">

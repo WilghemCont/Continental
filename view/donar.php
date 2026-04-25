@@ -86,8 +86,8 @@ require_once 'layout/header.php';
 
                         <div class="row g-2 mt-4">
                             <div class="col-md-8">
-                                <button type="submit" class="btn btn-primary w-100 py-3 shadow-sm fw-bold fs-5" style="border-radius: 15px;">
-                                    ENVIAR DONACIÓN <i class="bi bi-send ms-2"></i>
+                                <button type="button" onclick="iniciarPago()" class="btn btn-primary">
+                                    Pagar con Mercado Pago
                                 </button>
                             </div>
                             <div class="col-md-4">
@@ -109,5 +109,6 @@ require_once 'layout/header.php';
         </div>
     </div>
 </div>
-
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script src="../assets/js/donacion.js"></script>
 <?php require_once 'layout/footer.php'; ?>
