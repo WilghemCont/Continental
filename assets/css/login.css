@@ -1,0 +1,83 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.login-box {
+  width: 360px;
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.login-header {
+  background: var(--grad);
+  color: var(--white);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.login-header h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.login-form { padding: 1.8rem; }
+
+.login-form label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray);
+  margin-top: 0.8rem;
+  display: block;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  margin-top: 0.3rem;
+  border-radius: 8px;
+  border: 1px solid #dbe7f0;
+  font-size: 0.9rem;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--azul);
+}
+
+.password-box { position: relative; }
+.password-box span {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  background: var(--grad);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.login-btn:hover { opacity: 0.9; }
+
+.error {
+  color: #e11d48;
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+}

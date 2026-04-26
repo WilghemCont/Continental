@@ -1,0 +1,150 @@
+/* ══════════════════════════════
+   BANNER CARRUSEL
+══════════════════════════════ */
+.banner {
+  display: grid; 
+  grid-template-columns: 1fr;
+  min-height: 480px; 
+  overflow: hidden;
+}
+.banner-carousel { position: relative; overflow: hidden; }
+.banner-slides { display: flex; transition: transform 0.6s ease; height: 100%; }
+.banner-slide {
+  min-width: 100%; 
+  display: flex; 
+  flex-direction: column;
+  justify-content: center; 
+  padding: 4rem 5%;
+  position: relative;
+  height: 320px;
+  background: linear-gradient(135deg,#2a7ab5,#3a9e6f);
+}
+
+.banner-slide.bg-2 { background: linear-gradient(135deg,#256b4a,#2a7ab5); }
+.banner-slide.bg-3 { background: linear-gradient(135deg,#1a5a8a,#256b4a); }
+.banner-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+.banner-slide .container { position: relative; z-index: 2; }
+.carousel-item { transition: transform 0.8s ease-in-out, opacity 0.8s; }
+.carousel-control-prev-icon, .carousel-control-next-icon { filter: invert(1); }
+.carousel-indicators button { background-color: white; opacity: 0.5; }
+.carousel-indicators .active { opacity: 1; }
+
+/* ══════════════════════════════
+   SOBRE NOSOTROS (About)
+══════════════════════════════ */
+.about-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(42,122,181,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 50px rgba(42,122,181,0.25);
+}
+.about-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #2a7ab5, #3a9e6f);
+  color: white;
+  font-size: 0.75rem;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.about-title { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: #0f1e2d; }
+.about-text { color: #5a6e7f; font-size: 0.95rem; line-height: 1.7; }
+.about-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #2a7ab5, #3a9e6f);
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 8px 25px rgba(42,122,181,0.3);
+}
+
+/* ══════════════════════════════
+   ESTADÍSTICAS
+══════════════════════════════ */
+.stats-section { background: linear-gradient(135deg, #2a7ab5, #3a9e6f); color: white; }
+.stat-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 25px 15px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.stat-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.15); }
+.stat-num { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 900; margin-bottom: 5px; }
+.stat-card p { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+
+@media (max-width: 960px) { .stats { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+/* ══════════════════════════════
+   CAMPAÑAS
+══════════════════════════════ */
+.camp-card {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.camp-card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(0,0,0,0.15); }
+.camp-emoji {
+  height: 120px;
+  font-size: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f3fb, #e6f5ee);
+}
+.progress { height: 8px; border-radius: 50px; }
+
+/* ══════════════════════════════
+   SOCIOS SLIDER
+══════════════════════════════ */
+.socios-section { background: linear-gradient(135deg, #f8f9fa, #eef3f8); }
+.socios-slider { overflow: hidden; position: relative; }
+.socios-track {
+  display: flex;
+  gap: 25px;
+  width: max-content;
+  animation: scrollSocios 18s linear infinite;
+}
+.socio-item {
+  min-width: 180px;
+  height: 90px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.socio-item:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+@keyframes scrollSocios {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

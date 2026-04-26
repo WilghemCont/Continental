@@ -15,7 +15,11 @@ if (session_status() === PHP_SESSION_NONE) {
   
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
  
-  <link rel="stylesheet" href="./../assets/css/index.css"/>
+  <link rel="stylesheet" href="./../assets/css/global.css"/>
+
+  <?php if (isset($estilo_pagina)): ?>
+    <link rel="stylesheet" href="./../assets/css/<?php echo $estilo_pagina; ?>.css"/>
+  <?php endif; ?>
 
    <script>
     // ESTA LÍNEA ES VITAL: Define la ruta base para que los fetch funcionen

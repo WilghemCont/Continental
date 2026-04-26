@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Iniciar Sesión</title>
-
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Tu CSS -->
-<link rel="stylesheet" href="./../assets/css/index.css">
-
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="min-height:100vh;">
+<?php 
+// 1. Iniciamos sesión y cargamos el encabezado dinámico
+$estilo_pagina = 'login';
+require_once 'layout/header.php'; 
+?>
 
 <div class="container">
   <div class="row justify-content-center">
@@ -27,7 +18,7 @@
         </div>
         
         <div class="mb-4">
-            <a href="index.html"
+            <a href="home.php"
                 class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm text-decoration-none fw-semibold text-dark bg-white hover-back">
                 
                 <i class="fa-solid fa-arrow-left"></i>
@@ -83,9 +74,9 @@
 
   </div>
 </div>
+<?php 
 
-<!-- JS -->
-<script src="./../assets/js/login.js"></script>
-
+require_once 'layout/footer.php'; 
+?>
 </body>
 </html>

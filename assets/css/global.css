@@ -1,0 +1,174 @@
+/* ══════════════════════════════
+   VARIABLES Y RESET
+══════════════════════════════ */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+:root {
+  --azul:       #2a7ab5;
+  --azul-dark:  #1a5a8a;
+  --azul-light: #e8f3fb;
+  --verde:      #3a9e6f;
+  --verde-dark: #256b4a;
+  --verde-light:#e6f5ee;
+  --grad:       linear-gradient(135deg, #2a7ab5 0%, #3a9e6f 100%);
+  --bg:         #f5faff;
+  --dark:       #0f1e2d;
+  --gray:       #5a6e7f;
+  --white:      #ffffff;
+}
+
+body {
+  background: linear-gradient(135deg, var(--azul-light), var(--bg));
+}
+
+/* ══════════════════════════════
+   UTILIDADES Y ANIMACIONES COMPARTIDAS
+══════════════════════════════ */
+@keyframes fadeUp { 
+  from { opacity:0; transform:translateY(24px); } 
+  to { opacity:1; transform:translateY(0); } 
+}
+
+.fade-up { animation: fadeUp 0.7s ease both; }
+.hidden { display: none; }
+
+/* ══════════════════════════════
+   COMPONENTES DEL SISTEMA (Botones, Cards, Inputs)
+══════════════════════════════ */
+.card {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.titulo { color: var(--azul); font-weight: 700; }
+.subtitulo { color: var(--gray); font-size: 14px; }
+.section-title { color: var(--verde); font-weight: 600; margin-top: 10px; }
+
+.form-control, .form-select {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #dbe7f0;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(42,122,181,0.25);
+  border-color: var(--azul);
+}
+
+.btn-primary {
+  background: var(--grad);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.btn-primary:hover { opacity: 0.9; }
+.btn-outline-secondary { border-radius: 10px; }
+.icon { color: var(--verde); margin-right: 6px; }
+
+/* ══════════════════════════════
+   NAVBAR Y HEADER
+══════════════════════════════ */
+.top-link {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.top-link:hover {
+  color: #00d4ff;
+  transform: translateY(-2px);
+}
+
+#navbar.scrolled {
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+  color: #333;
+  transition: 0.3s;
+}
+
+.navbar .nav-link:hover { color: #0d6efd; }
+.navbar .btn { border-radius: 20px; }
+
+.hover-back { transition: all 0.3s ease; }
+.hover-back:hover {
+  transform: translateX(-4px);
+  background: #f1f5f9;
+  color: #2a7ab5;
+}
+
+/* Submenú del Navbar */
+.dropdown-submenu { position: relative; }
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+.dropdown-submenu:hover > .dropdown-menu { display: block; }
+
+@media (min-width: 992px) {
+  .dropdown-submenu { position: relative; }
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .dropdown-submenu .dropdown-menu {
+    margin-left: 1rem;
+    border-left: 2px solid var(--azul-light);
+  }
+}
+
+/* ══════════════════════════════
+   FOOTER COMPARTIDO
+══════════════════════════════ */
+.footer-premium { background: linear-gradient(135deg, #0d1b2a, #1b263b); }
+.footer-links li { margin-bottom: 8px; }
+.footer-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.footer-links a:hover {
+  color: #00d4ff;
+  padding-left: 5px;
+}
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s;
+}
+.social-icon:hover {
+  background: #00d4ff;
+  color: #000;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 960px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}

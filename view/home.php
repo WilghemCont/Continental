@@ -1,5 +1,6 @@
 <?php 
 // 1. Iniciamos sesión y cargamos el encabezado dinámico
+$estilo_pagina = 'home';
 require_once 'layout/header.php'; 
 ?>
 
@@ -142,11 +143,7 @@ require_once 'layout/header.php';
 </section>
 
 <?php 
-// Cargamos el pie de página
 require_once 'layout/footer.php'; 
 ?>
-
-<script src="./../assets/js/home.js"></script>
-
 </body>
 </html>

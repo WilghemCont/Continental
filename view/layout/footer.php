@@ -73,6 +73,9 @@
       if ($paginaActual == 'login.php') {
           echo '<script src="../assets/js/login.js"></script>';
       }
+      if ($paginaActual == 'home.php') {
+          echo '<script src="../assets/js/home.js"></script>';
+      }
       if ($paginaActual == 'ingresos.php') {
           echo '<script src="../assets/js/ingresos.js"></script>';
       }
