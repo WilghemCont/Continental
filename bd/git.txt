@@ -1,0 +1,9 @@
+git clone -b desarrollo --single-branch https://github.com/WilghemCont/Continental.git
+
+
+
+para guardar
+git pull
+git add -A
+git commit -m "mensaje que le quieran poner"
+git push
