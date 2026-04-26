@@ -1,30 +1,31 @@
 <?php
 require_once("../config/conexion.php");
 
-// Instanciamos la clase y conectamos
 $conectar = new Conectar();
-$db = $conectar->Conexion(); // Esto ejecuta el método protegido/public según lo ajustes
+$db = $conectar->Conexion();
 $conectar->set_names();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['status']) && $_GET['status'] == 'success') {
     
-    $nombre  = $_POST['nombre'];
-    $email   = $_POST['email'];
-    $monto   = $_POST['monto'];
-    $metodo  = $_POST['metodo'];
-    $mensaje = $_POST['mensaje'];
-
-    // Usamos la sintaxis de PDO (Prepare con marcadores :name)
+    // Desempaquetamos los datos que Mercado Pago nos devuelve
+    $datos_extra = isset($_GET['external_reference']) ? json_decode($_GET['external_reference'], true) : [];
+    
+    $nombre  = $datos_extra['nombre'] ?? 'Desconocido';
+    $email   = $datos_extra['email'] ?? '';
+    $mensaje = $datos_extra['mensaje'] ?? '';
+    $monto   = $datos_extra['monto'] ?? 0;
+    $metodo  = 'Mercado Pago'; 
+    
     $sql = "INSERT INTO donaciones (nombre, email, monto, metodo, mensaje, fecha) VALUES (?, ?, ?, ?, ?, NOW())";
     
     $stmt = $db->prepare($sql);
     
-    // En PDO puedes pasar los valores directamente en el execute
     if ($stmt->execute([$nombre, $email, $monto, $metodo, $mensaje])) {
-        header("Location: ../public/index.php?donacion=ok");
+        // Redirigir al inicio con un mensaje de éxito (Ajusta home.php si es necesario)
+        header("Location: home.php?pago=ok");
         exit();
     } else {
-        echo "❌ Error al registrar.";
+        echo "❌ Error al registrar la donación en la base de datos.";
     }
 }
 ?>

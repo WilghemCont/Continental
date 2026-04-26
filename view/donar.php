@@ -4,7 +4,7 @@ require_once 'layout/header.php';
 
 <div class="container py-5 fade-up">
     <div class="mb-5">
-        <a href="index.php" class="text-decoration-none text-muted hover-back px-4 py-2 rounded-pill d-inline-flex align-items-center bg-white shadow-sm">
+        <a href="home.php" class="text-decoration-none text-muted hover-back px-4 py-2 rounded-pill d-inline-flex align-items-center bg-white shadow-sm">
             <i class="bi bi-arrow-left me-2"></i> Volver al inicio
         </a>
     </div>
@@ -86,8 +86,8 @@ require_once 'layout/header.php';
 
                         <div class="row g-2 mt-4">
                             <div class="col-md-8">
-                                <button type="button" onclick="iniciarPago()" class="btn btn-primary">
-                                    Pagar con Mercado Pago
+                                <button type="button" onclick="iniciarPago()" class="btn btn-primary w-100 py-3 fw-bold fs-5 shadow-sm" style="border-radius: 15px;">
+                                    <i class="bi bi-credit-card-2-back me-2"></i> PAGAR CON MERCADO PAGO
                                 </button>
                             </div>
                             <div class="col-md-4">

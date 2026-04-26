@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda</title>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Total a pagar: $100.00</h2>
+        <button id="btn-pagar" style="padding: 10px 20px; background: #009ee3; color: white; border: none; cursor: pointer;">
+            PAGAR CON MERCADO PAGO
+        </button>
+    </div>
+
+    <script>
+        // Configura tu Public Key aquí
+        const mp = new MercadoPago('APP_USR-c8741a70-28f6-400d-89fd-09c5c2d99ddd');
+
+        document.getElementById('btn-pagar').addEventListener('click', async () => {
+            const btn = document.getElementById('btn-pagar');
+            btn.innerText = "Cargando...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('../public/crear_preferencia.php');
+                const data = await response.json();
+
+                if (data.init_point) {
+                    // REDIRECCIÓN CORRECTA
+                    // Esto le dice al navegador: "Ve a esta URL oficial de MP"
+                    window.location.href = data.init_point;
+                } else {
+                    alert("Error: No se pudo obtener el punto de inicio.");
+                }
+            } catch (err) {
+                console.error("Error de conexión:", err);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "PAGAR CON MERCADO PAGO";
+            }
+        });
+    </script>
+</body>
+</html>

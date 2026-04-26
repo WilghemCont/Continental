@@ -68,6 +68,12 @@ if (session_status() === PHP_SESSION_NONE) {
           <a href="login.php" class="btn btn-outline-primary">Login</a>
           <a href="registro.php" class="btn btn-primary">Registro</a>
         <?php else: ?>
+          <a href="donar.php" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
+            <i class="bi bi-heart-fill me-1"></i> Donar
+          </a>
+          <a href="nuevo_ingreso.php" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+            <i class="bi bi-wallet2 me-1"></i> Aportes
+          </a>
           <div class="dropdown">
             <button class="btn btn-light dropdown-toggle border shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle me-1 text-primary"></i>

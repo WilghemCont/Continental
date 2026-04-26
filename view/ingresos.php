@@ -28,9 +28,9 @@ require_once 'layout/header.php';
             <h2 class="about-title mb-1">Gestión de Ingresos</h2>
             <p class="about-text">Monitoreo financiero y control de patrocinios</p>
         </div>
-        <button type="button" class="btn btn-primary px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalIngreso">
+        <a href="nuevo_ingreso.php" class="btn btn-primary px-4 shadow-sm">
             <i class="bi bi-plus-lg"></i> Nuevo Ingreso
-        </button>
+        </a>
     </div>
 
     <div class="card p-3 mb-5 bg-white border-0 shadow-sm" style="border-radius: 18px;">
@@ -113,63 +113,6 @@ require_once 'layout/header.php';
     </div>
 </div>
 
-<div class="modal fade" id="modalIngreso" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
-            <div class="modal-header text-white border-0 p-4" style="background: var(--grad); border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle me-2"></i> Registrar Nuevo Ingreso</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4 text-dark">
-                <form id="formIngreso" method="POST" class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label small fw-bold">Tipo de Movimiento</label>
-                        <select name="tipo" id="tipoSelect" class="form-select" required>
-                            <option value="">Seleccione...</option>
-                            <option value="Comisión por donación">Comisión por donación</option>
-                            <option value="Donación voluntaria">Donación voluntaria</option>
-                            <option value="Patrocinio">Patrocinio</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small fw-bold">Monto Base (S/)</label>
-                        <input type="number" step="0.01" name="monto" id="monto" class="form-control" required placeholder="0.00">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label small fw-bold">Fecha de Registro</label>
-                        <input type="date" name="fecha" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small fw-bold">Descripción</label>
-                        <textarea name="descripcion" class="form-control" rows="1"></textarea>
-                    </div>
-                    <div id="seccionPatrocinio" class="row g-3 mt-1" style="display:none;">
-                        <div class="col-12"><hr></div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold">Tipo de Patrocinio</label>
-                            <select name="subtipo" class="form-select">
-                                <option value="Económico">Económico</option>
-                                <option value="En especie">En especie</option>
-                                <option value="Publicidad">Publicidad</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold">Empresa</label>
-                            <input type="text" name="empresa" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold">Valor Estimado (S/)</label>
-                            <input type="number" step="0.01" name="valor" class="form-control">
-                        </div>                        
-                    </div>
-                    <div class="col-12 mt-4">
-                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">REGISTRAR INGRESO</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 18px;">
@@ -193,5 +136,5 @@ require_once 'layout/header.php';
     </div>
 </div>
 
-<script src="../assets/js/ingresos.js"></script>
+
 <?php require_once 'layout/footer.php'; ?>

@@ -57,11 +57,31 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.text())
             .then(data => {
                 if (data.trim() === "OK") {
-                    location.reload();
+                    // Buscar el modal en el HTML
+                    const successModalEl = document.getElementById('successModal');
+                    
+                    if (successModalEl) {
+                        // Mostrar el modal
+                        const modalSuccess = new bootstrap.Modal(successModalEl);
+                        modalSuccess.show();
+
+                        // Detectar el clic en el botón OK para redirigir a home.php
+                        document.getElementById('btnSuccessOk').addEventListener('click', () => {
+                            window.location.href = "home.php";
+                        });
+                    } else {
+                        // Respaldo por si no pusiste el HTML del modal
+                        alert("Registro agregado correctamente.");
+                        window.location.href = "home.php";
+                    }
                 } else {
                     alert("Error: " + data);
                 }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                alert("Hubo un error de conexión.");
             });
         });
-    }   
+    }
 });
