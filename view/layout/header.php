@@ -2,6 +2,11 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if (!function_exists('esc')) {
+    function esc($value) {
+        return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,10 +26,13 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="./../assets/css/<?php echo $estilo_pagina; ?>.css"/>
   <?php endif; ?>
 
-   <script>
+  <script>
+    window.BASE_URL = "http://<?= $_SERVER['HTTP_HOST'] ?>/CONTINENTAL/";
+  </script>
+ <!--   <script>
     // ESTA LÍNEA ES VITAL: Define la ruta base para que los fetch funcionen
     window.BASE_URL = "http://localhost/CONTINENTAL/";
-  </script>
+  </script> -->
 </head>
 <body>
 

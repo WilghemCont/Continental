@@ -91,6 +91,9 @@
       if ($paginaActual == 'header.php'){
          echo '<script src="./../assets/js/main.js"></script>';
       }
+      if ($paginaActual == 'evaluar.php'){
+         echo '<script src="./../assets/js/evaluacion.js"></script>';
+      }
       
     ?>
         

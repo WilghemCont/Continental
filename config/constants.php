@@ -16,6 +16,7 @@ define('ESTADOS_EVALUACION', [
     'aprobado'   => ['label' => 'Aprobado',   'color' => '#27ae60'],
     'observado'  => ['label' => 'Observado',  'color' => '#8e44ad'],
     'rechazado'  => ['label' => 'Rechazado',  'color' => '#e74c3c'],
+    'publicado'  => ['label' => 'Rechazado',  'color' => '#1a0bf5ff'],
 ]);
 
 define('ESTADOS_PROCESO', [

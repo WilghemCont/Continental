@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2026 a las 22:07:58
+-- Tiempo de generación: 04-05-2026 a las 00:16:36
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.1.25
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,15 +34,17 @@ CREATE TABLE `casos_sociales` (
   `contacto_ong` varchar(100) DEFAULT NULL,
   `email_ong` varchar(150) DEFAULT NULL,
   `titulo_caso` varchar(300) NOT NULL,
+  `titulo_publico` varchar(300) DEFAULT NULL,
   `clasificacion` enum('salud','desastres','medio_ambiente','educacion') NOT NULL,
   `descripcion` text NOT NULL,
+  `descripcion_publica` text DEFAULT NULL,
   `monto_requerido` decimal(10,2) DEFAULT 0.00,
   `monto_recaudado` decimal(10,2) DEFAULT 0.00,
   `ubicacion` varchar(200) DEFAULT NULL,
   `nombre_beneficiario` varchar(200) DEFAULT NULL,
   `dni_beneficiario` varchar(15) DEFAULT NULL,
   `edad_beneficiario` int(11) DEFAULT NULL,
-  `estado_evaluacion` enum('pendiente','aprobado','observado','rechazado') DEFAULT 'pendiente',
+  `estado_evaluacion` enum('pendiente','aprobado','observado','rechazado','publicado') DEFAULT 'pendiente',
   `comentario_evaluacion` text DEFAULT NULL,
   `publicado` tinyint(1) DEFAULT 0,
   `estado_proceso` enum('sin_proceso','en_proceso','cancelado','finalizado') DEFAULT 'sin_proceso',
@@ -58,12 +60,65 @@ CREATE TABLE `casos_sociales` (
 -- Volcado de datos para la tabla `casos_sociales`
 --
 
-INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `clasificacion`, `descripcion`, `monto_requerido`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_ult_cambio`, `documento_solicitud`, `foto_beneficiario`) VALUES
-(1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', 35000.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'pendiente', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-04-25 12:50:06', NULL, '2026-04-25 12:50:06', NULL, NULL),
-(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', 80000.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', 25000.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', 15000.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', 18000.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL);
+INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `titulo_publico`, `clasificacion`, `descripcion`, `descripcion_publica`, `monto_requerido`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_ult_cambio`, `documento_solicitud`, `foto_beneficiario`) VALUES
+(1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', NULL, 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', NULL, 35000.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'observado', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-05-03 16:14:48', NULL, '2026-05-03 16:14:48', NULL, NULL),
+(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', NULL, 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', NULL, 80000.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
+(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 0.00, 'calle 3', 'Jorge', '23649710', 35, 'publicado', NULL, 1, 'en_proceso', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-03 16:57:44', '1777843798_sd.pdf', '1777843798_images.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `checklist_items`
+--
+
+CREATE TABLE `checklist_items` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `tipo` varchar(50) DEFAULT 'evaluacion',
+  `estado` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `checklist_items`
+--
+
+INSERT INTO `checklist_items` (`id`, `nombre`, `tipo`, `estado`) VALUES
+(1, 'Documento del beneficiario', 'evaluacion', 1),
+(2, 'Sustento del caso', 'evaluacion', 1),
+(3, 'Firma válida', 'evaluacion', 1),
+(4, 'Carta de la ONG', 'cierre', 1),
+(5, 'Informe final', 'cierre', 1),
+(6, 'Evidencia de uso de fondos', 'cierre', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `checklist_respuestas`
+--
+
+CREATE TABLE `checklist_respuestas` (
+  `id` int(11) NOT NULL,
+  `caso_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `estado` enum('SI','NO') NOT NULL,
+  `comentario` text DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `checklist_respuestas`
+--
+
+INSERT INTO `checklist_respuestas` (`id`, `caso_id`, `item_id`, `estado`, `comentario`, `fecha_registro`) VALUES
+(13, 1, 1, 'NO', 'preuab 1', '2026-05-03 16:14:48'),
+(14, 1, 2, 'SI', '', '2026-05-03 16:14:48'),
+(15, 1, 3, 'SI', '', '2026-05-03 16:14:48'),
+(16, 6, 1, 'SI', '', '2026-05-03 16:30:16'),
+(17, 6, 2, 'SI', '', '2026-05-03 16:30:16'),
+(18, 6, 3, 'SI', '', '2026-05-03 16:30:16');
 
 -- --------------------------------------------------------
 
@@ -187,7 +242,17 @@ INSERT INTO `historial_casos` (`id`, `caso_id`, `tipo_cambio`, `valor_anterior`,
 (16, 1, 'evaluacion', 'pendiente', 'aprobado', '', 'Wilghem', '2026-04-25 12:46:02'),
 (17, 1, 'evaluacion', 'aprobado', 'observado', '', 'Wilghem', '2026-04-25 12:46:11'),
 (18, 1, 'evaluacion', 'observado', 'aprobado', '', 'Wilghem', '2026-04-25 12:49:18'),
-(19, 1, 'evaluacion', 'aprobado', 'pendiente', '', 'Wilghem', '2026-04-25 12:50:06');
+(19, 1, 'evaluacion', 'aprobado', 'pendiente', '', 'Wilghem', '2026-04-25 12:50:06'),
+(20, 1, 'evaluacion_checklist', 'pendiente', 'observado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 15:59:26'),
+(21, 1, 'evaluacion_checklist', 'observado', 'observado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 16:07:46'),
+(22, 1, 'evaluacion_checklist', 'observado', 'observado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 16:11:44'),
+(23, 1, 'evaluacion_checklist', 'observado', 'observado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 16:12:13'),
+(24, 1, 'evaluacion_checklist', 'observado', 'observado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 16:14:48'),
+(25, 6, 'evaluacion_checklist', 'pendiente', 'aprobado', 'Evaluación mediante checklist finalizada', 'Wilghem', '2026-05-03 16:30:16'),
+(26, 6, 'publicacion', NULL, 'borrador', 'Borrador de publicación actualizado', 'Wilghem', '2026-05-03 16:41:42'),
+(27, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:46:19'),
+(28, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:53:00'),
+(29, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:57:44');
 
 -- --------------------------------------------------------
 
@@ -380,6 +445,20 @@ ALTER TABLE `casos_sociales`
   ADD KEY `idx_dni` (`dni_beneficiario`);
 
 --
+-- Indices de la tabla `checklist_items`
+--
+ALTER TABLE `checklist_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `checklist_respuestas`
+--
+ALTER TABLE `checklist_respuestas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_resp_caso` (`caso_id`),
+  ADD KEY `fk_resp_item` (`item_id`);
+
+--
 -- Indices de la tabla `departamento`
 --
 ALTER TABLE `departamento`
@@ -469,7 +548,19 @@ ALTER TABLE `usuario_empresa`
 -- AUTO_INCREMENT de la tabla `casos_sociales`
 --
 ALTER TABLE `casos_sociales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `checklist_items`
+--
+ALTER TABLE `checklist_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `checklist_respuestas`
+--
+ALTER TABLE `checklist_respuestas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -499,7 +590,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `historial_casos`
 --
 ALTER TABLE `historial_casos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `ingresos`
@@ -540,6 +631,13 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `checklist_respuestas`
+--
+ALTER TABLE `checklist_respuestas`
+  ADD CONSTRAINT `fk_resp_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_resp_item` FOREIGN KEY (`item_id`) REFERENCES `checklist_items` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `departamento`

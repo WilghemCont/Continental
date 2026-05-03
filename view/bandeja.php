@@ -69,6 +69,7 @@ $casos   = $casos   ?? [];
                     <label class="form-label small fw-bold text-muted">Evaluación</label>
                     <select id="f-evaluacion" class="form-select rounded-3">
                         <option value="">Todos</option>
+                        <option value="publicado">Publicado</option>
                         <option value="pendiente">Pendiente</option>
                         <option value="aprobado">Aprobado</option>
                         <option value="observado">Observado</option>
@@ -186,4 +187,5 @@ $casos   = $casos   ?? [];
 <div id="alert-container"
      style="position: fixed; left: 50%; transform: translateX(-50%); bottom: 120px; z-index: 9999;">
 </div>
+<script src="../assets/js/casos.js"></script>
 <?php require_once 'layout/footer.php'; ?>

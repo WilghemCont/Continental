@@ -53,7 +53,6 @@ class CasoController
     }
 
     public function ver() {
-        // 1. Validar ID
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
         if ($id <= 0) {
@@ -61,7 +60,6 @@ class CasoController
             exit;
         }
 
-        // 2. Obtener datos
         $caso = $this->model->obtenerPorId($id);
 
         if (!$caso) {
@@ -69,8 +67,10 @@ class CasoController
             exit;
         }
 
-        // 3. Cargar la vista (Verifica que el archivo exista en view/ver_caso.php)
+        // 🔥 IMPORTANTE: cargar layout completo
+        require_once "../view/layout/header.php";
         require_once "../view/ver_caso.php";
+        require_once "../view/layout/footer.php";
     }
 
     public function detalle(): void

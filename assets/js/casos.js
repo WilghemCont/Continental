@@ -1,5 +1,5 @@
 'use strict';
-
+console.log("BANDEJA JS CARGADO");
 // =============================================
 // UTILIDADES
 // =============================================
@@ -16,6 +16,23 @@ function debounce(fn, ms) {
         clearTimeout(t);
         t = setTimeout(() => fn.apply(this, args), ms);
     };
+}
+
+function limpiarFiltros() {
+    const ids = ['f-buscar', 'f-clasificacion', 'f-evaluacion', 'f-proceso'];
+
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        if (el.tagName === 'INPUT') {
+            el.value = '';
+        } else {
+            el.selectedIndex = 0;
+        }
+    });
+
+    cargarCasos(); // recarga tabla sin filtros
 }
 
 // =============================================
@@ -102,7 +119,7 @@ function renderTabla(casos) {
             <td><span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary">${esc(c.estado_proceso)}</span></td>
             <td class="small text-muted">${(c.fecha_registro || '').substring(0, 10)}</td>
            <td class="text-end">
-                <a href="index.php?controller=caso&action=ver&id=${c.id}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
+                <a href="${window.BASE_URL}public/index.php?controller=caso&action=ver&id=${c.id}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
                     <i class="bi bi-eye me-1"></i>Ver
                 </a>
             </td>

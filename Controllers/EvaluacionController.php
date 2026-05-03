@@ -1,94 +1,116 @@
+
 <?php
-/**
- * app/controllers/EvaluacionController.php
- * Controller — Acciones AJAX: evaluar, publicar, proceso
- * Todas las acciones reciben y responden JSON
- */
+require_once __DIR__ . "/../models/CasoSocial.php";
+require_once __DIR__ . "/../models/Checklist.php";
 
-require_once __DIR__ . '/../models/Evaluacion.php';
+class EvaluacionController {
+    private $casoModel;
+    private $checkModel;
 
-class EvaluacionController
-{
-    private Evaluacion $model;
-
-    public function __construct()
-    {
-        $this->model = new Evaluacion();
+    public function __construct() {
+        $this->casoModel = new CasoSocial();
+        $this->checkModel = new Checklist();
     }
 
-    // -------------------------------------------------------
-    // POST ?controller=evaluacion&action=cambiarEstado
-    // Body JSON: { id, estado, comentario }
-    // -------------------------------------------------------
-   public function cambiarEstado(): void
-    {
+    public function ver() {
+        // 1. Validar el ID
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id <= 0) {
+            header("Location: index.php?controller=caso&action=bandeja");
+            exit();
+        }
+
+        // 2. OBTENER EL CASO (Asegúrate de que el nombre del método sea obtenerPorId)
+        // Guardamos el resultado en la variable $caso, que es la que busca la vista
+        $caso = $this->casoModel->obtenerPorId($id); 
+
+        // 3. Validar que el caso exista en la base de datos
+        if (!$caso) {
+            header("Location: index.php?controller=caso&action=bandeja&msg=no_encontrado");
+            exit();
+        }
+
+        // 4. Obtener el checklist
+        $checklist = $this->checkModel->obtenerPorTipo('evaluacion');
+
+        // 5. Cargar la vista (Al estar aquí, $caso ya es visible para evaluacion.php)
+        require_once __DIR__ . "/../view/evaluacion.php";
+    }
+
+    public function guardar() {
+        // Limpiar cualquier eco o espacio en blanco previo
+        if (ob_get_length()) ob_clean();
         header('Content-Type: application/json');
 
         try {
-            if (ob_get_length()) ob_clean();
+            $idCaso = (int)$_GET['id'];
+            if (!isset($_POST['check'])) {
+                throw new Exception("Debe responder todos los ítems del checklist.");
+            }
 
-            $data = json_decode(file_get_contents('php://input'), true) ?? [];
-            $casoId = (int)($data['id'] ?? 0);
-            $estado = trim($data['estado'] ?? '');
-            $comentario = trim($data['comentario'] ?? '');
-            $usuario = $_SESSION['nombre'] ?? 'Admin';
+            $checks = $_POST['check'];
+            $comentarios = $_POST['comentario'] ?? [];
+            $usuarioNombre = $_SESSION['nombre'] ?? 'Sistema';
 
-            $this->model->cambiarEstado($casoId, $estado, $comentario, $usuario);
+            // INICIAR TRANSACCIÓN (Vía CasoModel ya que heredan de Conectar)
+            $this->casoModel->beginTransaction();
 
-            echo json_encode(['ok' => true]);
-        } catch (Throwable $e) {
-            http_response_code(500);
+            $hayNo = false;
+            $this->checkModel->eliminarPorCaso($idCaso);
+
+            foreach ($checks as $id_item => $estado) {
+                $comentario = $comentarios[$id_item] ?? null;
+
+                if ($estado === 'NO') {
+                    if (empty($comentario)) {
+                        throw new Exception("Debe ingresar un motivo para los ítems NO cumplidos.");
+                    }
+                    $hayNo = true;
+                }
+                $this->checkModel->guardarRespuesta($idCaso, $id_item, $estado, $comentario);
+            }
+
+            // Determinar estado final
+            $nuevoEstado = $hayNo ? 'observado' : 'aprobado';
+            
+            // Actualizar tabla principal y log
+            $this->actualizarEstadoYLog($idCaso, $nuevoEstado, $usuarioNombre);
+
+            // COMMIT DE LOS CAMBIOS
+            $this->casoModel->commit();
 
             echo json_encode([
-                'ok' => false,
+                'ok' => true, 
+                'mensaje' => 'La evaluación se ha guardado correctamente. El caso ahora está: ' . strtoupper($nuevoEstado)
+            ]);
+
+        } catch (Exception $e) {
+            // REVERTIR CAMBIOS SI ALGO FALLÓ
+            if ($this->casoModel) $this->casoModel->rollBack();
+            
+            echo json_encode([
+                'ok' => false, 
                 'error' => $e->getMessage()
             ]);
         }
-
-        exit;
+        exit();
     }
 
-    // -------------------------------------------------------
-    // POST ?controller=evaluacion&action=publicar
-    // Body JSON: { id, publicar }
-    // -------------------------------------------------------
-    public function publicar(): void
-    {
-        header('Content-Type: application/json');
-        $data    = json_decode(file_get_contents('php://input'), true) ?? [];
-        $casoId  = (int)($data['id']       ?? 0);
-        $publicar = (bool)($data['publicar'] ?? false);
-        $usuario = $_SESSION['nombre'] ?? 'Administrador';
+    private function actualizarEstadoYLog($id, $estado, $usuario) {
+        $db = (new Conectar())->Conexion();
+        
+        // 1. Obtener valor anterior para el historial
+        $stmt = $db->prepare("SELECT estado_evaluacion FROM casos_sociales WHERE id = ?");
+        $stmt->execute([$id]);
+        $anterior = $stmt->fetchColumn();
 
-        try {
-            $this->model->publicar($casoId, $publicar, $usuario);
-            $msg = $publicar ? 'Caso publicado en la web' : 'Caso retirado de la web';
-            echo json_encode(['ok' => true, 'mensaje' => $msg]);
-        } catch (Throwable $e) {
-            http_response_code(400);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-    }
+        // 2. Actualizar Caso
+        $sqlUpd = "UPDATE casos_sociales SET estado_evaluacion = ?, fecha_evaluacion = NOW() WHERE id = ?";
+        $db->prepare($sqlUpd)->execute([$estado, $id]);
 
-    // -------------------------------------------------------
-    // POST ?controller=evaluacion&action=cambiarProceso
-    // Body JSON: { id, estado, comentario }
-    // -------------------------------------------------------
-    public function cambiarProceso(): void
-    {
-        header('Content-Type: application/json');
-        $data       = json_decode(file_get_contents('php://input'), true) ?? [];
-        $casoId     = (int)($data['id']        ?? 0);
-        $estado     = trim($data['estado']     ?? '');
-        $comentario = trim($data['comentario'] ?? '');
-        $usuario    = $_SESSION['nombre'] ?? 'Administrador';
-
-        try {
-            $this->model->cambiarProceso($casoId, $estado, $comentario, $usuario);
-            echo json_encode(['ok' => true, 'mensaje' => 'Estado del proceso actualizado']);
-        } catch (Throwable $e) {
-            http_response_code(400);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
+        // 3. Registrar en historial_casos (Tu tabla de log)
+        $sqlLog = "INSERT INTO historial_casos (caso_id, tipo_cambio, valor_anterior, valor_nuevo, usuario, comentario) 
+                   VALUES (?, 'evaluacion_checklist', ?, ?, ?, 'Evaluación mediante checklist finalizada')";
+        $db->prepare($sqlLog)->execute([$id, $anterior, $estado, $usuario]);
     }
 }

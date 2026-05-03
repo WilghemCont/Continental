@@ -113,8 +113,8 @@
                 <h5 class="fw-bold mb-4">Acciones de Gestión</h5>
 
                 <div class="d-grid gap-3">
-                    <?php if(in_array($caso['estado_evaluacion'], ['pendiente','observado'])): ?>
-                        <a href="index.php?controller=evaluacion&action=ver&id=<?= $caso['id'] ?>" class="btn btn-primary py-3 rounded-pill fw-bold shadow">
+                    <?php if(in_array($caso['estado_evaluacion'], ['pendiente','observado'])): ?>                        
+                       <a href="index.php?controller=evaluacion&action=ver&id=<?= $caso['id'] ?>" class="btn btn-primary py-3 rounded-pill fw-bold shadow">
                             <i class="bi bi-shield-check me-2"></i> Evaluar Caso
                         </a>
                     <?php endif; ?>
@@ -127,7 +127,7 @@
 
                     <hr class="my-2">
 
-                    <a href="index.php?controller=caso&action=bandeja" class="btn btn-outline-secondary py-3 rounded-pill fw-bold hover-back">
+                    <a href="../view/bandeja.php" class="btn btn-outline-secondary py-3 rounded-pill fw-bold hover-back">
                         <i class="bi bi-arrow-left me-2"></i> Volver a la Lista
                     </a>
                 </div>
