@@ -13,6 +13,14 @@ class CasoSocial extends Conectar // Heredamos de Conectar para usar la base de 
         $conectar = new Conectar();
         $this->db = $conectar->Conexion();
     }
+    
+    public function obtenerPorId($id)
+    {
+        $sql = "SELECT * FROM casos_sociales WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function listar(array $filtros = []): array
     {
@@ -62,15 +70,7 @@ class CasoSocial extends Conectar // Heredamos de Conectar para usar la base de 
                     SUM(CASE WHEN publicado = 1 THEN 1 ELSE 0 END) AS publicados
                 FROM casos_sociales";
         return $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function obtenerPorId(int $id): ?array
-    {
-        $stmt = $this->db->prepare("SELECT * FROM casos_sociales WHERE id = ?");
-        $stmt->execute([$id]);
-        $caso = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $caso ?: null;
-    }
+    }   
 
     public function buscarDuplicados(string $dni, string $clasificacion, int $excluirId = 0): array
     {
@@ -87,4 +87,25 @@ class CasoSocial extends Conectar // Heredamos de Conectar para usar la base de 
         $stmt->execute([$dni, $clasificacion, $excluirId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+  
+
+    public function insertar($data)
+    {
+        $sql = "INSERT INTO casos_sociales (
+            nombre_ong, ruc_ong, email_ong, contacto_ong, titulo_caso, 
+            clasificacion, monto_requerido, descripcion, nombre_beneficiario, 
+            dni_beneficiario, edad_beneficiario, ubicacion, documento_solicitud, 
+            foto_beneficiario, estado_evaluacion, estado_proceso, fecha_registro
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente', 'sin_proceso', NOW())";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            $data['nombre_ong'], $data['ruc_ong'], $data['email_ong'], $data['contacto_ong'],
+            $data['titulo_caso'], $data['clasificacion'], $data['monto_requerido'],
+            $data['descripcion'], $data['nombre_beneficiario'], $data['dni_beneficiario'],
+            $data['edad_beneficiario'], $data['ubicacion'], $data['documento'], $data['foto']
+        ]);
+    }
+
 }

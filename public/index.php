@@ -10,12 +10,7 @@ $controllerReq = isset($_GET['controller']) ? $_GET['controller'] : '';
 $actionReq     = isset($_GET['action'])     ? $_GET['action']     : '';
 
 if ($controllerReq != '' && $actionReq != '') {
-    
-    // Según tu imagen, los archivos se llaman: CasoController.php
-    // Construimos el nombre exacto
     $className = ucfirst(strtolower($controllerReq)) . "Controller";
-    
-    // IMPORTANTE: Cambiamos a "../Controllers/" con C mayúscula y S al final
     $controllerFile = __DIR__ . "/../Controllers/" . $className . ".php";
 
     if (file_exists($controllerFile)) {
@@ -25,17 +20,17 @@ if ($controllerReq != '' && $actionReq != '') {
             $controllerObject = new $className();
             
             if (method_exists($controllerObject, $actionReq)) {
+                // LLAMADA A LA ACCIÓN
                 $controllerObject->$actionReq();
+                
+                // CRÍTICO: Detener el script aquí para que no llegue a las redirecciones de abajo
                 exit(); 
             }
         }
-    } else {
-        // Descomenta la siguiente línea si quieres ver en pantalla qué ruta está fallando:
-        // die("No se encontró el archivo en: " . $controllerFile);
     }
 }
 
-// 3. Si no hay petición de controlador, mandamos al home
+// ESTA PARTE SOLO DEBE EJECUTARSE SI NO SE ENTRÓ AL IF ANTERIOR
 if (isset($_SESSION["idlogin"])) {
     header("Location: ../view/home.php");
 } else {

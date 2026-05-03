@@ -19,14 +19,12 @@ function debounce(fn, ms) {
 }
 
 // =============================================
-// FILTROS — AJAX
+// FILTROS — AJAX (BANDEJA)
 // =============================================
 async function cargarCasos() {
     const tbody = document.getElementById('tabla-body');
     if(!tbody) return;
 
-    // --- MEJORA DE SEGURIDAD ---
-    // Usamos una función auxiliar para leer valores sin que el JS "explote"
     const getVal = (id) => {
         const el = document.getElementById(id);
         return el ? el.value : ''; 
@@ -40,7 +38,6 @@ async function cargarCasos() {
         estado_evaluacion: getVal('f-evaluacion'),
         estado_proceso: getVal('f-proceso'),
     });
-    // ---------------------------
 
     tbody.innerHTML = `<tr><td colspan="8" class="text-center py-5">
         <div class="spinner-border text-primary" role="status"></div>
@@ -59,7 +56,6 @@ async function cargarCasos() {
 }
 
 function renderStats(s) {
-    // Estas IDs deben existir en tu bandeja.php (id="st-total", etc)
     const set = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.textContent = val || 0;
@@ -83,12 +79,10 @@ function renderTabla(casos) {
     }
 
     tbody.innerHTML = casos.map(c => {
-        // Icono de publicación
         const pubIcon = c.publicado == 1 ? 
             '<i class="bi bi-check-circle-fill text-success" title="Publicado"></i>' : 
             '<i class="bi bi-dash-circle text-muted opacity-50" title="No publicado"></i>';
 
-        // Clases de badge según estado (opcional para colores)
         const badgeColor = {
             'pendiente': 'bg-warning text-dark',
             'aprobado': 'bg-success',
@@ -107,49 +101,35 @@ function renderTabla(casos) {
             <td class="text-center">${pubIcon}</td>
             <td><span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary">${esc(c.estado_proceso)}</span></td>
             <td class="small text-muted">${(c.fecha_registro || '').substring(0, 10)}</td>
-            <td class="text-end">
-                <button class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="abrirDetalle(${c.id})">
+           <td class="text-end">
+                <a href="index.php?controller=caso&action=ver&id=${c.id}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
                     <i class="bi bi-eye me-1"></i>Ver
-                </button>
+                </a>
             </td>
         </tr>`;
     }).join('');
 }
 
-function limpiarFiltros() {
-    document.getElementById('f-buscar').value = '';
-    document.getElementById('f-clasificacion').value = '';
-    document.getElementById('f-evaluacion').value = '';
-    document.getElementById('f-proceso').value = '';
-    cargarCasos();
-}
-
+// =============================================
+// MODAL DETALLE Y EVALUACIÓN
+// =============================================
 let modalInstancia = null;
 
 async function abrirDetalle(id) {
     const modalEl = document.getElementById('modalDetalle');
     if (!modalInstancia) modalInstancia = new bootstrap.Modal(modalEl);
     
-    // Limpiar campos antes de cargar
-    document.getElementById('det-titulo').textContent = "Cargando...";
-    document.getElementById('det-descripcion').textContent = "";
-
     try {
         const res = await fetch(`${window.BASE_URL}public/index.php?controller=caso&action=detalle&id=${id}`);
         const data = await res.json();
-        
-        if (data.error) throw new Error(data.error);
-
         const c = data.caso;
-        // Llenar Modal
+
         document.getElementById('det-id').textContent = `#${c.id}`;
         document.getElementById('det-titulo').textContent = c.titulo_caso;
         document.getElementById('det-ong').textContent = c.nombre_ong;
         document.getElementById('det-descripcion').textContent = c.descripcion;
         document.getElementById('det-beneficiario').textContent = c.nombre_beneficiario;
         document.getElementById('det-monto').textContent = `S/ ${parseFloat(c.monto_requerido).toLocaleString()}`;
-        
-        // Seleccionar estado actual en el select
         document.getElementById('select-eval').value = c.estado_evaluacion;
         document.getElementById('comentario-eval').value = c.comentario_evaluacion || "";
 
@@ -160,119 +140,80 @@ async function abrirDetalle(id) {
     }
 }
 
-async function guardarCambios() {
-    const id = document.getElementById('det-id').textContent.replace('#', '');
-    const estado = document.getElementById('select-eval').value;
-    const comentario = document.getElementById('comentario-eval').value;
+// =============================================
+// REGISTRO DE NUEVO CASO (NUEVO)
+// =============================================
+async function registrarCaso(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
     
-    // Si tienes un checkbox para publicar, podrías capturarlo así:
-    // const publicado = document.getElementById('check-publicar').checked;
+    // Validar archivos
+    const foto = form.querySelector('input[name="foto_beneficiario"]');
+    if (foto.files.length > 0 && foto.files[0].size > 2000000) {
+        alert("La foto no debe pesar más de 2MB");
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registrando...';
+
+    const formData = new FormData(form);
+    const url = `${window.BASE_URL}public/index.php?controller=caso&action=guardar`;
 
     try {
-        // 1. Guardar Estado de Evaluación
-        const resEval = await fetch(`${window.BASE_URL}public/index.php?controller=evaluacion&action=cambiarEstado`, {
+        const res = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, estado, comentario })
+            body: formData
         });
 
-        const text = await resEval.text();      
-
-        const dataEval = JSON.parse(text);
-
-       if (dataEval.ok) {
-            modalInstancia.hide();
-
-            setTimeout(() => {
-                mostrarMensaje('Estado actualizado correctamente', 'success');
-            }, 300);
-
-            cargarCasos();
-        } else {
-            mostrarMensaje('danger', dataEval.error || 'Error al actualizar');
+        // Intentamos parsear como JSON. Si el controlador redirige, esto podría fallar.
+        const text = await res.text();
+        try {
+            const data = JSON.parse(text);
+            if (data.ok || data.status === 'success') {
+                mostrarMensaje('¡Caso registrado con éxito!', 'success');
+                setTimeout(() => window.location.href = 'bandeja.php', 1500);
+            } else {
+                mostrarMensaje('Error: ' + (data.error || 'No se pudo registrar'), 'danger');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-check-circle me-2"></i>Registrar Caso';
+            }
+        } catch (e) {
+            // Si no es JSON pero fue exitoso (redirección manual)
+            window.location.href = 'bandeja.php?registro=ok';
         }
     } catch (error) {
-        console.error("Error al guardar:", error);
-        alert("Fallo la conexión con el controlador de evaluación");
+        console.error("Error registro:", error);
+        mostrarMensaje('Fallo en la conexión con el servidor', 'danger');
+        btn.disabled = false;
     }
 }
 
+// =============================================
+// MENSAJES Y UI
+// =============================================
 function mostrarMensaje(msg, tipo = 'success') {
-    const container = document.getElementById('alert-container');
-
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${tipo} shadow`;
-    alert.style.minWidth = '280px';
-    alert.style.opacity = '0';
-    alert.style.transform = 'translateY(20px)';
-    alert.style.transition = 'all 0.4s ease';
-    alert.innerHTML = msg;
-
-    container.innerHTML = '';
-    container.appendChild(alert);
-
-    // animación entrada
-    setTimeout(() => {
-        alert.style.opacity = '1';
-        alert.style.transform = 'translateY(0)';
-    }, 50);
-
-    // ajustar posición
-    setTimeout(ajustarAlerta, 100);
-
-    // salida
-    setTimeout(() => {
-        alert.style.opacity = '0';
-        alert.style.transform = 'translateY(20px)';
-
-        setTimeout(() => {
-            alert.remove();
-        }, 400);
-    }, 3000);
-}
-
-function ajustarAlerta() {
-    const footer = document.querySelector('footer');
-    const alert = document.getElementById('alert-container');
-
-    if (footer && alert) {
-        const rect = footer.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        // distancia desde el bottom del viewport hasta el inicio del footer
-        const espacio = windowHeight - rect.top;
-
-        alert.style.bottom = (espacio + 20) + 'px';
+    // Buscamos el contenedor que definimos en registro_caso.php
+    let container = document.getElementById('alertaCaso'); 
+    
+    if (container) {
+        container.className = `alert alert-${tipo} rounded-4 d-block fade-up`;
+        container.innerHTML = `<i class="bi bi-${tipo === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i> ${msg}`;
+        
+        // Hacer scroll hasta el mensaje para que el usuario lo vea
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        // Si no existe el contenedor, usamos un alert clásico como respaldo
+        alert(msg);
     }
 }
 
-window.addEventListener('load', ajustarAlerta);
-window.addEventListener('resize', ajustarAlerta);
-
-// Función extra para el switch de publicación rápida desde la tabla
-async function togglePublicar(id, estadoActual) {
-    const nuevoEstado = !estadoActual;
-    try {
-        const res = await fetch(`${window.BASE_URL}public/index.php?controller=evaluacion&action=publicar`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id, publicar: nuevoEstado })
-        });
-        const data = await res.json();
-        if (data.ok) {
-            cargarCasos();
-        } else {
-            alert(data.error);
-        }
-    } catch (error) {
-        alert("Error al cambiar estado de publicación");
-    }
-}
 // =============================================
 // INIT
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Listeners para filtros automáticos
+    // 1. Listeners para filtros (Bandeja)
     const inputs = ['f-buscar', 'f-clasificacion', 'f-evaluacion', 'f-proceso'];
     inputs.forEach(id => {
         const el = document.getElementById(id);
@@ -284,7 +225,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // 2. Listener para Formulario de Registro (Si existe en la página)
+    const formRegistro = document.getElementById('formRegistroCaso');
+    if (formRegistro) {
+        formRegistro.addEventListener('submit', registrarCaso);
+    }
     
-    // 2. Carga inicial al entrar a la página
-    cargarCasos();
+    // 3. Carga inicial de tabla
+    if (document.getElementById('tabla-body')) {
+        cargarCasos();
+    }
 });

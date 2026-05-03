@@ -52,6 +52,27 @@ class CasoController
         exit;
     }
 
+    public function ver() {
+        // 1. Validar ID
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+        if ($id <= 0) {
+            header("Location: index.php?controller=caso&action=bandeja&msg=id_invalido");
+            exit;
+        }
+
+        // 2. Obtener datos
+        $caso = $this->model->obtenerPorId($id);
+
+        if (!$caso) {
+            header("Location: index.php?controller=caso&action=bandeja&msg=no_encontrado");
+            exit;
+        }
+
+        // 3. Cargar la vista (Verifica que el archivo exista en view/ver_caso.php)
+        require_once "../view/ver_caso.php";
+    }
+
     public function detalle(): void
     {
         // 1. Forzamos que la salida sea JSON
@@ -84,5 +105,58 @@ class CasoController
             echo json_encode(['error' => $e->getMessage()]);
             exit;
         }
+    }
+
+    public function guardar()
+    {
+        // 1. Limpiar cualquier salida previa (espacios, errores, etc.)
+        if (ob_get_level()) ob_clean(); 
+        header('Content-Type: application/json');
+
+        try {
+            $uploadDir = __DIR__ . "/../assets/uploads/";
+            $documento = $this->subirArchivo($_FILES['documento_solicitud'] ?? null, $uploadDir . "docs/");
+            $foto = $this->subirArchivo($_FILES['foto_beneficiario'] ?? null, $uploadDir . "fotos/");
+
+            $datos = [
+                'nombre_ong'          => $_POST['nombre_ong'] ?? '',
+                'ruc_ong'             => $_POST['ruc_ong'] ?? '',
+                'email_ong'           => $_POST['email_ong'] ?? '',
+                'contacto_ong'        => $_POST['contacto_ong'] ?? '',
+                'titulo_caso'         => $_POST['titulo_caso'] ?? '',
+                'clasificacion'       => $_POST['clasificacion'] ?? '',
+                'monto_requerido'     => $_POST['monto_requerido'] ?? 0,
+                'descripcion'         => $_POST['descripcion'] ?? '',
+                'nombre_beneficiario' => $_POST['nombre_beneficiario'] ?? '',
+                'dni_beneficiario'    => $_POST['dni_beneficiario'] ?? '',
+                'edad_beneficiario'   => !empty($_POST['edad_beneficiario']) ? $_POST['edad_beneficiario'] : null,
+                'ubicacion'           => $_POST['ubicacion'] ?? '',
+                'documento'           => $documento,
+                'foto'                => $foto
+            ];
+
+            $res = $this->model->insertar($datos);
+            
+            // 2. Respuesta JSON estricta
+            echo json_encode(['ok' => $res]);
+            exit;
+
+        } catch (Exception $e) {
+            echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    private function subirArchivo($file, $dir)
+    {
+        if (!$file || $file['error'] !== UPLOAD_ERR_OK) return null;
+        
+        if (!is_dir($dir)) mkdir($dir, 0777, true); // Crea la carpeta si no existe
+
+        $nombre = time() . "_" . basename($file["name"]);
+        if (move_uploaded_file($file["tmp_name"], $dir . $nombre)) {
+            return $nombre;
+        }
+        return null;
     }
 }
