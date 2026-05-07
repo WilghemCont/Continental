@@ -159,4 +159,61 @@ class CasoController
         }
         return null;
     }
+
+    public function catalogo() {
+
+        $casos = $this->model->obtenerPublicados();
+
+        require_once "../view/layout/header.php";
+        require_once "../view/Catalogo.php";
+        require_once "../view/layout/footer.php";
+    }
+
+        public function vistaCaso()
+    {
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+        if ($id <= 0) {
+            die("Caso inválido");
+        }
+
+        $caso = $this->model->obtenerPorId($id);
+
+        if (!$caso) {
+            die("Caso no encontrado");
+        }
+
+        // compatibilidad con tu vista actual
+        $publicacion = $caso;
+
+        // ejemplo temporal
+        $cantidadDonaciones = 0;
+
+        require_once "../view/layout/header.php";
+        require_once "../view/vista_caso.php";
+        require_once "../view/layout/footer.php";
+    }
+
+    public function vista()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $caso = $this->model->obtenerPorId($id);
+
+        if (!$caso) {
+            die("Caso no encontrado");
+        }
+
+        // SOLO PUBLICADOS
+        if (
+            $caso['estado_evaluacion'] !== 'publicado'
+            && $caso['publicado'] != 1
+        ) {
+            die("Caso no disponible");
+        }
+
+        $cantidadDonaciones = 0;
+
+        require_once "../view/vista_caso.php";
+    }
 }

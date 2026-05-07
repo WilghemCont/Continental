@@ -166,4 +166,22 @@ class CasoSocial extends Conectar
     public function beginTransaction() { $this->db->beginTransaction(); }
     public function commit() { $this->db->commit(); }
     public function rollBack() { if ($this->db->inTransaction()) $this->db->rollBack(); }
+
+
+    public function obtenerPublicados() {
+        $sql = "SELECT 
+                    id, 
+                    titulo_publico, 
+                    descripcion_publica, 
+                    foto_beneficiario 
+                FROM casos_sociales 
+                WHERE estado_evaluacion = 'publicado'
+                AND publicado = 1
+                ORDER BY fecha_publicacion DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -172,3 +172,13 @@ body {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
+
+.card img {
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
