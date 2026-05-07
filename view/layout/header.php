@@ -95,6 +95,7 @@ if (!function_exists('esc')) {
                 <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
                 <li><a class="dropdown-item" href="ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
                 <li><a class="dropdown-item" href="bandeja.php"><i class="bi bi-cash-stack me-2"></i>Bandeja</a></li>
+                <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=catalogo"><i class="bi bi-cash-stack me-2"></i>Catálogo</a></li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-folder me-2"></i>Maestros</a>
                   <ul class="dropdown-menu shadow border-0">
                      <li><a class="dropdown-item" href="donantes.php"><i class="bi bi-people me-2"></i>Donantes</a></li>
