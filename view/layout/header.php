@@ -26,13 +26,13 @@ if (!function_exists('esc')) {
     <link rel="stylesheet" href="./../assets/css/<?php echo $estilo_pagina; ?>.css"/>
   <?php endif; ?>
 
-  <script>
+<!--   <script>
     window.BASE_URL = "http://<?= $_SERVER['HTTP_HOST'] ?>/CONTINENTAL/";
-  </script>
- <!--   <script>
+  </script> -->
+   <script>
     // ESTA LÍNEA ES VITAL: Define la ruta base para que los fetch funcionen
     window.BASE_URL = "http://localhost/CONTINENTAL/";
-  </script> -->
+  </script>
 </head>
 <body>
 
@@ -76,10 +76,10 @@ if (!function_exists('esc')) {
           <a href="login.php" class="btn btn-outline-primary">Login</a>
           <a href="registro.php" class="btn btn-primary">Registro</a>
         <?php else: ?>
-          <a href="donar.php" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
+          <a href="../view/donar.php" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
             <i class="bi bi-heart-fill me-1"></i> Donar
           </a>
-          <a href="nuevo_ingreso.php" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+          <a href="../view/nuevo_ingreso.php" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
             <i class="bi bi-wallet2 me-1"></i> Aportes
           </a>
           <div class="dropdown">
