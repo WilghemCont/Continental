@@ -1,5 +1,9 @@
 <?php 
 require_once 'layout/header.php'; 
+if (!isset($_SESSION['idlogin'])) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 
 <div class="container py-5 fade-up">
@@ -50,25 +54,96 @@ require_once 'layout/header.php';
                 <div class="card-body p-5 bg-white">
                     <form action="../public/guardar_donacion.php" method="POST">
                         
-<?php if (!empty($caso)): ?>
-            <div class="mb-4 p-4 bg-light rounded-4">
-                <h5 class="fw-bold mb-2">Donar al caso:</h5>
-                <p class="mb-1"><?= htmlspecialchars($caso['titulo_publico'] ?? $caso['titulo_caso']) ?></p>
-                <p class="small text-muted mb-0">Beneficiario: <?= htmlspecialchars($caso['nombre_beneficiario'] ?? 'N/A') ?></p>
-            </div>
-        <?php endif; ?>
+                <?php if (!empty($caso)): ?>
+                    <div class="mb-4">
+
+                        <div class="card border-0 shadow-sm overflow-hidden"
+                            style="border-radius:20px;">
+
+                            <!-- Imagen -->
+                            <div style="height:220px; overflow:hidden;">
+
+                                <img 
+                                    src="<?= "http://localhost/CONTINENTAL/assets/uploads/fotos/" . $caso['foto_beneficiario'] ?>"
+                                    class="w-100 h-100"
+                                    style="object-fit:cover;"
+                                    alt="Caso social"
+                                    onerror="this.src='http://localhost/CONTINENTAL/assets/img/placeholder.jpg'"
+                                >
+
+                            </div>
+
+                            <!-- Contenido -->
+                            <div class="p-4">
+
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                                    Caso seleccionado
+                                </span>
+
+                                <h4 class="fw-bold mb-2 text-dark">
+                                    <?= htmlspecialchars($caso['titulo_publico'] ?? $caso['titulo_caso']) ?>
+                                </h4>
+
+                                <p class="text-muted mb-3">
+                                    <?= htmlspecialchars($caso['descripcion_corta'] ?? 'Tu aporte ayudará directamente a transformar una vida.') ?>
+                                </p>
+
+                                <div class="d-flex align-items-center justify-content-between">
+
+                                    <div>
+                                        <small class="text-muted d-block">
+                                            Beneficiario
+                                        </small>
+
+                                        <span class="fw-semibold">
+                                            <?= htmlspecialchars($caso['nombre_beneficiario'] ?? 'N/A') ?>
+                                        </span>
+                                    </div>
+
+                                    <div class="text-end">
+
+                                        <small class="text-muted d-block">
+                                            Meta
+                                        </small>
+
+                                        <span class="fw-bold text-success">
+                                            S/ <?= number_format($caso['monto_requerido'] ?? 0, 2) ?>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                <?php endif; ?>
 
         <input type="hidden" name="idcaso" value="<?= htmlspecialchars($caso['id'] ?? 0) ?>" />
 
         <div class="row g-3 mb-4">
                             <div class="col-md-12">
                                 <label class="form-label small fw-bold text-muted text-uppercase">Nombre del Donante</label>
-                                <input type="text" class="form-control form-control-lg" name="nombre" placeholder="Ej. Juan Pérez" required>
+                                <input 
+                                    type="text"
+                                    class="form-control form-control-lg bg-light"
+                                    name="nombre"
+                                    value="<?= htmlspecialchars($_SESSION['nombre'] . ' ' . ($_SESSION['apepat'] ?? '')) ?>"
+                                    readonly
+                                >
                             </div>
 
                             <div class="col-md-12">
                                 <label class="form-label small fw-bold text-muted text-uppercase">Correo Electrónico</label>
-                                <input type="email" class="form-control form-control-lg" name="email" placeholder="juan@ejemplo.com" required>
+                                <input 
+                                    type="email"
+                                    class="form-control form-control-lg bg-light"
+                                    name="email"
+                                    value="<?= htmlspecialchars($_SESSION['correo'] ?? '') ?>"
+                                    readonly
+                                >
                             </div>
 
                             <div class="col-md-7">
@@ -77,16 +152,7 @@ require_once 'layout/header.php';
                                     <span class="input-group-text bg-light border-end-0 text-muted fw-bold">S/</span>
                                     <input type="number" step="0.01" class="form-control border-start-0" name="monto" placeholder="0.00" required>
                                 </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <label class="form-label small fw-bold text-muted text-uppercase">Método</label>
-                                <select class="form-select form-select-lg" name="metodo">
-                                    <option value="Transferencia">Transferencia</option>
-                                    <option value="Yape/Plin">Yape / Plin</option>
-                                    <option value="Efectivo">Efectivo</option>
-                                </select>
-                            </div>
+                            </div>                          
 
                             <div class="col-12">
                                 <label class="form-label small fw-bold text-muted text-uppercase">Nota / Mensaje</label>
@@ -101,7 +167,7 @@ require_once 'layout/header.php';
                                 </button>
                             </div>
                             <div class="col-md-4">
-                                <a href="estadistica.php" class="btn btn-outline-primary w-100 py-3 fw-bold fs-5 shadow-sm" style="border-radius: 15px; border-width: 2px;">
+                                <a href="../view/estadistica.php" class="btn btn-outline-primary w-100 py-3 fw-bold fs-5 shadow-sm" style="border-radius: 15px; border-width: 2px;">
                                     <i class="bi bi-graph-up"></i>
                                 </a>
                             </div>
