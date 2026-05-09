@@ -73,7 +73,7 @@ if (!function_exists('esc')) {
           <a class="nav-link" href="../public/index.php?controller=caso&action=catalogo">Catálogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../public/index.php?controller=donacion&action=historia">Historia del Donador</a>
+          <a class="nav-link" href="../public/index.php?controller=caso&action=historia">Historia del Donador</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#testimonios">Testimonios</a>
