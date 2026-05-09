@@ -88,6 +88,9 @@
       if ($paginaActual == 'donantes.php'){
          echo '<script src="../assets/js/donantes.js"></script>';
       }
+      if ($paginaActual == 'beneficiario.php'){
+         echo '<script src="../assets/js/beneficiario.js"></script>';
+      }
       if ($paginaActual == 'header.php'){
          echo '<script src="./../assets/js/main.js"></script>';
       }

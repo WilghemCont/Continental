@@ -26,12 +26,12 @@ if (!function_exists('esc')) {
     <link rel="stylesheet" href="./../assets/css/<?php echo $estilo_pagina; ?>.css"/>
   <?php endif; ?>
 
-<!--   <script>
-    window.BASE_URL = "http://<?= $_SERVER['HTTP_HOST'] ?>/CONTINENTAL/";
-  </script> -->
-   <script>
-    // ESTA LÍNEA ES VITAL: Define la ruta base para que los fetch funcionen
-    window.BASE_URL = "http://localhost/CONTINENTAL/";
+<script>
+    // URL base dinámica — funciona en Replit y en XAMPP local
+    window.BASE_URL = "<?php
+        $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        echo $proto . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/';
+    ?>";
   </script>
 </head>
 <body>
@@ -64,10 +64,16 @@ if (!function_exists('esc')) {
 
       <ul class="navbar-nav ms-auto me-3">
         <li class="nav-item">
-          <a class="nav-link" href="#como">Cómo funciona</a>
+          <a class="nav-link" href="#inicio">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#sobre-nosotros">Sobre nosotros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#campanas">Campañas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#testimonios">Testimonios</a>
         </li>
       </ul>
 
@@ -94,8 +100,8 @@ if (!function_exists('esc')) {
               <?php if ($_SESSION["tipo"] == 'ADMIN'): ?>
                 <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
                 <li><a class="dropdown-item" href="ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
-                <li><a class="dropdown-item" href="bandeja.php"><i class="bi bi-cash-stack me-2"></i>Bandeja</a></li>
-                <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=catalogo"><i class="bi bi-cash-stack me-2"></i>Catálogo</a></li>
+                <li><a class="dropdown-item" href="bandeja.php"><i class="bi bi-inbox me-2"></i>Bandeja</a></li>
+                <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=catalogo"><i class="bi bi-grid me-2"></i>Catálogo</a></li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-folder me-2"></i>Maestros</a>
                   <ul class="dropdown-menu shadow border-0">
                      <li><a class="dropdown-item" href="donantes.php"><i class="bi bi-people me-2"></i>Donantes</a></li>
@@ -103,8 +109,11 @@ if (!function_exists('esc')) {
                 </li>
               
               <?php elseif ($_SESSION["tipo"] == 'DONANTE'): ?>
-                <li><a class="dropdown-item" href="donar.php"><i class="bi bi-building me-2"></i>Donaciones</a></li>
+                <li><a class="dropdown-item" href="donar.php"><i class="bi bi-heart me-2"></i>Donar</a></li>
                 <li><a class="dropdown-item" href="patrocinios.php"><i class="bi bi-star me-2"></i>Patrocinios</a></li>
+
+              <?php elseif ($_SESSION["tipo"] == 'BENEFICIARIO'): ?>
+                <li><a class="dropdown-item" href="beneficiario.php"><i class="bi bi-person-check me-2"></i>Mi Caso</a></li>
               
               <?php else: ?>
                 <li><a class="dropdown-item" href="donaciones.php"><i class="bi bi-heart me-2"></i>Mis Donaciones</a></li>

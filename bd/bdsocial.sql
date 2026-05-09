@@ -53,20 +53,21 @@ CREATE TABLE `casos_sociales` (
   `fecha_publicacion` datetime DEFAULT NULL,
   `fecha_ult_cambio` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `documento_solicitud` varchar(500) DEFAULT NULL,
-  `foto_beneficiario` varchar(500) DEFAULT NULL
+  `foto_beneficiario` varchar(500) DEFAULT NULL,
+  `beneficiario_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `casos_sociales`
 --
 
-INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `titulo_publico`, `clasificacion`, `descripcion`, `descripcion_publica`, `monto_requerido`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_ult_cambio`, `documento_solicitud`, `foto_beneficiario`) VALUES
-(1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', NULL, 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', NULL, 35000.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'observado', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-05-03 16:14:48', NULL, '2026-05-03 16:14:48', NULL, NULL),
-(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', NULL, 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', NULL, 80000.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL),
-(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 0.00, 'calle 3', 'Jorge', '23649710', 35, 'publicado', NULL, 1, 'en_proceso', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-03 16:57:44', '1777843798_sd.pdf', '1777843798_images.jpg');
+INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `titulo_publico`, `clasificacion`, `descripcion`, `descripcion_publica`, `monto_requerido`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_ult_cambio`, `documento_solicitud`, `foto_beneficiario`, `beneficiario_id`) VALUES
+(1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', NULL, 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', NULL, 35000.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'observado', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-05-03 16:14:48', NULL, '2026-05-03 16:14:48', NULL, NULL, NULL),
+(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', NULL, 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', NULL, 80000.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL, NULL),
+(3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL, NULL),
+(4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL, NULL),
+(5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, '2026-04-19 20:48:55', NULL, NULL, NULL),
+(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 0.00, 'calle 3', 'Jorge', '23649710', 35, 'publicado', NULL, 1, 'en_proceso', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-03 16:57:44', '1777843798_sd.pdf', '1777843798_images.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -313,7 +314,8 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`idlogin`, `usuario`, `contrasena`, `correo`, `estado`, `fechacreacion`, `fechaactualizacion`) VALUES
 (1, 'admin', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'admin@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25'),
-(2, 'jperry', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'donante@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25');
+(2, 'jperry', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'donante@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25'),
+(3, 'beneficiario', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'beneficiario@socialfunding.pe', 1, '2026-05-09 09:00:00', '2026-05-09 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -414,7 +416,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `idlogin`, `tipo_documento`, `documento`, `nombres`, `apemat`, `apepat`, `fechanac`, `estado`, `correo`, `celular`, `direccion`, `iddistrito`, `idprovincia`, `iddepartamento`, `idpais`, `edad`, `sexo`, `tipo`, `fechacreacion`, `fechaactualizacion`) VALUES
 (1, 1, 'DNI', '12345678', 'Wilghem', 'Santillana', 'Jeri', '1990-01-01', 1, 'admin@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'ADMIN', '2026-04-19 21:14:30', '2026-04-25 18:25:38'),
-(2, 2, 'DNI', '12345679', 'Juan', 'Perry', 'Lopez', '1990-01-01', 1, 'donante@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'DONANTE', '2026-04-19 21:14:30', '2026-04-25 18:25:38');
+(2, 2, 'DNI', '12345679', 'Juan', 'Perry', 'Lopez', '1990-01-01', 1, 'donante@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'DONANTE', '2026-04-19 21:14:30', '2026-04-25 18:25:38'),
+(3, 3, 'DNI', '23649710', 'Bren', 'Rojas', 'Fernandez', '1990-01-01', 1, 'beneficiario@socialfunding.pe', NULL, 'calle 3', NULL, NULL, 1, 1, 35, 'M', 'BENEFICIARIO', '2026-05-09 09:00:00', '2026-05-09 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -430,6 +433,44 @@ CREATE TABLE `usuario_empresa` (
   `fechacreacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actualizaciones_caso`
+--
+
+CREATE TABLE `actualizaciones_caso` (
+  `id`        int(11)      NOT NULL,
+  `caso_id`   int(11)      NOT NULL,
+  `tipo`      enum('avance','coordinacion','entrega','cierre') DEFAULT 'avance',
+  `titulo`    varchar(300) NOT NULL,
+  `contenido` text         NOT NULL,
+  `autor`     varchar(100) DEFAULT 'Administrador',
+  `fecha`     datetime     DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `actualizaciones_caso`
+--
+
+INSERT INTO `actualizaciones_caso` (`id`, `caso_id`, `tipo`, `titulo`, `contenido`, `autor`, `fecha`) VALUES
+(1, 6, 'avance', 'Campaña publicada exitosamente', 'El caso ha sido revisado, aprobado y publicado en la plataforma. Ya está disponible para recibir donaciones de la comunidad. Agradecemos tu confianza en SocialFunding.', 'Administrador', '2026-05-03 17:00:00'),
+(2, 6, 'avance', 'Primeras donaciones recibidas', 'La campaña ha recibido sus primeras contribuciones. El progreso avanza gracias a la generosidad de los donantes que se han sumado a esta causa. Seguiremos informándote.', 'Administrador', '2026-05-05 10:30:00'),
+(3, 6, 'avance', 'Difusión activa en redes sociales', 'El equipo de comunicaciones está difundiendo activamente el caso en redes sociales. El alcance de la campaña sigue creciendo y cada vez más personas conocen tu historia.', 'Administrador', '2026-05-07 14:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `testimonio_beneficiario`
+--
+
+CREATE TABLE `testimonio_beneficiario` (
+  `id`        int(11)  NOT NULL,
+  `caso_id`   int(11)  NOT NULL,
+  `contenido` text     NOT NULL,
+  `fecha`     datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -442,7 +483,8 @@ ALTER TABLE `casos_sociales`
   ADD KEY `idx_clasificacion` (`clasificacion`),
   ADD KEY `idx_estado_evaluacion` (`estado_evaluacion`),
   ADD KEY `idx_publicado` (`publicado`),
-  ADD KEY `idx_dni` (`dni_beneficiario`);
+  ADD KEY `idx_dni` (`dni_beneficiario`),
+  ADD KEY `idx_beneficiario` (`beneficiario_id`);
 
 --
 -- Indices de la tabla `checklist_items`
@@ -541,6 +583,19 @@ ALTER TABLE `usuario_empresa`
   ADD KEY `fk_ue_empresa` (`idempresa`);
 
 --
+-- Indices de la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_ac_caso` (`caso_id`);
+
+--
+-- Indices de la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -602,7 +657,7 @@ ALTER TABLE `ingresos`
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idlogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`
@@ -626,7 +681,19 @@ ALTER TABLE `tipo_documento`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Restricciones para tablas volcadas
@@ -675,6 +742,20 @@ ALTER TABLE `usuario`
 ALTER TABLE `usuario_empresa`
   ADD CONSTRAINT `fk_ue_empresa` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`idempresa`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_ue_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  ADD CONSTRAINT `fk_ac_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  ADD CONSTRAINT `fk_tb_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
+ALTER TABLE `testimonio_beneficiario`
+  ADD UNIQUE KEY `uq_caso_testimonio` (`caso_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
