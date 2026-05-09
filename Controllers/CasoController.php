@@ -194,6 +194,14 @@ class CasoController
         require_once "../view/layout/footer.php";
     }
 
+    public function historia()
+    {
+        $estilo_pagina = 'home';
+        require_once "../view/layout/header.php";
+        require_once "../view/historia_donador.php";
+        require_once "../view/layout/footer.php";
+    }
+
     public function vista()
     {
         $id = $_GET['id'] ?? 0;

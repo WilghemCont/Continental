@@ -50,7 +50,17 @@ require_once 'layout/header.php';
                 <div class="card-body p-5 bg-white">
                     <form action="../public/guardar_donacion.php" method="POST">
                         
-                        <div class="row g-3 mb-4">
+<?php if (!empty($caso)): ?>
+            <div class="mb-4 p-4 bg-light rounded-4">
+                <h5 class="fw-bold mb-2">Donar al caso:</h5>
+                <p class="mb-1"><?= htmlspecialchars($caso['titulo_publico'] ?? $caso['titulo_caso']) ?></p>
+                <p class="small text-muted mb-0">Beneficiario: <?= htmlspecialchars($caso['nombre_beneficiario'] ?? 'N/A') ?></p>
+            </div>
+        <?php endif; ?>
+
+        <input type="hidden" name="idcaso" value="<?= htmlspecialchars($caso['id'] ?? 0) ?>" />
+
+        <div class="row g-3 mb-4">
                             <div class="col-md-12">
                                 <label class="form-label small fw-bold text-muted text-uppercase">Nombre del Donante</label>
                                 <input type="text" class="form-control form-control-lg" name="nombre" placeholder="Ej. Juan Pérez" required>

@@ -29,8 +29,8 @@ $donarUrl = isset($_SESSION["idlogin"]) ? 'donar.php' : 'login.php';
         <div class="banner-slide bg-2 d-flex align-items-center">
           <div class="container text-white">
             <h1 class="fw-bold display-5">Apoya causas reales</h1>
-            <p class="lead">Tu donación se canaliza con seguimiento y registro.</p>
-            <a href="#campanas" class="btn btn-light btn-lg mt-3 shadow">Ver campañas</a>
+            <p class="lead">Tu donación puede cambiar vidas.</p>
+            <a href="#" class="btn btn-light btn-lg mt-3 shadow">Ver campañas</a>
           </div>
         </div>
       </div>

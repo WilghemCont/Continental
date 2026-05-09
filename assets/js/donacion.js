@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Enviamos los datos del formulario (monto, nombre, etc.)
             const formData = new FormData(form);
-            const res = await fetch('../public/crear_preferencia.php', {
+            const res = await fetch('/CONTINENTAL/public/crear_preferencia.php', {
                 method: 'POST',
                 body: formData
             });
