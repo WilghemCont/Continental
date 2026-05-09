@@ -184,4 +184,19 @@ class CasoSocial extends Conectar
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getActivos(): array {
+
+         $sql = "SELECT cs.*, o.nombre AS ong_nombre, o.email AS ong_email,
+                   ROUND((cs.monto_recaudado / cs.monto_requerido) * 100, 1) AS porcentaje
+            FROM casos_sociales cs
+            JOIN ongs o ON cs.ong_id = o.id
+            WHERE cs.estado_evaluacion IN ('aprobado','publicado','cerrado')
+            ORDER BY cs.fecha_registro DESC";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
