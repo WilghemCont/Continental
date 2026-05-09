@@ -8,7 +8,7 @@ if (!isset($_SESSION['idlogin'])) {
 
 <div class="container py-5 fade-up">
     <div class="mb-5">
-        <a href="home.php" class="text-decoration-none text-muted hover-back px-4 py-2 rounded-pill d-inline-flex align-items-center bg-white shadow-sm">
+        <a href="../view/home.php" class="text-decoration-none text-muted hover-back px-4 py-2 rounded-pill d-inline-flex align-items-center bg-white shadow-sm">
             <i class="bi bi-arrow-left me-2"></i> Volver al inicio
         </a>
     </div>
