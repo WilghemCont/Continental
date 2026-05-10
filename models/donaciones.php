@@ -79,10 +79,9 @@ class DonacionModel extends Conectar {
     }
  
     public function obtenerPorUsuario(int $idUsuario): array {
-<<<<<<< HEAD
         $sql  = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
                  FROM donaciones d
-                 LEFT JOIN casos_sociales cs ON d.idcaso = cs.id
+                 LEFT JOIN casos_sociales cs ON d.id = cs.id
                  WHERE d.idusuario = ?
                  ORDER BY d.fecha DESC";
         $stmt = $this->db->prepare($sql);
@@ -119,30 +118,8 @@ class DonacionModel extends Conectar {
     public function obtenerPorId(int $id): ?array {
         $sql  = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
                  FROM donaciones d
-                 LEFT JOIN casos_sociales cs ON d.idcaso = cs.id
+                 LEFT JOIN casos_sociales cs ON d.id = cs.id
                  WHERE d.id = ?";
-=======
-
-    $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
-            FROM donaciones d
-            LEFT JOIN casos_sociales cs 
-                ON d.id = cs.id
-            WHERE d.idusuario = ?
-            ORDER BY d.fecha DESC";
-
-    $stmt = $this->db->prepare($sql);
-
-    $stmt->execute([$idUsuario]);
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-    public function obtenerPorId(int $id): ?array {
-        $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
-                FROM donaciones d
-                LEFT JOIN casos_sociales cs ON d.id = cs.id
-                WHERE d.id = ?";
->>>>>>> 3ee95660420889408cc2180e1479fed65e05e74b
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
