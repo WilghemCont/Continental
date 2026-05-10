@@ -260,4 +260,22 @@ class CasoSocial extends Conectar
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function cerrarCaso($id, $documento)
+    {
+        $sql = "UPDATE casos_sociales
+                SET
+                    estado_proceso = 'finalizado',
+                    documento_cierre = ?,
+                    checklist_cierre_completo = 1,
+                    fecha_cierre = NOW()
+                WHERE id = ?";
+
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            $documento,
+            $id
+        ]);
+    }
 }

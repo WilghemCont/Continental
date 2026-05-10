@@ -120,10 +120,61 @@
                     <?php endif; ?>
 
                     <?php if($caso['estado_evaluacion'] === 'aprobado'): ?>
-                        <a href="index.php?controller=publicacion&action=crear&id=<?= $caso['id'] ?>" class="btn btn-success py-3 rounded-pill fw-bold shadow">
-                            <i class="bi bi-megaphone me-2"></i> Publicar en Web
+
+                        <a href="index.php?controller=publicacion&action=crear&id=<?= $caso['id'] ?>" 
+                        class="btn btn-success py-3 rounded-pill fw-bold shadow">
+
+                            <i class="bi bi-megaphone me-2"></i>
+                            Publicar en Web
+
                         </a>
+
                     <?php endif; ?>
+
+
+                    <?php
+                        $metaAlcanzada = $caso['monto_recaudado'] >= $caso['meta_total'];
+                    ?>
+
+
+                    <?php if(
+                        $caso['estado_evaluacion'] === 'publicado'
+                        && $metaAlcanzada
+                        && $caso['estado_proceso'] !== 'finalizado'
+                    ): ?>
+
+                        <a href="index.php?controller=cierre&action=ver&id=<?= $caso['id'] ?>"
+                        class="btn btn-danger py-3 rounded-pill fw-bold shadow">
+
+                            <i class="bi bi-lock-fill me-2"></i>
+                            Cerrar Caso
+
+                        </a>
+
+                    <?php endif; ?>
+
+
+                    <?php if($caso['estado_proceso'] === 'finalizado'): ?>
+
+                        <div class="alert alert-success rounded-4 border-0 shadow-sm mb-0">
+
+                            <div class="d-flex align-items-center">
+
+                                <i class="bi bi-check-circle-fill fs-3 me-3"></i>
+
+                                <div>
+                                    <strong>Caso Finalizado</strong>
+                                    <div class="small">
+                                        El proceso fue cerrado correctamente.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <?php endif; ?>
+
 
                     <hr class="my-2">
 

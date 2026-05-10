@@ -15,10 +15,18 @@ class Checklist extends Conectar {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function eliminarPorCaso($idCaso) {
-        $sql = "DELETE FROM checklist_respuestas WHERE caso_id = ?";
+    public function eliminarPorCasoYTipo($idCaso, $tipo)
+    {
+        $sql = "DELETE cr
+                FROM checklist_respuestas cr
+                INNER JOIN checklist_items ci
+                    ON ci.id = cr.item_id
+                WHERE cr.caso_id = ?
+                AND ci.tipo = ?";
+
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$idCaso]);
+
+        return $stmt->execute([$idCaso, $tipo]);
     }
 
     public function guardarRespuesta($idCaso, $idItem, $estado, $comentario) {
