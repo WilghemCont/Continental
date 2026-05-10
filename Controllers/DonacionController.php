@@ -67,7 +67,7 @@ class DonacionController {
         }
 
         $donacion = $this->model->obtenerPorId($idDonacion);
-        if (!$donacion || $donacion['idusuario'] != $_SESSION['idusuario']) {
+        if (!$donacion || $donacion['id_usuario'] != $_SESSION['idusuario']) {
             header("Location: index.php?controller=donacion&action=historial");
             exit;
         }
