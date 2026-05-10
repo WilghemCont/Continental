@@ -173,13 +173,12 @@ class CasoSocial extends Conectar
                     id, 
                     titulo_publico, 
                     descripcion_publica, 
-                    foto_beneficiario 
+                    foto_beneficiario, monto_recaudado, monto_requerido
                 FROM casos_sociales 
                 WHERE estado_evaluacion = 'publicado'
-                AND publicado = 1
                 ORDER BY fecha_publicacion DESC";
 
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);   
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

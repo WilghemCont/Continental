@@ -27,9 +27,9 @@ class CasoController
         $stats = $this->model->estadisticas();
 
         // Rutas relativas desde el index.php de la raíz
-        require_once "../view/layout/header.php";
+        
         require_once "../view/bandeja.php";
-        require_once "../view/layout/footer.php";
+        
     }
 
     public function listar(): void
@@ -68,9 +68,9 @@ class CasoController
         }
 
         // 🔥 IMPORTANTE: cargar layout completo
-        require_once "../view/layout/header.php";
+       
         require_once "../view/ver_caso.php";
-        require_once "../view/layout/footer.php";
+       
     }
 
     public function detalle(): void
@@ -164,9 +164,8 @@ class CasoController
 
         $casos = $this->model->obtenerPublicados();
 
-        require_once "../view/layout/header.php";
+        
         require_once "../view/Catalogo.php";
-        require_once "../view/layout/footer.php";
     }
 
         public function vistaCaso()
@@ -189,17 +188,18 @@ class CasoController
         // ejemplo temporal
         $cantidadDonaciones = 0;
 
-        require_once "../view/layout/header.php";
+        
         require_once "../view/vista_caso.php";
-        require_once "../view/layout/footer.php";
+        
     }
 
     public function historia()
     {
-        $estilo_pagina = 'home';
-        require_once "../view/layout/header.php";
-        require_once "../view/historia_donador.php";
-        require_once "../view/layout/footer.php";
+        // Traer campañas publicadas
+        $casos = $this->model->obtenerPublicados();
+        // Tomamos una (la primera como "campaña activa")
+        $campaniaActiva = $casos[0] ?? null;
+        require_once "../view/historia_donador.php";        
     }
 
     public function vista()
