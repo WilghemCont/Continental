@@ -114,8 +114,6 @@ class DonacionModel extends Conectar {
         return $todos;
     }
 
-
-
     public function obtenerSumaTotal() {
         $sql = "SELECT SUM(monto) as total_general FROM donaciones";
         $stmt = $this->db->prepare($sql);
@@ -174,29 +172,31 @@ class DonacionModel extends Conectar {
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
     }
 
-    public function obtenerPorUsuario(int $idUsuario): array {
+   public function obtenerPorUsuario(int $idUsuario): array {
+        $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
+                FROM donaciones d
+                LEFT JOIN casos_sociales cs 
+                    ON d.id_caso = cs.id
+                WHERE d.id_usuario = ?
+                ORDER BY d.fecha DESC";
 
-    $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
-            FROM donaciones d
-            LEFT JOIN casos_sociales cs 
-                ON d.id = cs.id
-            WHERE d.idusuario = ?
-            ORDER BY d.fecha DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$idUsuario]);
 
-    $stmt = $this->db->prepare($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    $stmt->execute([$idUsuario]);
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+    // ── Obtener donación individual para certificado (Corregida la búsqueda) ──
     public function obtenerPorId(int $id): ?array {
         $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
                 FROM donaciones d
-                LEFT JOIN casos_sociales cs ON d.id = cs.id
+                LEFT JOIN casos_sociales cs 
+                    ON d.id_caso = cs.id
                 WHERE d.id = ?";
+                
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
+        
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 }

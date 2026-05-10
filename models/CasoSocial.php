@@ -264,10 +264,13 @@ class CasoSocial extends Conectar
     
     public function cerrarCaso($id, $documento)
     {
+        // Si el documento llega vacío o como null, se guarda explícitamente como NULL en la BD
+        $documentoFinal = !empty($documento) ? $documento : null;
+
         $sql = "UPDATE casos_sociales
                 SET
                     estado_proceso = 'finalizado',
-                    estado_evaluacion =  'cerrado',
+                    estado_evaluacion = 'cerrado',
                     documento_cierre = ?,
                     checklist_cierre_completo = 1,
                     fecha_cierre = NOW()
@@ -276,7 +279,7 @@ class CasoSocial extends Conectar
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-            $documento,
+            $documentoFinal,
             $id
         ]);
     }

@@ -25,7 +25,6 @@ class CierreController
         // =========================================
         // VALIDAR QUE EL CASO ESTÉ PUBLICADO
         // =========================================
-
         if ($caso['estado_evaluacion'] !== 'publicado') {
             die("Solo se pueden cerrar casos publicados.");
         }
@@ -33,7 +32,6 @@ class CierreController
         // =========================================
         // VALIDAR META ALCANZADA
         // =========================================
-
         $meta = (float) $caso['meta_total'];
         $recaudado = (float) $caso['monto_recaudado'];
 
@@ -44,7 +42,6 @@ class CierreController
         // =========================================
         // OBTENER CHECKLIST
         // =========================================
-
         $items = $checklistModel->obtenerPorTipo('cierre');
 
         require "../view/cerrar.php";
@@ -67,26 +64,17 @@ class CierreController
             die("Caso no encontrado.");
         }
 
-        // =========================================
-        // VALIDAR DOCUMENTO DE CIERRE
-        // =========================================
-
-        if (empty($caso['documento_cierre'])) {
-
-            $_SESSION['error'] = "La ONG aún no adjuntó el documento sustento final.";
-
-            header("Location:index.php?controller=cierre&action=ver&id=$id");
-            exit;
-        }
+        // =========================================================
+        // ❌ ELIMINADA LA VALIDACIÓN OBLIGATORIA DEL DOCUMENTO
+        // Ahora se permite continuar incluso si está vacío.
+        // =========================================================
+        $documentoCierre = !empty($caso['documento_cierre']) ? $caso['documento_cierre'] : null;
 
         // =========================================
         // VALIDAR CHECKLIST
         // =========================================
-
         if (empty($_POST['check'])) {
-
             $_SESSION['error'] = "Debe completar el checklist de cierre.";
-
             header("Location:index.php?controller=cierre&action=ver&id=$id");
             exit;
         }
@@ -94,17 +82,13 @@ class CierreController
         // =========================================
         // ELIMINAR RESPUESTAS PREVIAS
         // =========================================
-
         $checklistModel->eliminarPorCasoYTipo($id, 'cierre');
 
         // =========================================
         // GUARDAR NUEVAS RESPUESTAS
         // =========================================
-
         foreach ($_POST['check'] as $itemId => $estado) {
-
             $comentario = $_POST['comentario'][$itemId] ?? '';
-
             $checklistModel->guardarRespuesta(
                 $id,
                 $itemId,
@@ -114,13 +98,9 @@ class CierreController
         }
 
         // =========================================
-        // CERRAR CASO
+        // CERRAR CASO (Se envía el documento o NULL)
         // =========================================
-
-        $casoModel->cerrarCaso(
-            $id,
-            $caso['documento_cierre']
-        );
+        $casoModel->cerrarCaso($id, $documentoCierre);
 
         $_SESSION['success'] = "El caso social fue cerrado correctamente.";
 

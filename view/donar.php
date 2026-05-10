@@ -168,6 +168,11 @@ if (!isset($_SESSION['idlogin'])) {
                                     <i class="bi bi-credit-card-2-back me-2"></i> PAGAR CON MERCADO PAGO
                                 </button>
                             </div>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-success w-100 py-3 fw-bold fs-5 shadow-sm text-uppercase" style="border-radius: 15px;">
+                                    <i class="bi bi-wallet2 me-2"></i> Donar Directamente (Prueba)
+                                </button>
+                            </div>
                             <div class="col-md-4">
                                 <a href="../view/estadistica.php" class="btn btn-outline-primary w-100 py-3 fw-bold fs-5 shadow-sm" style="border-radius: 15px; border-width: 2px;">
                                     <i class="bi bi-graph-up"></i>
