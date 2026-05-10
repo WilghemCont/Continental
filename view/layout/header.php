@@ -122,6 +122,7 @@ if (!function_exists('esc')) {
               <?php if ($_SESSION["tipo"] == 'ADMIN'): ?>
                 <li><a class="dropdown-item" href="../view/dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
                 <li><a class="dropdown-item" href="../view/ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
+                <li><a class="dropdown-item" href="../view/registro_caso.php"><i class="bi bi-person-check me-2"></i>Registrar Caso</a></li>
                 <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=panel"><i class="bi bi-bar-chart-line me-2"></i>Panel Financiero</a></li>
                 <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=registroIngreso"><i class="bi bi-briefcase-fill me-2"></i>Registrar Ingreso</a></li>
                 <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=bandeja"><i class="bi bi-inbox me-2"></i>Bandeja</a></li>
@@ -140,7 +141,7 @@ if (!function_exists('esc')) {
                 <li><a class="dropdown-item" href="beneficiario.php"><i class="bi bi-person-check me-2"></i>Mi Caso</a></li>
               
                 <?php elseif ($_SESSION["tipo"] == 'ONG'): ?>
-                <li><a class="dropdown-item" href="../view/registro_caso.php"><i class="bi bi-person-check me-2"></i>Mi Caso</a></li>
+                <li><a class="dropdown-item" href="../view/registro_caso.php"><i class="bi bi-person-check me-2"></i>Registrar Caso</a></li>
               
               <?php else: ?>
                 <li><a class="dropdown-item" href="donaciones.php"><i class="bi bi-heart me-2"></i>Mis Donaciones</a></li>

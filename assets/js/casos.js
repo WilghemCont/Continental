@@ -1,5 +1,5 @@
 'use strict';
-console.log("BANDEJA JS CARGADO");
+//console.log("BANDEJA JS CARGADO");
 // =============================================
 // UTILIDADES
 // =============================================
@@ -190,7 +190,7 @@ async function registrarCaso(e) {
             const data = JSON.parse(text);
             if (data.ok || data.status === 'success') {
                 mostrarMensaje('¡Caso registrado con éxito!', 'success');
-                setTimeout(() => window.location.href = 'bandeja.php', 1500);
+                setTimeout(() => window.location.href = 'home.php', 1500);
             } else {
                 mostrarMensaje('Error: ' + (data.error || 'No se pudo registrar'), 'danger');
                 btn.disabled = false;

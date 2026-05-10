@@ -56,7 +56,7 @@ class EvaluacionController {
             $this->casoModel->beginTransaction();
 
             $hayNo = false;
-            $this->checkModel->eliminarPorCaso($idCaso);
+            $this->checkModel->eliminarPorCasoYTipo($idCaso, 'evaluacion');
 
             foreach ($checks as $id_item => $estado) {
                 $comentario = $comentarios[$id_item] ?? null;
