@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2026 a las 18:47:15
+-- Tiempo de generación: 10-05-2026 a las 19:49:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -122,7 +122,7 @@ INSERT INTO `checklist_items` (`id`, `nombre`, `tipo`, `estado`) VALUES
 (2, 'Sustento del caso', 'evaluacion', 1),
 (3, 'Firma válida', 'evaluacion', 1),
 (4, 'Carta de la ONG', 'cierre', 1),
-(5, 'Informe final', 'cierre', 1),
+(5, 'Voucher de transferencia', 'cierre', 1),
 (6, 'Evidencia de uso de fondos', 'cierre', 1);
 
 -- --------------------------------------------------------
