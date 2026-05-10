@@ -25,14 +25,35 @@ if (!function_exists('esc')) {
   <?php if (isset($estilo_pagina)): ?>
     <link rel="stylesheet" href="./../assets/css/<?php echo $estilo_pagina; ?>.css"/>
   <?php endif; ?>
+  <script>
+    // URL base dinámica que soporta de manera automática subcarpetas en XAMPP/Locales
+    window.BASE_URL = "<?php
+        $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        
+        // Obtiene el subdirectorio del script actual de forma limpia
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+        $subFolder = '';
+        
+        // Si el script se ejecuta dentro de una carpeta (ej: /Continental/view/bandeja.php)
+        // extrae la ruta del proyecto base evitando duplicar carpetas internas
+        $pathParts = explode('/', trim($scriptName, '/'));
+        if (!empty($pathParts) && $pathParts[0] !== 'public' && $pathParts[0] !== 'view' && $pathParts[0] !== 'index.php') {
+            $subFolder = $pathParts[0] . '/';
+        }
+        
+        echo $proto . '://' . $host . '/' . $subFolder;
+    ?>";
+    //console.log("BASE_URL detectada:", window.BASE_URL);
+</script>
 
-<script>
+<!-- <script>
     // URL base dinámica — funciona en Replit y en XAMPP local
     window.BASE_URL = "<?php
         $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         echo $proto . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/';
     ?>";
-  </script>
+  </script> -->
 </head>
 <body>
 
