@@ -7,14 +7,44 @@ class CierreController
 {
     public static function ver()
     {
-        $id = $_GET['id'];
+        if (!isset($_GET['id'])) {
+            die("ID de caso no válido.");
+        }
+
+        $id = (int) $_GET['id'];
 
         $casoModel = new CasoSocial();
         $checklistModel = new Checklist();
 
         $caso = $casoModel->obtenerPorId($id);
 
-        // checklist tipo cierre
+        if (!$caso) {
+            die("Caso no encontrado.");
+        }
+
+        // =========================================
+        // VALIDAR QUE EL CASO ESTÉ PUBLICADO
+        // =========================================
+
+        if ($caso['estado_evaluacion'] !== 'publicado') {
+            die("Solo se pueden cerrar casos publicados.");
+        }
+
+        // =========================================
+        // VALIDAR META ALCANZADA
+        // =========================================
+
+        $meta = (float) $caso['meta_total'];
+        $recaudado = (float) $caso['monto_recaudado'];
+
+        if ($recaudado < $meta) {
+            die("El caso aún no alcanzó la meta requerida.");
+        }
+
+        // =========================================
+        // OBTENER CHECKLIST
+        // =========================================
+
         $items = $checklistModel->obtenerPorTipo('cierre');
 
         require "../view/cerrar.php";
@@ -22,13 +52,54 @@ class CierreController
 
     public static function guardar()
     {
-        $id = $_GET['id'];
+        if (!isset($_GET['id'])) {
+            die("ID inválido.");
+        }
 
-        $checklistModel = new Checklist();
+        $id = (int) $_GET['id'];
+
         $casoModel = new CasoSocial();
+        $checklistModel = new Checklist();
 
-        // eliminar checklist previo si existe
+        $caso = $casoModel->obtenerPorId($id);
+
+        if (!$caso) {
+            die("Caso no encontrado.");
+        }
+
+        // =========================================
+        // VALIDAR DOCUMENTO DE CIERRE
+        // =========================================
+
+        if (empty($caso['documento_cierre'])) {
+
+            $_SESSION['error'] = "La ONG aún no adjuntó el documento sustento final.";
+
+            header("Location:index.php?controller=cierre&action=ver&id=$id");
+            exit;
+        }
+
+        // =========================================
+        // VALIDAR CHECKLIST
+        // =========================================
+
+        if (empty($_POST['check'])) {
+
+            $_SESSION['error'] = "Debe completar el checklist de cierre.";
+
+            header("Location:index.php?controller=cierre&action=ver&id=$id");
+            exit;
+        }
+
+        // =========================================
+        // ELIMINAR RESPUESTAS PREVIAS
+        // =========================================
+
         $checklistModel->eliminarPorCasoYTipo($id, 'cierre');
+
+        // =========================================
+        // GUARDAR NUEVAS RESPUESTAS
+        // =========================================
 
         foreach ($_POST['check'] as $itemId => $estado) {
 
@@ -42,30 +113,18 @@ class CierreController
             );
         }
 
-        // =========================
-        // SUBIR PDF
-        // =========================
-
-        $archivo = null;
-
-        if (!empty($_FILES['documento']['name'])) {
-
-            $nombre = time() . "_" . $_FILES['documento']['name'];
-
-            move_uploaded_file(
-                $_FILES['documento']['tmp_name'],
-                "../assets/uploads/cierres/" . $nombre
-            );
-
-            $archivo = $nombre;
-        }
-
-        // =========================
+        // =========================================
         // CERRAR CASO
-        // =========================
+        // =========================================
 
-        $casoModel->cerrarCaso($id, $archivo);
+        $casoModel->cerrarCaso(
+            $id,
+            $caso['documento_cierre']
+        );
+
+        $_SESSION['success'] = "El caso social fue cerrado correctamente.";
 
         header("Location:index.php?controller=caso&action=ver&id=$id");
+        exit;
     }
 }

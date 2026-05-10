@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2026 a las 18:47:15
+-- Tiempo de generación: 10-05-2026 a las 19:49:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -98,7 +98,7 @@ INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `em
 (3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 7.00, 1750.00, 26750.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 7.00, 1050.00, 16050.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 7.00, 1260.00, 19260.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
-(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', 'Jorge', '23649710', 35, 'cerrado', NULL, 1, 'finalizado', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 11:30:36', '1777843798_sd.pdf', NULL, 1, '1777843798_images.jpg', 3);
+(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', 'Jorge', '23649710', 35, 'publicado', NULL, 1, 'en_proceso', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 12:07:42', '1777843798_sd.pdf', NULL, 1, '1777843798_images.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ INSERT INTO `checklist_items` (`id`, `nombre`, `tipo`, `estado`) VALUES
 (2, 'Sustento del caso', 'evaluacion', 1),
 (3, 'Firma válida', 'evaluacion', 1),
 (4, 'Carta de la ONG', 'cierre', 1),
-(5, 'Informe final', 'cierre', 1),
+(5, 'Voucher de transferencia', 'cierre', 1),
 (6, 'Evidencia de uso de fondos', 'cierre', 1);
 
 -- --------------------------------------------------------
