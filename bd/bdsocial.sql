@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2026 a las 07:42:26
+-- Tiempo de generación: 10-05-2026 a las 18:47:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -72,7 +72,7 @@ CREATE TABLE `casos_sociales` (
   `nombre_beneficiario` varchar(200) DEFAULT NULL,
   `dni_beneficiario` varchar(15) DEFAULT NULL,
   `edad_beneficiario` int(11) DEFAULT NULL,
-  `estado_evaluacion` enum('pendiente','aprobado','observado','rechazado','publicado') DEFAULT 'pendiente',
+  `estado_evaluacion` enum('pendiente','aprobado','observado','rechazado','publicado','cerrado') DEFAULT 'pendiente',
   `comentario_evaluacion` text DEFAULT NULL,
   `publicado` tinyint(1) DEFAULT 0,
   `estado_proceso` enum('sin_proceso','en_proceso','cancelado','finalizado') DEFAULT 'sin_proceso',
@@ -94,11 +94,11 @@ CREATE TABLE `casos_sociales` (
 
 INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `email_ong`, `titulo_caso`, `titulo_publico`, `clasificacion`, `descripcion`, `descripcion_publica`, `monto_requerido`, `porcentaje_comision`, `monto_comision`, `meta_total`, `monto_recaudado`, `ubicacion`, `nombre_beneficiario`, `dni_beneficiario`, `edad_beneficiario`, `estado_evaluacion`, `comentario_evaluacion`, `publicado`, `estado_proceso`, `fecha_registro`, `fecha_evaluacion`, `fecha_publicacion`, `fecha_cierre`, `fecha_ult_cambio`, `documento_solicitud`, `documento_cierre`, `checklist_cierre_completo`, `foto_beneficiario`, `beneficiario_id`) VALUES
 (1, 'ONG Vida y Esperanza', '20512345678', NULL, 'contacto@vidaesperanza.pe', 'Niño con leucemia necesita tratamiento urgente', NULL, 'salud', 'Menor de 7 años diagnosticado con leucemia linfoblástica aguda requiere quimioterapia. La familia no cuenta con recursos para costear el tratamiento en clínica especializada.', NULL, 35000.00, 7.00, 2450.00, 37450.00, 0.00, 'Lima, Perú', 'Miguel Torres Ríos', '12345678', 7, 'observado', '', 0, 'sin_proceso', '2026-04-19 20:48:55', '2026-05-03 16:14:48', NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
-(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', NULL, 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', NULL, 80000.00, 7.00, 5600.00, 85600.00, 0.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'aprobado', NULL, 1, 'en_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
+(2, 'Fundación Manos Unidas', '20598765432', NULL, 'info@manosunidas.org', 'Reconstrucción de viviendas por huayco en Junín', 'Reconstrucción de viviendas por huayco en Junín', 'desastres', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', 'Familias afectadas por derrumbe de cerro tras lluvias intensas. 15 viviendas destruidas completamente, dejando a 62 personas sin hogar.', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'Junín, Perú', 'Comunidad Alto Perú', '00000000', NULL, 'cerrado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, '2026-05-10 11:27:20', '2026-05-10 11:43:41', '2026-05-10 11:43:41', NULL, NULL, 1, NULL, NULL),
 (3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 7.00, 1750.00, 26750.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 7.00, 1050.00, 16050.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 7.00, 1260.00, 19260.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
-(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', 'Jorge', '23649710', 35, 'publicado', NULL, 1, 'finalizado', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 00:37:03', '1777843798_sd.pdf', NULL, 1, '1777843798_images.jpg', 3);
+(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', 'Jorge', '23649710', 35, 'cerrado', NULL, 1, 'finalizado', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 11:30:36', '1777843798_sd.pdf', NULL, 1, '1777843798_images.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -153,7 +153,10 @@ INSERT INTO `checklist_respuestas` (`id`, `caso_id`, `item_id`, `estado`, `comen
 (18, 6, 3, 'SI', '', '2026-05-03 16:30:16'),
 (19, 6, 4, 'SI', '', '2026-05-10 00:37:03'),
 (20, 6, 5, 'SI', '', '2026-05-10 00:37:03'),
-(21, 6, 6, 'SI', '', '2026-05-10 00:37:03');
+(21, 6, 6, 'SI', '', '2026-05-10 00:37:03'),
+(28, 2, 4, 'SI', '', '2026-05-10 11:43:41'),
+(29, 2, 5, 'SI', '', '2026-05-10 11:43:41'),
+(30, 2, 6, 'SI', '', '2026-05-10 11:43:41');
 
 -- --------------------------------------------------------
 
@@ -312,7 +315,8 @@ INSERT INTO `historial_casos` (`id`, `caso_id`, `tipo_cambio`, `valor_anterior`,
 (26, 6, 'publicacion', NULL, 'borrador', 'Borrador de publicación actualizado', 'Wilghem', '2026-05-03 16:41:42'),
 (27, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:46:19'),
 (28, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:53:00'),
-(29, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:57:44');
+(29, 6, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-03 16:57:44'),
+(30, 2, 'publicacion', NULL, 'publicar', 'Caso publicado oficialmente', 'Wilghem', '2026-05-10 11:27:20');
 
 -- --------------------------------------------------------
 
@@ -686,7 +690,7 @@ ALTER TABLE `checklist_items`
 -- AUTO_INCREMENT de la tabla `checklist_respuestas`
 --
 ALTER TABLE `checklist_respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -722,7 +726,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `historial_casos`
 --
 ALTER TABLE `historial_casos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `ingresos`
