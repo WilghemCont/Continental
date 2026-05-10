@@ -139,6 +139,9 @@ if (!function_exists('esc')) {
               <?php elseif ($_SESSION["tipo"] == 'BENEFICIARIO'): ?>
                 <li><a class="dropdown-item" href="beneficiario.php"><i class="bi bi-person-check me-2"></i>Mi Caso</a></li>
               
+                <?php elseif ($_SESSION["tipo"] == 'ONG'): ?>
+                <li><a class="dropdown-item" href="../view/registro_caso.php"><i class="bi bi-person-check me-2"></i>Mi Caso</a></li>
+              
               <?php else: ?>
                 <li><a class="dropdown-item" href="donaciones.php"><i class="bi bi-heart me-2"></i>Mis Donaciones</a></li>
               <?php endif; ?>
