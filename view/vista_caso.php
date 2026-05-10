@@ -4,7 +4,7 @@
 // =========================
 // DATOS
 // =========================
-$meta = $caso['monto_requerido'] ?? 0;
+$meta = $caso['meta_total'];
 $recaudado = $caso['monto_recaudado'] ?? 0;
 
 $porcentaje = ($meta > 0)

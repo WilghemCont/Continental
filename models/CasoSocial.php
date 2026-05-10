@@ -126,22 +126,84 @@ class CasoSocial extends Conectar
     // ===============================================
 
     public function insertar($data)
-    {
-        $sql = "INSERT INTO casos_sociales (
-            nombre_ong, ruc_ong, email_ong, contacto_ong, titulo_caso, 
-            clasificacion, monto_requerido, descripcion, nombre_beneficiario, 
-            dni_beneficiario, edad_beneficiario, ubicacion, documento_solicitud, 
-            foto_beneficiario, estado_evaluacion, estado_proceso, fecha_registro
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente', 'sin_proceso', NOW())";
+        {
+            // =====================================
+            // CALCULAR COMISIÓN
+            // =====================================
 
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([
-            $data['nombre_ong'], $data['ruc_ong'], $data['email_ong'], $data['contacto_ong'],
-            $data['titulo_caso'], $data['clasificacion'], $data['monto_requerido'],
-            $data['descripcion'], $data['nombre_beneficiario'], $data['dni_beneficiario'],
-            $data['edad_beneficiario'], $data['ubicacion'], $data['documento'], $data['foto']
-        ]);
-    }
+            $monto = (float)$data['monto_requerido'];
+
+            // Comisión según monto
+            if ($monto < 10000) {
+                $porcentaje = 3;
+            } else {
+                $porcentaje = 7;
+            }
+
+            // Calcular comisión
+            $comision = $monto * ($porcentaje / 100);
+
+            // Meta final pública
+            $metaTotal = $monto + $comision;
+
+            // =====================================
+            // INSERT
+            // =====================================
+
+            $sql = "INSERT INTO casos_sociales (
+                nombre_ong,
+                ruc_ong,
+                email_ong,
+                contacto_ong,
+                titulo_caso,
+                clasificacion,
+                monto_requerido,
+                porcentaje_comision,
+                monto_comision,
+                meta_total,
+                descripcion,
+                nombre_beneficiario,
+                dni_beneficiario,
+                edad_beneficiario,
+                ubicacion,
+                documento_solicitud,
+                foto_beneficiario,
+                estado_evaluacion,
+                estado_proceso,
+                fecha_registro
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                'pendiente',
+                'sin_proceso',
+                NOW()
+            )";
+
+            $stmt = $this->db->prepare($sql);
+
+            return $stmt->execute([
+                $data['nombre_ong'],
+                $data['ruc_ong'],
+                $data['email_ong'],
+                $data['contacto_ong'],
+                $data['titulo_caso'],
+                $data['clasificacion'],
+
+                // MONTOS
+                $monto,
+                $porcentaje,
+                $comision,
+                $metaTotal,
+
+                // RESTO
+                $data['descripcion'],
+                $data['nombre_beneficiario'],
+                $data['dni_beneficiario'],
+                $data['edad_beneficiario'],
+                $data['ubicacion'],
+                $data['documento'],
+                $data['foto']
+            ]);
+        }
 
     public function buscarDuplicados(string $dni, string $clasificacion, int $excluirId = 0): array
     {
