@@ -74,20 +74,25 @@ class DonacionModel extends Conectar {
     }
 
     public function obtenerPorUsuario(int $idUsuario): array {
-        $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
-                FROM donaciones d
-                LEFT JOIN casos_sociales cs ON d.idcaso = cs.id
-                WHERE d.idusuario = ?
-                ORDER BY d.fecha DESC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$idUsuario]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+
+    $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
+            FROM donaciones d
+            LEFT JOIN casos_sociales cs 
+                ON d.id = cs.id
+            WHERE d.idusuario = ?
+            ORDER BY d.fecha DESC";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([$idUsuario]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public function obtenerPorId(int $id): ?array {
         $sql = "SELECT d.*, cs.titulo_publico, cs.nombre_beneficiario
                 FROM donaciones d
-                LEFT JOIN casos_sociales cs ON d.idcaso = cs.id
+                LEFT JOIN casos_sociales cs ON d.id = cs.id
                 WHERE d.id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
