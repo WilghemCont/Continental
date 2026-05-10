@@ -70,7 +70,8 @@ class CasoSocial extends Conectar
                     SUM(CASE WHEN estado_evaluacion = 'aprobado' THEN 1 ELSE 0 END) AS aprobados,
                     SUM(CASE WHEN estado_evaluacion = 'observado' THEN 1 ELSE 0 END) AS observados,
                     SUM(CASE WHEN estado_evaluacion = 'rechazado' THEN 1 ELSE 0 END) AS rechazados,
-                    SUM(CASE WHEN estado_evaluacion = 'publicado' THEN 1 ELSE 0 END) AS publicados
+                    SUM(CASE WHEN estado_evaluacion = 'publicado' THEN 1 ELSE 0 END) AS publicados,
+                    SUM(CASE WHEN estado_evaluacion = 'cerrado' THEN 1 ELSE 0 END) AS cerrados
                 FROM casos_sociales";
         return $this->db->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
@@ -266,6 +267,7 @@ class CasoSocial extends Conectar
         $sql = "UPDATE casos_sociales
                 SET
                     estado_proceso = 'finalizado',
+                    estado_evaluacion =  'cerrado',
                     documento_cierre = ?,
                     checklist_cierre_completo = 1,
                     fecha_cierre = NOW()

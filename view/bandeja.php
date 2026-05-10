@@ -23,7 +23,8 @@ $casos   = $casos   ?? [];
             ['aprobados',   'Aprobados',      'bi-check-circle',  'bg-success'],
             ['observados',  'Observados',     'bi-eye',           'bg-info'],
             ['rechazados',  'Rechazados',     'bi-x-circle',      'bg-danger'],
-            ['publicados',  'Publicados Web', 'bi-globe',         'bg-dark']
+            ['publicados',  'Publicados Web', 'bi-globe',         'bg-dark'],
+            ['cerrados',    'Cerrados',       'bi-x-circle',         'bg-danger']
         ];
         
         foreach ($cards as $card): 
@@ -74,6 +75,7 @@ $casos   = $casos   ?? [];
                         <option value="aprobado">Aprobado</option>
                         <option value="observado">Observado</option>
                         <option value="rechazado">Rechazado</option>
+                        <option value="cerrado">Cerrado</option>
                     </select>
                 </div>
 
