@@ -122,6 +122,8 @@ if (!function_exists('esc')) {
               <?php if ($_SESSION["tipo"] == 'ADMIN'): ?>
                 <li><a class="dropdown-item" href="../view/dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
                 <li><a class="dropdown-item" href="../view/ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
+                <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=panel"><i class="bi bi-bar-chart-line me-2"></i>Panel Financiero</a></li>
+                <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=registroIngreso"><i class="bi bi-briefcase-fill me-2"></i>Registrar Ingreso</a></li>
                 <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=bandeja"><i class="bi bi-inbox me-2"></i>Bandeja</a></li>
                 <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=catalogo"><i class="bi bi-grid me-2"></i>Catálogo</a></li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-folder me-2"></i>Maestros</a>
