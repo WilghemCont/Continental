@@ -146,6 +146,15 @@ $faltante = $meta - $recaudado;
 
                     </button>
 
+                    <a href="index.php?controller=donacion&action=certificado&id=<?= $ultimaDonacionId ?>"
+                        target="_blank"
+                        class="btn btn-danger mt-3 w-100">
+
+                            <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+                            GENERAR PDF
+
+                        </a>
+
                 </div>
 
             </div>

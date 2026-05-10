@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2026 a las 00:16:36
+-- Tiempo de generación: 10-05-2026 a las 02:49:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bdsocial`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actualizaciones_caso`
+--
+
+CREATE TABLE `actualizaciones_caso` (
+  `id` int(11) NOT NULL,
+  `caso_id` int(11) NOT NULL,
+  `tipo` enum('avance','coordinacion','entrega','cierre') DEFAULT 'avance',
+  `titulo` varchar(300) NOT NULL,
+  `contenido` text NOT NULL,
+  `autor` varchar(100) DEFAULT 'Administrador',
+  `fecha` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `actualizaciones_caso`
+--
+
+INSERT INTO `actualizaciones_caso` (`id`, `caso_id`, `tipo`, `titulo`, `contenido`, `autor`, `fecha`) VALUES
+(1, 6, 'avance', 'Campaña publicada exitosamente', 'El caso ha sido revisado, aprobado y publicado en la plataforma. Ya está disponible para recibir donaciones de la comunidad. Agradecemos tu confianza en SocialFunding.', 'Administrador', '2026-05-03 17:00:00'),
+(2, 6, 'avance', 'Primeras donaciones recibidas', 'La campaña ha recibido sus primeras contribuciones. El progreso avanza gracias a la generosidad de los donantes que se han sumado a esta causa. Seguiremos informándote.', 'Administrador', '2026-05-05 10:30:00'),
+(3, 6, 'avance', 'Difusión activa en redes sociales', 'El equipo de comunicaciones está difundiendo activamente el caso en redes sociales. El alcance de la campaña sigue creciendo y cada vez más personas conocen tu historia.', 'Administrador', '2026-05-07 14:00:00');
 
 -- --------------------------------------------------------
 
@@ -196,6 +221,31 @@ INSERT INTO `donaciones` (`id`, `nombre`, `email`, `monto`, `metodo`, `mensaje`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `donadores`
+--
+
+CREATE TABLE `donadores` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `documento` varchar(20) DEFAULT '',
+  `telefono` varchar(20) DEFAULT '',
+  `tipo` enum('persona','empresa') DEFAULT 'persona',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `donadores`
+--
+
+INSERT INTO `donadores` (`id`, `nombre`, `email`, `documento`, `telefono`, `tipo`, `created_at`) VALUES
+(1, 'Banco Central de Reserva', 'bcrp@ejemplo.com', '20131066505', '', 'empresa', '2026-05-10 00:40:09'),
+(2, 'Tech Solutions SAC', 'contacto@techsolutions.pe', '20601234567', '', 'empresa', '2026-05-10 00:40:09'),
+(3, 'Peru2 Corp', 'peru2@ejemplo.com', '20987654321', '', 'empresa', '2026-05-10 00:40:09');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `empresa`
 --
 
@@ -339,6 +389,22 @@ INSERT INTO `pais` (`idpais`, `nombre`, `codigo_iso`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `patrocinios`
+--
+
+CREATE TABLE `patrocinios` (
+  `id` int(11) NOT NULL,
+  `donacion_id` int(11) NOT NULL,
+  `tipo_aporte` enum('efectivo','bienes','servicios') NOT NULL,
+  `descripcion` text NOT NULL,
+  `valor_estimado` decimal(12,2) NOT NULL,
+  `archivo_evidencia` varchar(300) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `provincia`
 --
 
@@ -356,6 +422,19 @@ INSERT INTO `provincia` (`idprovincia`, `iddepartamento`, `nombre`) VALUES
 (1, 1, 'Lima'),
 (2, 1, 'Cañete'),
 (3, 1, 'Huaral');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `testimonio_beneficiario`
+--
+
+CREATE TABLE `testimonio_beneficiario` (
+  `id` int(11) NOT NULL,
+  `caso_id` int(11) NOT NULL,
+  `contenido` text NOT NULL,
+  `fecha` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -433,47 +512,16 @@ CREATE TABLE `usuario_empresa` (
   `fechacreacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `actualizaciones_caso`
---
-
-CREATE TABLE `actualizaciones_caso` (
-  `id`        int(11)      NOT NULL,
-  `caso_id`   int(11)      NOT NULL,
-  `tipo`      enum('avance','coordinacion','entrega','cierre') DEFAULT 'avance',
-  `titulo`    varchar(300) NOT NULL,
-  `contenido` text         NOT NULL,
-  `autor`     varchar(100) DEFAULT 'Administrador',
-  `fecha`     datetime     DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `actualizaciones_caso`
---
-
-INSERT INTO `actualizaciones_caso` (`id`, `caso_id`, `tipo`, `titulo`, `contenido`, `autor`, `fecha`) VALUES
-(1, 6, 'avance', 'Campaña publicada exitosamente', 'El caso ha sido revisado, aprobado y publicado en la plataforma. Ya está disponible para recibir donaciones de la comunidad. Agradecemos tu confianza en SocialFunding.', 'Administrador', '2026-05-03 17:00:00'),
-(2, 6, 'avance', 'Primeras donaciones recibidas', 'La campaña ha recibido sus primeras contribuciones. El progreso avanza gracias a la generosidad de los donantes que se han sumado a esta causa. Seguiremos informándote.', 'Administrador', '2026-05-05 10:30:00'),
-(3, 6, 'avance', 'Difusión activa en redes sociales', 'El equipo de comunicaciones está difundiendo activamente el caso en redes sociales. El alcance de la campaña sigue creciendo y cada vez más personas conocen tu historia.', 'Administrador', '2026-05-07 14:00:00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `testimonio_beneficiario`
---
-
-CREATE TABLE `testimonio_beneficiario` (
-  `id`        int(11)  NOT NULL,
-  `caso_id`   int(11)  NOT NULL,
-  `contenido` text     NOT NULL,
-  `fecha`     datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_ac_caso` (`caso_id`);
 
 --
 -- Indices de la tabla `casos_sociales`
@@ -521,6 +569,13 @@ ALTER TABLE `donaciones`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `donadores`
+--
+ALTER TABLE `donadores`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indices de la tabla `empresa`
 --
 ALTER TABLE `empresa`
@@ -555,11 +610,25 @@ ALTER TABLE `pais`
   ADD PRIMARY KEY (`idpais`);
 
 --
+-- Indices de la tabla `patrocinios`
+--
+ALTER TABLE `patrocinios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `donacion_id` (`donacion_id`);
+
+--
 -- Indices de la tabla `provincia`
 --
 ALTER TABLE `provincia`
   ADD PRIMARY KEY (`idprovincia`),
   ADD KEY `fk_prov_dept` (`iddepartamento`);
+
+--
+-- Indices de la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uq_caso_testimonio` (`caso_id`);
 
 --
 -- Indices de la tabla `tipo_documento`
@@ -583,21 +652,14 @@ ALTER TABLE `usuario_empresa`
   ADD KEY `fk_ue_empresa` (`idempresa`);
 
 --
--- Indices de la tabla `actualizaciones_caso`
---
-ALTER TABLE `actualizaciones_caso`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_ac_caso` (`caso_id`);
-
---
--- Indices de la tabla `testimonio_beneficiario`
---
-ALTER TABLE `testimonio_beneficiario`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `casos_sociales`
@@ -636,6 +698,12 @@ ALTER TABLE `donaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT de la tabla `donadores`
+--
+ALTER TABLE `donadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
@@ -666,10 +734,22 @@ ALTER TABLE `pais`
   MODIFY `idpais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `patrocinios`
+--
+ALTER TABLE `patrocinios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `provincia`
 --
 ALTER TABLE `provincia`
   MODIFY `idprovincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_documento`
@@ -684,20 +764,14 @@ ALTER TABLE `usuario`
   MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `actualizaciones_caso`
---
-ALTER TABLE `actualizaciones_caso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `testimonio_beneficiario`
---
-ALTER TABLE `testimonio_beneficiario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
---
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `actualizaciones_caso`
+--
+ALTER TABLE `actualizaciones_caso`
+  ADD CONSTRAINT `fk_ac_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `checklist_respuestas`
@@ -725,10 +799,22 @@ ALTER TABLE `historial_casos`
   ADD CONSTRAINT `historial_casos_ibfk_1` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `patrocinios`
+--
+ALTER TABLE `patrocinios`
+  ADD CONSTRAINT `patrocinios_ibfk_1` FOREIGN KEY (`donacion_id`) REFERENCES `ingresos` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `provincia`
 --
 ALTER TABLE `provincia`
   ADD CONSTRAINT `fk_prov_dept` FOREIGN KEY (`iddepartamento`) REFERENCES `departamento` (`iddepartamento`);
+
+--
+-- Filtros para la tabla `testimonio_beneficiario`
+--
+ALTER TABLE `testimonio_beneficiario`
+  ADD CONSTRAINT `fk_tb_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
@@ -742,20 +828,6 @@ ALTER TABLE `usuario`
 ALTER TABLE `usuario_empresa`
   ADD CONSTRAINT `fk_ue_empresa` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`idempresa`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_ue_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `actualizaciones_caso`
---
-ALTER TABLE `actualizaciones_caso`
-  ADD CONSTRAINT `fk_ac_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `testimonio_beneficiario`
---
-ALTER TABLE `testimonio_beneficiario`
-  ADD CONSTRAINT `fk_tb_caso` FOREIGN KEY (`caso_id`) REFERENCES `casos_sociales` (`id`) ON DELETE CASCADE;
-ALTER TABLE `testimonio_beneficiario`
-  ADD UNIQUE KEY `uq_caso_testimonio` (`caso_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
