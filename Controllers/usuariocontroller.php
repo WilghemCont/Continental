@@ -37,7 +37,7 @@ switch($_GET["op"]) {
             $_SESSION["nombre"]    = $datos["nombres"];   // De tabla usuario
             $_SESSION["apepat"]    = $datos["apepat"];    // De tabla usuario
             $_SESSION["tipo"]      = $datos["tipo"];      // El campo 'tipo' de la tabla usuario           
-            $_SESSION["correo"]      = $datos["correo"];
+            
             echo "1";
         } else {
             echo "0";

@@ -3,7 +3,9 @@ require_once 'layout/header.php';
 ?>
 
 <div class="container py-5 fade-up">
-    <div class="mb-5">
+    
+    <!-- Volver -->
+    <div class="mb-4">
         <a href="ingresos.php" class="text-decoration-none text-muted hover-back px-4 py-2 rounded-pill d-inline-flex align-items-center bg-white shadow-sm">
             <i class="bi bi-arrow-left me-2"></i> Volver a Ingresos
         </a>
@@ -15,7 +17,7 @@ require_once 'layout/header.php';
                 <span class="about-badge mb-3">Gestión Financiera</span>
                 <h1 class="about-title mb-4" style="font-size: 3rem;">Registro de nuevos ingresos</h1>
                 <p class="about-text fs-5 mb-4">
-                    Mantén el control exacto de las comisiones, donaciones voluntarias y patrocinios corporativos que hacen posible el funcionamiento de la plataforma.
+                    Mantén el control exacto de las comisiones, donaciones voluntarias y patrocinios corporativos.
                 </p>
                 
                 <div class="row g-3 mt-2">
@@ -48,7 +50,7 @@ require_once 'layout/header.php';
 
                 <div class="card-body p-5 bg-white">
                     <form id="formIngreso" method="POST">
-                        
+                        <!-- ... (todo el formulario se mantiene igual) ... -->
                         <div class="row g-3 mb-4">
                             <div class="col-md-12">
                                 <label class="form-label small fw-bold text-muted text-uppercase">Tipo de Movimiento</label>
@@ -111,6 +113,8 @@ require_once 'layout/header.php';
         </div>
     </div>
 </div>
+
+<!-- Modal de éxito -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 18px;">
@@ -121,7 +125,7 @@ require_once 'layout/header.php';
                 <h4 class="fw-bold mb-3" style="color: var(--dark);">¡Excelente!</h4>
                 <p class="text-muted mb-4">Registro agregado correctamente.</p>
                 
-                <button type="button" id="btnSuccessOk" class="btn btn-success w-100 py-2 fw-bold shadow-sm" style="border-radius: 10px; background-color: #10b981; border: none;">
+                <button type="button" id="btnSuccessOk" class="btn btn-success w-100 py-2 fw-bold shadow-sm" style="border-radius: 10px;">
                     OK
                 </button>
             </div>

@@ -1,5 +1,8 @@
 <?php
-require_once("../models/donaciones.php");
+// ====================== CORRECCIÓN DE RUTAS ======================
+require_once __DIR__ . '/../models/donaciones.php';
+require_once __DIR__ . '/../view/layout/header.php';
+
 $modelDonacion = new DonacionModel();
 
 $total_recaudado = $modelDonacion->obtenerSumaTotal();
@@ -17,8 +20,6 @@ foreach ($datosMetodos as $dm) {
 // Totales de comisiones
 $totalComisiones  = array_sum(array_column($comisiones, 'comision'));
 $totalDonaciones  = array_sum(array_column($comisiones, 'total_donado'));
-
-require_once 'layout/header.php';
 ?>
 
 <div class="container py-5 fade-up">
@@ -56,7 +57,7 @@ require_once 'layout/header.php';
                                 <td class="ps-0">
                                     <div class="d-flex align-items-center">
                                         <div class="me-2" style="width:12px; height:12px; border-radius:50%; background: var(--verde);"></div>
-                                        <span class="small fw-bold"><?php echo $d['metodo']; ?></span>
+                                        <span class="small fw-bold"><?php echo htmlspecialchars($d['metodo']); ?></span>
                                     </div>
                                 </td>
                                 <td class="text-end pe-0 fw-bold text-primary">S/ <?php echo number_format($d['total'], 2); ?></td>
@@ -71,17 +72,16 @@ require_once 'layout/header.php';
             </div>
         </div>
     </div>
-</div>
 
-    <!-- ── Sección: Comisiones por Casos ─────────────────────────── -->
+    <!-- Comisiones por Casos -->
     <div class="row align-items-center mt-5 mb-4">
         <div class="col-md-7">
             <h2 class="about-title mb-1">Comisiones por Casos</h2>
-            <p class="about-text">Ingresos generados por casos sociales activos mediante donaciones procesadas en la plataforma.</p>
+            <p class="about-text">Ingresos generados por casos sociales activos.</p>
         </div>
         <div class="col-md-5">
-            <div class="card border-0 shadow-sm p-3" style="border-radius:18px; background:var(--grad);">
-                <div class="row g-2 text-white text-center">
+            <div class="card border-0 shadow-sm p-3" style="border-radius:18px; background:var(--grad); color:white;">
+                <div class="row g-2 text-center">
                     <div class="col-6">
                         <p class="small mb-1 opacity-75 fw-bold text-uppercase">Total Donado</p>
                         <div class="fw-bold fs-4">S/ <?php echo number_format($totalDonaciones, 2); ?></div>
@@ -95,29 +95,24 @@ require_once 'layout/header.php';
         </div>
     </div>
 
-    <!-- Nota explicativa de porcentajes -->
     <div class="alert border-0 shadow-sm mb-4 d-flex align-items-start gap-3" style="border-radius:14px; background:#eff6ff;">
         <i class="bi bi-info-circle-fill text-primary fs-5 mt-1"></i>
         <div>
-            <strong>Cálculo automático de comisiones:</strong>
-            Las comisiones se aplican al momento de procesar cada donación mediante MercadoPago.
-            El porcentaje es del <strong>3 %</strong> para montos hasta S/ 10,000
-            y del <strong>5 %</strong> para montos superiores.
+            <strong>Cálculo automático de comisiones:</strong> 
+            3% hasta S/ 10,000 y 5% para montos superiores.
         </div>
     </div>
 
     <div class="row g-4 mb-5">
-        <!-- Gráfico de barras por método -->
         <div class="col-md-7">
             <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:18px;">
-                <h5 class="fw-bold mb-4" style="color:var(--dark);">📈 Donado vs Comisión por Donante</h5>
+                <h5 class="fw-bold mb-4" style="color:var(--dark);">📈 Donado vs Comisión</h5>
                 <div style="min-height:320px;">
                     <canvas id="graficoComisiones"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- Tabla detalle -->
         <div class="col-md-5">
             <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:18px;">
                 <h6 class="fw-bold mb-3 text-muted">Detalle por Donante</h6>
@@ -138,8 +133,8 @@ require_once 'layout/header.php';
                                 <td class="text-end">S/ <?php echo number_format($c['total_donado'], 2); ?></td>
                                 <td class="text-end text-success fw-bold">S/ <?php echo number_format($c['comision'], 2); ?></td>
                                 <td class="text-end">
-                                    <span class="badge bg-<?php echo $c['porcentaje'] >= 5 ? 'warning text-dark' : 'info text-dark'; ?>">
-                                        <?php echo $c['porcentaje']; ?>%
+                                    <span class="badge bg-<?php echo ($c['porcentaje'] ?? 0) >= 5 ? 'warning text-dark' : 'info text-dark'; ?>">
+                                        <?php echo $c['porcentaje'] ?? 0; ?>%
                                     </span>
                                 </td>
                             </tr>
@@ -158,69 +153,51 @@ require_once 'layout/header.php';
             </div>
         </div>
     </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('graficoDonar').getContext('2d');
-    
-    new Chart(ctx, {
+    // Gráfico Donut - Métodos de pago
+    new Chart(document.getElementById('graficoDonar'), {
         type: 'doughnut',
         data: {
             labels: <?php echo json_encode($metodos); ?>,
             datasets: [{
                 data: <?php echo json_encode($montos); ?>,
-                backgroundColor: [
-                    '#2a7ab5', // Azul SocialFunding
-                    '#3a9e6f', // Verde SocialFunding
-                    '#1a5a8a', // Variación Azul
-                    '#e8f3fb', // Azul Light
-                    '#256b4a'  // Verde Dark
-                ],
-                hoverOffset: 20,
-                borderWidth: 0
+                backgroundColor: ['#2a7ab5', '#3a9e6f', '#1a5a8a', '#e8f3fb', '#256b4a'],
+                borderWidth: 0,
+                hoverOffset: 25
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            cutout: '68%',
             plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 25,
-                        usePointStyle: true,
-                        font: { family: 'DM Sans', size: 13 }
-                    }
-                }
-            },
-            cutout: '65%' // Estilo moderno de anillo
+                legend: { position: 'bottom', padding: 20 }
+            }
         }
     });
-});
 
-    // ── Gráfico de comisiones por donante ────────────────────────
+    // Gráfico de Barras - Donado vs Comisión
     const ctxCom = document.getElementById('graficoComisiones');
     if (ctxCom) {
-        const nombresC  = <?php echo json_encode(array_column($comisiones, 'nombre')); ?>;
-        const donadoC   = <?php echo json_encode(array_map('floatval', array_column($comisiones, 'total_donado'))); ?>;
-        const comisionC = <?php echo json_encode(array_map('floatval', array_column($comisiones, 'comision'))); ?>;
-
-        new Chart(ctxCom.getContext('2d'), {
+        new Chart(ctxCom, {
             type: 'bar',
             data: {
-                labels: nombresC,
+                labels: <?php echo json_encode(array_column($comisiones, 'nombre')); ?>,
                 datasets: [
                     {
                         label: 'Total Donado',
-                        data: donadoC,
+                        data: <?php echo json_encode(array_map('floatval', array_column($comisiones, 'total_donado'))); ?>,
                         backgroundColor: '#2a7ab5',
                         borderRadius: 6
                     },
                     {
                         label: 'Comisión Plataforma',
-                        data: comisionC,
+                        data: <?php echo json_encode(array_map('floatval', array_column($comisiones, 'comision'))); ?>,
                         backgroundColor: '#3a9e6f',
                         borderRadius: 6
                     }
@@ -229,24 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { font: { family: 'DM Sans', size: 12 }, padding: 20, usePointStyle: true }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: ctx => ' S/ ' + ctx.parsed.y.toLocaleString('es-PE', {minimumFractionDigits: 2})
-                        }
-                    }
-                },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        ticks: {
-                            callback: v => 'S/ ' + v.toLocaleString('es-PE')
-                        }
+                        ticks: { callback: v => 'S/ ' + v.toLocaleString('es-PE') }
                     }
+                },
+                plugins: {
+                    legend: { position: 'bottom' }
                 }
             }
         });
@@ -254,4 +221,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<?php require_once 'layout/footer.php'; ?>
+<?php require_once __DIR__ . '/../view/layout/footer.php'; ?>

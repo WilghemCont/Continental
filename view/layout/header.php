@@ -94,7 +94,7 @@ if (!function_exists('esc')) {
           <a class="nav-link" href="../public/index.php?controller=caso&action=catalogo">Catálogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../public/index.php?controller=caso&action=historia">Historia del Donador</a>
+          <a class="nav-link" href="../public/index.php?controller=donacion&action=historia">Historia del Donador</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#testimonios">Testimonios</a>
@@ -106,8 +106,10 @@ if (!function_exists('esc')) {
           <a href="login.php" class="btn btn-outline-primary">Login</a>
           <a href="registro.php" class="btn btn-primary">Registro</a>
         <?php else: ?>
-         
-          <a href="../view/nuevo_ingreso.php" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
+          <a href="../view/donar.php" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
+            <i class="bi bi-heart-fill me-1"></i> Donar
+          </a>
+          <a href="../view/nuevo_ingreso.php" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
             <i class="bi bi-wallet2 me-1"></i> Aportes
           </a>
           <div class="dropdown">
@@ -120,9 +122,11 @@ if (!function_exists('esc')) {
               <li><hr class="dropdown-divider"></li>
               
               <?php if ($_SESSION["tipo"] == 'ADMIN'): ?>
-                <li><a class="dropdown-item" href="../view/dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-                <li><a class="dropdown-item" href="../view/ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
-                <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=bandeja"><i class="bi bi-inbox me-2"></i>Bandeja</a></li>
+                <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                <li><a class="dropdown-item" href="ingresos.php"><i class="bi bi-cash-stack me-2"></i>Ingresos</a></li>
+                <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=panel"><i class="bi bi-bar-chart-line me-2"></i>Panel Financiero</a></li>
+                <li><a class="dropdown-item" href="../public/index.php?controller=donacion&action=registroIngreso"><i class="bi bi-briefcase-fill me-2"></i>Registrar Ingreso</a></li>
+                <li><a class="dropdown-item" href="bandeja.php"><i class="bi bi-inbox me-2"></i>Bandeja</a></li>
                 <li><a class="dropdown-item" href="http://localhost/Continental/public/index.php?controller=caso&action=catalogo"><i class="bi bi-grid me-2"></i>Catálogo</a></li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-folder me-2"></i>Maestros</a>
                   <ul class="dropdown-menu shadow border-0">
@@ -141,7 +145,7 @@ if (!function_exists('esc')) {
                 <li><a class="dropdown-item" href="donaciones.php"><i class="bi bi-heart me-2"></i>Mis Donaciones</a></li>
               <?php endif; ?>
 
-              <li><a class="dropdown-item" href="../view/perfil.php"><i class="bi bi-person me-2"></i>Mi Cuenta</a></li>
+              <li><a class="dropdown-item" href="perfil.php"><i class="bi bi-person me-2"></i>Mi Cuenta</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="../Controllers/usuariocontroller.php?op=logout"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
             </ul>
