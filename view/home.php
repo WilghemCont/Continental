@@ -1,4 +1,10 @@
 <?php 
+session_start();
+require_once '../models/BeneficiarioModel.php';
+
+$model = new BeneficiarioModel();
+$testimonios = $model->obtenerTestimoniosAleatorios(10);
+
 // 1. Iniciamos sesión y cargamos el encabezado dinámico
 $estilo_pagina = 'home';
 require_once 'layout/header.php'; 
@@ -167,38 +173,34 @@ $donarUrl = isset($_SESSION["idlogin"]) ? 'donar.php' : 'login.php';
 
   <div id="testCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
-          <div class="text-warning fs-4 mb-2">★★★★★</div>
-          <p class="fs-5 text-muted">"Gracias a SocialFunding pudimos financiar medicamentos para nuestra comunidad."</p>
-          <div class="mt-3">
-            <strong>Maria Torres</strong><br>
-            <small class="text-muted">Beneficiaria</small>
+      <?php if (!empty($testimonios)): ?>
+        <?php foreach ($testimonios as $index => $t): ?>
+          <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+            <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
+              <div class="text-warning fs-4 mb-2">★★★★★</div>
+              <p class="fs-5 text-muted">"<?= nl2br(esc($t['contenido'])) ?>"</p>
+              <div class="mt-3">
+                <strong><?= esc($t['nombre_beneficiario'] ?: 'Beneficiario Anónimo') ?></strong><br>
+                <small class="text-muted"><?= esc($t['titulo_caso'] ?: 'Campaña solidaria') ?></small>
+              </div>
+              <div class="mt-3 text-muted small">
+                <i class="bi bi-calendar3 me-1"></i> <?= date('d/m/Y', strtotime($t['fecha'])) ?>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="carousel-item active">
+          <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
+            <div class="text-warning fs-4 mb-2">★★★★★</div>
+            <p class="fs-5 text-muted">"Aún no hay testimonios publicados. Pronto veremos historias reales de beneficiarios."</p>
+            <div class="mt-3">
+              <strong>SocialFunding</strong><br>
+              <small class="text-muted">Historias que están por llegar</small>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="carousel-item">
-        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
-          <div class="text-warning fs-4 mb-2">★★★★★</div>
-          <p class="fs-5 text-muted">"La trazabilidad de la donación me da confianza para seguir apoyando."</p>
-          <div class="mt-3">
-            <strong>Carlos Quispe</strong><br>
-            <small class="text-muted">Donante</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <div class="card border-0 shadow-lg p-4 mx-auto text-center" style="max-width:700px;">
-          <div class="text-warning fs-4 mb-2">★★★★★</div>
-          <p class="fs-5 text-muted">"La campaña pudo mostrarse y recibir aportes de forma más ordenada."</p>
-          <div class="mt-3">
-            <strong>Ana Huanca</strong><br>
-            <small class="text-muted">Impulsora social</small>
-          </div>
-        </div>
-      </div>
+      <?php endif; ?>
     </div>
 
     <button class="carousel-control-prev" type="button" data-bs-target="#testCarousel" data-bs-slide="prev">

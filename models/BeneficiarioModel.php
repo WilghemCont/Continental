@@ -120,6 +120,29 @@ class BeneficiarioModel extends Conectar
         return $stmt->execute($args);
     }
 
+    /**
+     * Obtiene un listado de testimonios aleatorios de beneficiarios.
+     *
+     * @param int $limite
+     * @return array
+     */
+    public function obtenerTestimoniosAleatorios(int $limite = 10): array
+    {
+        $sql = "SELECT tb.contenido,
+                       tb.fecha,
+                       cs.titulo_caso,
+                       cs.nombre_beneficiario
+                FROM testimonio_beneficiario tb
+                INNER JOIN casos_sociales cs ON tb.caso_id = cs.id
+                ORDER BY RAND()
+                LIMIT ?";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1, $limite, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // ──────────────────────────────────────────
     // DATOS DEL PERFIL DEL BENEFICIARIO
     // ──────────────────────────────────────────

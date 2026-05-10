@@ -98,7 +98,7 @@ INSERT INTO `casos_sociales` (`id`, `nombre_ong`, `ruc_ong`, `contacto_ong`, `em
 (3, 'EcoPerú ONG', '20511223344', NULL, 'proyectos@ecoperuong.pe', 'Reforestación cuenca río Mantaro', NULL, 'medio_ambiente', 'Proyecto de reforestación con 5,000 árboles nativos para recuperar la cuenca hídrica afectada por actividades mineras ilegales en la zona.', NULL, 25000.00, 7.00, 1750.00, 26750.00, 0.00, 'Huancayo, Junín', 'Comunidades Ribereñas Mantaro', '00000001', NULL, 'observado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (4, 'Futuro Brillante', '20555667788', NULL, 'becas@futurobrillante.pe', 'Becas escolares para niños en extrema pobreza', NULL, 'educacion', 'Financiamiento de útiles, uniformes y matrícula para 50 niños de familias en situación crítica en zona altoandina de Ayacucho.', NULL, 15000.00, 7.00, 1050.00, 16050.00, 0.00, 'Ayacucho, Perú', 'I.E. N° 38047', '00000002', NULL, 'rechazado', NULL, 0, 'sin_proceso', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
 (5, 'Salud Para Todos', '20533445566', NULL, 'brigadas@saludparatodos.org', 'Brigada médica zona rural Cajamarca', NULL, 'salud', 'Atención médica gratuita para comunidades rurales sin acceso a servicios básicos de salud. Incluye odontología, pediatría y ginecología.', NULL, 18000.00, 7.00, 1260.00, 19260.00, 0.00, 'Cajamarca, Perú', 'Dist. Huambos', '87654321', NULL, 'aprobado', NULL, 1, 'finalizado', '2026-04-19 20:48:55', NULL, NULL, NULL, '2026-05-09 21:25:22', NULL, NULL, 0, NULL, NULL),
-(6, 'pedro', '10268744325', 'Juan perez', 'pero@gmail.com', 'Caso de prueba ', 'Caso de prueba ', 'salud', 'es un caso para hacer pruebas ', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', 'Jorge', '23649710', 35, 'cerrado', NULL, 1, 'finalizado', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 11:30:36', '1777843798_sd.pdf', NULL, 1, '1777843798_images.jpg', 3);
+(6, 'Manos de Ayuda', '10268744325', 'NULL', 'prueb@gmail.com', 'CPApoyanos ', 'CPBrigada Salud ', 'salud', 'Apoyo economico para familias que necesitan para sus tratamientos', 'es un caso para hacer pruebas ', 80000.00, 7.00, 5600.00, 85600.00, 85600.00, 'calle 3', '', '23649710', 35, 'cerrado', NULL, 1, 'finalizado', '2026-05-03 16:29:58', '2026-05-03 16:30:16', '2026-05-03 16:57:44', '2026-05-10 00:37:03', '2026-05-10 11:30:36', NULL, NULL, 1, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,7 @@ CREATE TABLE `login` (
 INSERT INTO `login` (`idlogin`, `usuario`, `contrasena`, `correo`, `estado`, `fechacreacion`, `fechaactualizacion`) VALUES
 (1, 'admin', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'admin@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25'),
 (2, 'jperry', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'donante@socialfunding.pe', 1, '2026-04-19 21:14:30', '2026-04-19 21:30:25'),
-(3, 'beneficiario', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'beneficiario@socialfunding.pe', 1, '2026-05-09 09:00:00', '2026-05-09 09:00:00');
+(3, 'bbenef', '$2y$10$gkXHBQ/JbovorC84BWXyPONaCeaHgPpw8zjH.hQe2fNfV0oHqwaaa', 'beneficiario@socialfunding.pe', 1, '2026-05-09 09:00:00', '2026-05-09 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -446,6 +446,7 @@ CREATE TABLE `testimonio_beneficiario` (
   `id` int(11) NOT NULL,
   `caso_id` int(11) NOT NULL,
   `contenido` text NOT NULL,
+  `anonimo` tinyint(1) NOT NULL DEFAULT 0,
   `fecha` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -509,7 +510,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `idlogin`, `tipo_documento`, `documento`, `nombres`, `apemat`, `apepat`, `fechanac`, `estado`, `correo`, `celular`, `direccion`, `iddistrito`, `idprovincia`, `iddepartamento`, `idpais`, `edad`, `sexo`, `tipo`, `fechacreacion`, `fechaactualizacion`) VALUES
 (1, 1, 'DNI', '12345678', 'Wilghem', 'Santillana', 'Jeri', '1990-01-01', 1, 'admin@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'ADMIN', '2026-04-19 21:14:30', '2026-04-25 18:25:38'),
 (2, 2, 'DNI', '12345679', 'Juan', 'Perry', 'Lopez', '1990-01-01', 1, 'donante@socialfunding.pe', NULL, NULL, NULL, NULL, 1, 1, NULL, 'M', 'DONANTE', '2026-04-19 21:14:30', '2026-04-25 18:25:38'),
-(3, 3, 'DNI', '23649710', 'Bren', 'Rojas', 'Fernandez', '1990-01-01', 1, 'beneficiario@socialfunding.pe', NULL, 'calle 3', NULL, NULL, 1, 1, 35, 'M', 'BENEFICIARIO', '2026-05-09 09:00:00', '2026-05-09 09:00:00');
+(3, 3, 'DNI', '23649710', 'Bren', 'Rojas', 'Fernandez', '1990-01-01', 1, 'beneficiario@socialfunding.pe', NULL, 'calle 3', NULL, NULL, 1, 1, NULL, 'F', 'BENEFICIARIO', '2026-05-09 09:00:00', '2026-05-09 09:00:00');
 
 -- --------------------------------------------------------
 

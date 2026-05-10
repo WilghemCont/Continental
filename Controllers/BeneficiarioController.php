@@ -24,6 +24,7 @@ switch ($op) {
     case 'guardar_testimonio':
         $caso_id   = (int) ($_POST['caso_id'] ?? 0);
         $contenido = trim($_POST['contenido'] ?? '');
+        $anonimo   = isset($_POST['anonimo']) && $_POST['anonimo'] === '1';
 
         if ($caso_id <= 0 || $contenido === '') {
             echo json_encode(['ok' => false, 'msg' => 'Datos incompletos']);
@@ -37,7 +38,7 @@ switch ($op) {
             exit;
         }
 
-        $res = $model->guardarTestimonio($caso_id, $contenido);
+        $res = $model->guardarTestimonio($caso_id, $contenido, $anonimo);
         echo json_encode(['ok' => $res, 'msg' => $res ? 'Testimonio guardado' : 'Error al guardar']);
         break;
 

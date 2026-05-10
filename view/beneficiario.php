@@ -19,12 +19,10 @@ $idusuario   = (int) $_SESSION['idusuario'];
 // ── Cargar datos del caso vinculado ──
 $caso        = $model->obtenerCasoPorBeneficiario($idusuario);
 $actualizaciones = [];
-$historial   = [];
 $testimonio  = null;
 
 if ($caso) {
     $actualizaciones = $model->obtenerActualizaciones((int) $caso['id']);
-    $historial       = $model->obtenerHistorial((int) $caso['id']);
     $testimonio      = $model->obtenerTestimonio((int) $caso['id']);
 }
 
@@ -367,11 +365,10 @@ require_once 'layout/header.php';
                 <p class="text-secondary small mb-4 ms-5">Comparte con la comunidad cómo esta ayuda cambió tu vida. Tu testimonio animará a más personas a seguir donando.</p>
 
                 <?php if ($testimonio && !empty($testimonio['contenido'])): ?>
-                    <div class="card border-0 bg-white shadow-sm rounded-4 mb-4 position-relative overflow-hidden">
-                        <i class="bi bi-quote position-absolute text-success opacity-10" style="font-size: 8rem; top: -30px; left: -10px;"></i>
-                        <div class="card-body p-4 position-relative z-1">
+                    <div class="card border-0 bg-white shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
                             <p class="fs-5 text-dark fst-italic mb-0" id="testimonioTexto" style="line-height: 1.8;">
-                                "<?= nl2br(esc($testimonio['contenido'])) ?>"
+                                <?= nl2br(esc($testimonio['contenido'])) ?>
                             </p>
                             <hr class="my-3 border-light">
                             <div class="d-flex align-items-center justify-content-between">
@@ -405,55 +402,6 @@ require_once 'layout/header.php';
                     </div>
                     <div id="alertTestimonio" class="d-none mt-3"></div>
                 </form>
-            </div>
-            <?php endif; ?>
-
-            <?php if (!empty($historial)): ?>
-            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                <div class="d-flex align-items-center justify-content-between mb-0">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary bg-opacity-10 text-secondary" style="width: 40px; height: 40px;">
-                            <i class="bi bi-clock-history fs-5"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 text-dark">Historial administrativo</h5>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold d-flex align-items-center gap-2"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#colHistorial"
-                            aria-expanded="false">
-                        Desplegar <i class="bi bi-chevron-down"></i>
-                    </button>
-                </div>
-                
-                <div class="collapse mt-4" id="colHistorial">
-                    <div class="bg-light rounded-4 p-3 border">
-                        <?php foreach ($historial as $h): ?>
-                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center py-3 border-bottom border-secondary border-opacity-10 last-border-0">
-                                <div>
-                                    <div class="d-flex align-items-center gap-2 mb-1">
-                                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill text-capitalize fw-bold">
-                                            <?= esc(str_replace('_', ' ', $h['tipo_cambio'])) ?>
-                                        </span>
-                                    </div>
-                                    <div class="text-dark fs-6">
-                                        <span class="text-muted text-decoration-line-through me-2"><?= esc($h['valor_anterior'] ?? '—') ?></span>
-                                        <i class="bi bi-arrow-right text-primary mx-1"></i>
-                                        <span class="fw-bold"><?= esc($h['valor_nuevo'] ?? '—') ?></span>
-                                    </div>
-                                    <?php if (!empty($h['comentario'])): ?>
-                                        <div class="text-muted small mt-2 bg-white p-2 rounded-3 border"><i class="bi bi-chat-left-text me-1"></i> <?= esc($h['comentario']) ?></div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="text-sm-end mt-2 mt-sm-0">
-                                    <span class="small text-muted bg-white px-2 py-1 rounded-pill border fw-semibold">
-                                        <i class="bi bi-calendar2-week me-1"></i> <?= date('d/m/Y H:i', strtotime($h['fecha'])) ?>
-                                    </span>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
             </div>
             <?php endif; ?>
 
